@@ -1,0 +1,1340 @@
+<!doctype html>
+<!-- scale converter UI v2026-06-22-15 -->
+<html lang="uk" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Калькулятор масштабу</title>
+  <meta name="description" content="Компактний калькулятор масштабу A:B для перерахунку реальної довжини та довжини на кресленні." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f5f5f4;
+      --panel: #ffffff;
+      --panel-soft: #fafafa;
+      --text: #111111;
+      --muted: #666666;
+      --line: #d9d9d9;
+      --line-strong: #bdbdbd;
+      --control: #ffffff;
+      --hover: #f0f0f0;
+      --inverse: #111111;
+      --inverse-text: #ffffff;
+      --danger: #8a1f1f;
+      --real-bg: #eef4ff;
+      --real-text: #1d4f91;
+      --real-line: #bfd3ee;
+      --drawing-bg: #f4efe7;
+      --drawing-text: #7a4a12;
+      --drawing-line: #e1cfb5;
+      --focus: 0 0 0 3px color-mix(in srgb, var(--text) 12%, transparent);
+      --radius: 18px;
+      --radius-sm: 8px;
+      --h: 38px;
+      --icon-col: 40px;
+      color-scheme: light;
+    }
+
+    html[data-theme="dark"] {
+      --bg: #111111;
+      --panel: #181818;
+      --panel-soft: #202020;
+      --text: #f2f2f2;
+      --muted: #b6b6b6;
+      --line: #303030;
+      --line-strong: #494949;
+      --control: #1f1f1f;
+      --hover: #2a2a2a;
+      --inverse: #f2f2f2;
+      --inverse-text: #111111;
+      --danger: #ffb4b4;
+      --real-bg: #162131;
+      --real-text: #9cc7ff;
+      --real-line: #2b4f7f;
+      --drawing-bg: #2a241a;
+      --drawing-text: #f1c98f;
+      --drawing-line: #5a4325;
+      color-scheme: dark;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.35;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: geometricPrecision;
+    }
+
+    button, input, select { font: inherit; }
+
+    svg.icon {
+      width: 16px;
+      height: 16px;
+      display: block;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.85;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex: 0 0 auto;
+    }
+
+    .app {
+      width: min(600px, calc(100% - 16px));
+      margin: 0 auto;
+      padding: 18px 0 32px;
+    }
+
+    .top {
+  display: grid;
+  grid-template-columns: var(--icon-col) minmax(0, 1fr) var(--h);
+  align-items: start;
+  gap: 10px;
+  margin-bottom: 10px;
+
+  /* ліворуч — як у віджетів, праворуч — до краю */
+  padding-left: 12px;
+  padding-right: 9px;
+}
+
+#themeBtn {
+  justify-self: end;
+  align-self: start;
+}
+    
+.title-side-icon {
+  width: var(--h);
+  height: var(--h);
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  align-self: start;
+  transform: translateY(-4px);
+}
+
+.title-side-icon .icon {
+  width: 28px;
+  height: 28px;
+  stroke-width: 1.8;
+}
+
+.title-block {
+  min-width: 0;
+}
+    h1 {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+      font-weight: 760;
+    }
+
+    .sub {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .body {
+      padding: 12px;
+      display: grid;
+      gap: 12px;
+    }
+
+    label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin: 0 0 5px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 650;
+      letter-spacing: 0.01em;
+    }
+
+    .scale-row,
+    .measure-row {
+      display: grid;
+      grid-template-columns: var(--icon-col) minmax(0, 1fr);
+      gap: 10px;
+      align-items: end;
+    }
+
+    .side-icon,
+    .measure-icon,
+    .details-side-icon {
+      width: var(--h);
+      height: var(--h);
+      display: grid;
+      place-items: center;
+      background: transparent;
+      border: 0;
+      border-radius: 0;
+      align-self: end;
+    }
+
+    .side-icon .icon,
+    .measure-icon .icon {
+      width: 28px;
+      height: 28px;
+      stroke-width: 1.85;
+    }
+
+    .scale-row .side-icon {
+  color: var(--muted);
+  align-self: end;
+  transform: translateY(2px);
+}
+
+.details-side-icon {
+  color: var(--muted);
+  align-self: center;
+}
+    .details-side-icon { align-self: center; }
+
+    .details-side-icon .icon {
+      width: 28px;
+      height: 28px;
+      stroke-width: 4;
+    }
+    .measure-row.real .measure-icon { color: var(--real-text); }
+    .measure-row.drawing .measure-icon { color: var(--drawing-text); }
+    .measure-row.real .measure-icon .icon { width: 32px; height: 32px; stroke-width: 1.8; }
+    .measure-row.drawing .measure-icon .icon { width: 28px; height: 28px; stroke-width: 1.9; }
+
+    .scale-grid {
+      display: grid;
+      grid-template-columns: minmax(150px, 1fr) 110px 16px 110px 38px;
+      align-items: end;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .measurements { display: grid; gap: 10px; }
+
+    .measure-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 10px;
+      align-items: end;
+      min-width: 0;
+    }
+
+    .measure-row.real label { color: var(--real-text); }
+    .measure-row.drawing label { color: var(--drawing-text); }
+    .measure-field, .unit-field { min-width: 0; }
+
+    .control {
+      width: 100%;
+      min-height: var(--h);
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius-sm);
+      background: var(--control);
+      color: var(--text);
+      outline: none;
+      padding: 0 10px;
+      transition: border-color .12s ease, box-shadow .12s ease, background .12s ease;
+    }
+
+    .control:focus { border-color: var(--line-strong); box-shadow: var(--focus); }
+
+    select.control {
+      min-width: 0;
+      appearance: none;
+      -webkit-appearance: none;
+      padding-right: 32px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23666666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 14px;
+    }
+
+    html[data-theme="dark"] select.control {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23b6b6b6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    }
+
+    select.control:focus { border-color: var(--line-strong); box-shadow: var(--focus); }
+
+    .number-input {
+      font-variant-numeric: tabular-nums;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+
+    .measure-row .number-input { font-size: 18px; }
+
+    input[type="number"] { color-scheme: light; background-clip: padding-box; accent-color: var(--text); }
+    html[data-theme="dark"] input[type="number"] { color-scheme: dark; }
+
+    .number-shell { position: relative; }
+    .number-shell.has-voice .number-input { padding-right: 76px; }
+    .number-shell.has-stepper:not(.has-voice) .number-input { padding-right: 42px; }
+
+    .number-shell.has-stepper input[type="number"] { appearance: textfield; -moz-appearance: textfield; }
+    .number-shell.has-stepper input[type="number"]::-webkit-inner-spin-button,
+    .number-shell.has-stepper input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+
+    .measure-row.real .number-input { color: var(--real-text); background-color: var(--real-bg); border-color: var(--real-line); }
+    .measure-row.drawing .number-input { color: var(--drawing-text); background-color: var(--drawing-bg); border-color: var(--drawing-line); }
+
+    .colon {
+      height: var(--h);
+      display: grid;
+      place-items: center;
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .custom-stepper {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      bottom: 4px;
+      width: 28px;
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+      gap: 2px;
+    }
+
+    .step-btn {
+      border: 0;
+      border-radius: 5px;
+      background: var(--control);
+      color: var(--muted);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      padding: 0;
+      touch-action: none;
+    }
+
+    .step-btn::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-left: 1.5px solid currentColor;
+      border-top: 1.5px solid currentColor;
+    }
+
+    .step-btn.up::before { transform: translateY(2px) rotate(45deg); }
+    .step-btn.down::before { transform: translateY(-2px) rotate(225deg); }
+    .step-btn:hover { background: var(--hover); }
+    .measure-row.real .step-btn { background: var(--real-bg); color: var(--real-text); }
+    .measure-row.drawing .step-btn { background: var(--drawing-bg); color: var(--drawing-text); }
+    .measure-row.real .step-btn:hover, .measure-row.drawing .step-btn:hover { filter: brightness(.97); }
+    html[data-theme="dark"] .measure-row.real .step-btn:hover,
+    html[data-theme="dark"] .measure-row.drawing .step-btn:hover { filter: brightness(1.08); }
+
+    .inside-btn {
+      position: absolute;
+      top: 50%;
+      right: 34px;
+      transform: translateY(-50%);
+      width: 30px;
+      height: 30px;
+      border: 0;
+      border-radius: 7px;
+      background: transparent;
+      color: var(--muted);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+    }
+
+    .measure-row.real .inside-btn:hover { background: var(--real-bg); color: var(--real-text); }
+    .measure-row.drawing .inside-btn:hover { background: var(--drawing-bg); color: var(--drawing-text); }
+    .inside-btn:disabled { opacity: .35; cursor: not-allowed; }
+    .inside-btn:disabled:hover { background: transparent; color: var(--muted); }
+    .inside-btn.listening { background: var(--inverse); color: var(--inverse-text); }
+
+    .btn {
+      min-height: var(--h);
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius-sm);
+      background: var(--control);
+      color: var(--text);
+      padding: 0 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      cursor: pointer;
+      user-select: none;
+      font-size: 13px;
+      font-weight: 650;
+      white-space: nowrap;
+      transition: background .12s ease, transform .08s ease;
+    }
+
+    .btn:hover { background: var(--hover); }
+    .btn:active { transform: translateY(1px); }
+    .btn.icon { width: var(--h); padding: 0; }
+    .btn.danger { color: var(--danger); }
+
+    .mini-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      padding-left: calc(var(--icon-col) + 10px);
+    }
+
+    .result {
+      border: 0;
+      border-bottom: 1px solid var(--line);
+      border-radius: 0;
+      background: var(--panel-soft);
+      padding: 14px 12px 14px calc(12px + var(--icon-col) + 10px);
+      display: grid;
+      align-content: center;
+      gap: 6px;
+      width: 100%;
+      min-height: 102px;
+      margin: 0;
+    }
+
+    .result-line { display: grid; grid-template-columns: minmax(0, 1fr) 34px; align-items: start; gap: 8px; }
+
+    .result-main {
+  font-size: clamp(18px, 3.2vw, 24px);
+  line-height: 1.42;
+  letter-spacing: -0.025em;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
+.result-value {
+  --result-chip-x: 8px;
+
+  display: inline-block;
+  padding: 1px var(--result-chip-x) 2px;
+  margin-left: calc(-1 * var(--result-chip-x));
+  margin-top: 2px;
+  margin-bottom: 2px;
+
+  border-radius: 7px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  font-weight: 800;
+  line-height: 1.12;
+}
+
+.result-nowrap {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.result-chip-gap {
+  display: inline-block;
+  width: 10px;
+}
+
+    .result-value.real { color: var(--real-text); background: var(--real-bg); border: 1px solid var(--real-line); }
+    .result-value.drawing { color: var(--drawing-text); background: var(--drawing-bg); border: 1px solid var(--drawing-line); }
+
+    .result-sub { color: var(--muted); font-size: 12px; overflow-wrap: anywhere; }
+    .result-sub:empty { display: none; }
+
+    details { border-top: 1px solid var(--line); background: var(--panel); }
+
+    summary {
+  min-height: 54px;
+  padding: 0 12px;
+  display: grid;
+  grid-template-columns: var(--icon-col) minmax(0, 1fr) var(--h);
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+  cursor: pointer;
+  user-select: none;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.details-chevron {
+  width: var(--h);
+  height: var(--h);
+  display: grid;
+  place-items: center;
+  justify-self: end;
+  color: var(--muted);
+}
+
+.chevron-svg {
+  width: 24px;
+  height: 24px;
+  overflow: visible;
+  transform-origin: 50% 50%;
+  transform: scaleY(1);
+  transition: transform 0.22s cubic-bezier(.4, 0, .2, 1);
+  will-change: transform;
+}
+
+.chevron-svg path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.animated-details.is-open .chevron-svg {
+  transform: scaleY(-1);
+}
+
+    summary::-webkit-details-marker { display: none; }
+    summary::marker {
+  content: "";
+}
+
+.animated-details {
+  overflow: hidden;
+}
+
+.details-body-wrap {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition:
+    max-height 0.24s cubic-bezier(.4, 0, .2, 1),
+    opacity 0.18s ease,
+    transform 0.18s ease;
+  will-change: max-height;
+}
+
+.animated-details[open] .details-body-wrap {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .details-body-wrap {
+    transition: none;
+  }
+}
+    .details-body {
+      padding: 0 12px 14px calc(12px + var(--icon-col) + 10px);
+      display: grid;
+      gap: 10px;
+    }
+
+    .formula {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      background: var(--panel-soft);
+      padding: 9px 10px;
+      color: var(--muted);
+      font-size: 12px;
+      overflow-wrap: anywhere;
+    }
+
+    .formula code { color: var(--text); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; }
+
+    .bars { display: grid; gap: 7px; }
+    .bar-row { display: grid; grid-template-columns: 82px minmax(0, 1fr) 110px; gap: 8px; align-items: center; color: var(--muted); font-size: 12px; }
+    .track { height: 7px; border: 1px solid var(--line-strong); background: var(--control); border-radius: 999px; overflow: hidden; }
+    .fill { height: 100%; width: 0%; opacity: .75; }
+    #realBar { background: var(--real-text); }
+    #drawingBar { background: var(--drawing-text); }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 16px;
+      transform: translateX(-50%) translateY(12px);
+      opacity: 0;
+      pointer-events: none;
+      background: var(--inverse);
+      color: var(--inverse-text);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 650;
+      transition: opacity .16s ease, transform .16s ease;
+      z-index: 20;
+    }
+
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    @media (max-width: 640px) {
+      .app { width: min(100% - 18px, 600px); padding-top: 14px; }
+      .scale-grid { grid-template-columns: 1fr 92px 14px 92px 38px; }
+      .measure-grid { grid-template-columns: minmax(0, 1fr) 145px; }
+      .mini-row .btn { flex: 1 1 auto; }
+    }
+
+    @media (max-width: 500px) {
+      .top { align-items: flex-start; }
+      .sub { display: none; }
+      h1 { font-size: 18px; }
+      .scale-grid { grid-template-columns: 1fr 1fr 38px; }
+      .scale-grid .preset { grid-column: 1 / -1; }
+      .scale-grid .colon { display: none; }
+      .measure-grid { grid-template-columns: 1fr; }
+      .unit-field { grid-column: 1 / -1; }
+      .mini-row { padding-left: 0; }
+      .result { padding-left: 12px; }
+      summary { padding-left: 14px; padding-right: 14px; }
+      .details-body { padding-left: 14px; }
+      .bar-row { grid-template-columns: 74px minmax(0, 1fr); }
+      .bar-row span:last-child { grid-column: 1 / -1; }
+    }
+    
+
+  </style>
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute;overflow:hidden" aria-hidden="true">
+    <symbol id="i-theme" viewBox="0 0 24 24"><path d="M12 3v2M12 19v2M5 5l1.4 1.4M17.6 17.6 19 19M3 12h2M19 12h2M5 19l1.4-1.4M17.6 6.4 19 5"/><circle cx="12" cy="12" r="4"/></symbol>
+    <symbol id="i-invert" viewBox="0 0 24 24"><path d="M7 7h11l-3-3M17 17H6l3 3"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.1 0l2-2a5 5 0 0 0-7.1-7.1l-1 1"/><path d="M14 11a5 5 0 0 0-7.1 0l-2 2A5 5 0 0 0 12 20l1-1"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M8 6V4h8v2M6 6l1 15h10l1-15"/></symbol>
+    <symbol id="i-mic" viewBox="0 0 24 24"><path d="M12 14a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v5a3 3 0 0 0 3 3Z"/><path d="M19 11a7 7 0 0 1-14 0M12 18v3M9 21h6"/></symbol>
+    <symbol id="i-ruler" viewBox="0 0 24 24"><path d="M4 19h16M4 5h16M7 5v14M17 5v14"/></symbol>
+    <symbol id="i-real" viewBox="0 0 24 24"><path d="M4 17h16"/><path d="M7 17V8l5-3 5 3v9"/><path d="M7 8l5 3 5-3"/><path d="M12 11v6"/></symbol>
+    <symbol id="i-scale" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none" stroke="none"/><path d="M5 3a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h5a2 2 0 0 0 2-2v-7h7a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm2 2v1a1 1 0 0 0 2 0V5h2v1a1 1 0 1 0 2 0V5h2v1a1 1 0 0 0 2 0V5h2v5h-7.5a1.5 1.5 0 0 0-1.5 1.5V19H5v-2h1a1 1 0 1 0 0-2H5v-2h1a1 1 0 1 0 0-2H5V9h1a1 1 0 0 0 0-2H5V5z" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-drawing" viewBox="0 0 24 24"><path d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2Z"/><path d="M8 21.1679V14L12 7L16 14V21.1679"/><path d="M8 14C8 14 9.12676 15 10 15C10.8732 15 12 14 12 14C12 14 13.1268 15 14 15C14.8732 15 16 14 16 14"/></symbol>
+    <symbol id="i-formula" viewBox="0 0 48 48">
+  <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M36.102 35.915v-23.83m-11.188 23.83v-23.83m0 23.83H6.674a2.17 2.17 0 0 1-1.64-3.592L12.245 24l-7.21-8.323a2.17 2.17 0 0 1 1.64-3.592H43.5" />
+</symbol>
+    <symbol id="i-swap" viewBox="0 0 24 24"><path d="M7 7h10l-2-2M17 17H7l2 2"/></symbol>
+    <symbol id="i-calculator" viewBox="0 0 24 24">
+  <path d="M1 21V3C1 1.89543 1.89543 1 3 1H21C22.1046 1 23 1.89543 23 3V21C23 22.1046 22.1046 23 21 23H3C1.89543 23 1 22.1046 1 21Z"></path>
+  <path d="M15 7L17 7H19"></path>
+  <path d="M15 15.5H17L19 15.5"></path>
+  <path d="M15 18.5H17H19"></path>
+  <path d="M5 7H7M9 7H7M7 7V5M7 7V9"></path>
+  <path d="M5.58609 18.4142L7.0003 17M8.41452 15.5858L7.0003 17M7.0003 17L5.58609 15.5858M7.0003 17L8.41452 18.4142"></path>
+</symbol>
+  </svg>
+
+  <div class="app">
+    <header class="top">
+  <span class="title-side-icon" aria-hidden="true">
+    <svg class="icon"><use href="#i-calculator"></use></svg>
+  </span>
+
+  <div class="title-block">
+    <h1>Калькулятор масштабу</h1>
+    <p class="sub">Реальна довжина ↔ довжина на кресленні</p>
+  </div>
+
+  <button class="btn icon" id="themeBtn" type="button" title="Змінити тему" aria-label="Змінити тему">
+    <svg class="icon"><use href="#i-theme"></use></svg>
+  </button>
+</header>
+
+    <main class="panel" aria-label="Калькулятор масштабу">
+      <section class="result" aria-live="polite">
+        <div class="result-line">
+          <div class="result-main" id="resultMain">—</div>
+          <button class="btn icon" id="resultFlipBtn" type="button" title="Фліпнути запис результату" aria-label="Фліпнути запис результату">
+            <svg class="icon"><use href="#i-swap"></use></svg>
+          </button>
+        </div>
+        <div class="result-sub" id="resultSub"></div>
+      </section>
+
+      <section class="body">
+        <div class="scale-row">
+          <span class="side-icon" aria-hidden="true"><svg class="icon"><use href="#i-scale"></use></svg></span>
+          <div class="scale-grid">
+            <div class="preset">
+              <label for="preset">Масштаб</label>
+              <select class="control" id="preset">
+                <option value="custom">Власний</option>
+                <option value="1:1">1:1</option><option value="1:2">1:2</option><option value="1:5">1:5</option><option value="1:10">1:10</option><option value="1:20">1:20</option><option value="1:25">1:25</option><option value="1:50" selected>1:50</option><option value="1:75">1:75</option><option value="1:100">1:100</option><option value="1:200">1:200</option><option value="1:250">1:250</option><option value="1:500">1:500</option><option value="1:1000">1:1000</option><option value="1:2000">1:2000</option><option value="1:5000">1:5000</option><option value="1:10000">1:10000</option><option value="2:1">2:1</option><option value="5:1">5:1</option><option value="10:1">10:1</option><option value="20:1">20:1</option><option value="35:1">35:1</option><option value="50:1">50:1</option>
+              </select>
+            </div>
+            <div>
+              <label for="scaleA">A</label>
+              <div class="number-shell has-stepper scale-number">
+                <input class="control number-input" id="scaleA" type="number" inputmode="decimal" step="any" min="0" value="1">
+                <div class="custom-stepper">
+                  <button class="step-btn up" data-step-target="scaleA" data-step-dir="up" type="button" aria-label="Збільшити A"></button>
+                  <button class="step-btn down" data-step-target="scaleA" data-step-dir="down" type="button" aria-label="Зменшити A"></button>
+                </div>
+              </div>
+            </div>
+            <div class="colon">:</div>
+            <div>
+              <label for="scaleB">B</label>
+              <div class="number-shell has-stepper scale-number">
+                <input class="control number-input" id="scaleB" type="number" inputmode="decimal" step="any" min="0" value="50">
+                <div class="custom-stepper">
+                  <button class="step-btn up" data-step-target="scaleB" data-step-dir="up" type="button" aria-label="Збільшити B"></button>
+                  <button class="step-btn down" data-step-target="scaleB" data-step-dir="down" type="button" aria-label="Зменшити B"></button>
+                </div>
+              </div>
+            </div>
+            <button class="btn icon" id="invertBtn" type="button" title="Інвертувати масштаб" aria-label="Інвертувати масштаб"><svg class="icon"><use href="#i-invert"></use></svg></button>
+          </div>
+        </div>
+
+        <div class="measurements">
+          <div class="measure-row real" id="realRow">
+            <span class="measure-icon" aria-hidden="true"><svg class="icon"><use href="#i-real"></use></svg></span>
+            <div class="measure-grid">
+              <div class="measure-field">
+                <label for="realValue">Реальна довжина</label>
+                <div class="number-shell has-voice has-stepper">
+                  <input class="control number-input" id="realValue" type="number" inputmode="decimal" step="any" value="10" min="0">
+                  <button class="inside-btn voice-btn" data-target="real" type="button" title="Голосове введення реальної довжини" aria-label="Голосове введення реальної довжини"><svg class="icon"><use href="#i-mic"></use></svg></button>
+                  <div class="custom-stepper">
+                    <button class="step-btn up" data-step-target="realValue" data-step-dir="up" type="button" aria-label="Збільшити реальну довжину"></button>
+                    <button class="step-btn down" data-step-target="realValue" data-step-dir="down" type="button" aria-label="Зменшити реальну довжину"></button>
+                  </div>
+                </div>
+              </div>
+              <div class="unit-field">
+                <label for="realUnit">Одиниці</label>
+                <select class="control" id="realUnit"></select>
+              </div>
+            </div>
+          </div>
+
+          <div class="measure-row drawing" id="drawingRow">
+            <span class="measure-icon" aria-hidden="true"><svg class="icon"><use href="#i-drawing"></use></svg></span>
+            <div class="measure-grid">
+              <div class="measure-field">
+                <label for="drawingValue">Довжина на кресленні</label>
+                <div class="number-shell has-voice has-stepper">
+                  <input class="control number-input" id="drawingValue" type="number" inputmode="decimal" step="any" min="0">
+                  <button class="inside-btn voice-btn" data-target="drawing" type="button" title="Голосове введення довжини на кресленні" aria-label="Голосове введення довжини на кресленні"><svg class="icon"><use href="#i-mic"></use></svg></button>
+                  <div class="custom-stepper">
+                    <button class="step-btn up" data-step-target="drawingValue" data-step-dir="up" type="button" aria-label="Збільшити довжину на кресленні"></button>
+                    <button class="step-btn down" data-step-target="drawingValue" data-step-dir="down" type="button" aria-label="Зменшити довжину на кресленні"></button>
+                  </div>
+                </div>
+              </div>
+              <div class="unit-field">
+                <label for="drawingUnit">Одиниці</label>
+                <select class="control" id="drawingUnit"></select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mini-row">
+          <button class="btn danger" id="clearBtn" type="button"><svg class="icon"><use href="#i-trash"></use></svg>Очистити</button>
+          <button class="btn" id="copyLinkBtn" type="button"><svg class="icon"><use href="#i-link"></use></svg>URL</button>
+          <button class="btn" id="copyResultBtn" type="button"><svg class="icon"><use href="#i-copy"></use></svg>Копіювати</button>
+          <button class="btn" id="swapUnitsBtn" type="button" title="Поміняти одиниці місцями"><svg class="icon"><use href="#i-swap"></use></svg>Одиниці</button>
+        </div>
+      </section>
+
+      
+<details id="formulaDetails" class="animated-details">
+  <summary>
+    <span class="details-side-icon" aria-hidden="true">
+      <svg class="icon"><use href="#i-formula"></use></svg>
+    </span>
+
+    <span>Формула і схема</span>
+
+    <span class="details-chevron" aria-hidden="true">
+      <svg class="chevron-svg" viewBox="0 0 24 24">
+        <path d="M5 8.5 L12 15.5 L19 8.5"></path>
+      </svg>
+    </span>
+  </summary>
+
+  <div class="details-body-wrap">
+    <div class="details-body">
+      <div class="formula" id="formulaBox">—</div>
+
+      <div class="bars">
+        <div class="bar-row">
+          <span>Реальна</span>
+          <div class="track"><div class="fill" id="realBar"></div></div>
+          <span id="realBarText">—</span>
+        </div>
+
+        <div class="bar-row">
+          <span>Креслення</span>
+          <div class="track"><div class="fill" id="drawingBar"></div></div>
+          <span id="drawingBarText">—</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</details>
+</main>
+</div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const units = [
+      { id: 'mm', label: 'мм', name: 'міліметри', toM: 0.001, aliases: ['мм', 'mm', 'міліметр', 'міліметри'] },
+      { id: 'cm', label: 'см', name: 'сантиметри', toM: 0.01, aliases: ['см', 'cm', 'сантиметр', 'сантиметри'] },
+      { id: 'm', label: 'м', name: 'метри', toM: 1, aliases: ['м', 'm', 'метр', 'метри'] },
+      { id: 'km', label: 'км', name: 'кілометри', toM: 1000, aliases: ['км', 'km', 'кілометр', 'кілометри'] },
+      { id: 'in', label: 'дюйм', name: 'дюйми', toM: 0.0254, aliases: ['дюйм', 'дюйми', 'in', 'inch', 'inches'] },
+      { id: 'ft', label: 'фут', name: 'фути', toM: 0.3048, aliases: ['фут', 'фути', 'ft', 'feet'] },
+      { id: 'yd', label: 'ярд', name: 'ярди', toM: 0.9144, aliases: ['ярд', 'ярди', 'yd', 'yard', 'yards'] },
+      { id: 'mi', label: 'миля', name: 'милі', toM: 1609.344, aliases: ['миля', 'милі', 'mile', 'miles', 'mi'] },
+      { id: 'nmi', label: 'мор. миля', name: 'морські милі', toM: 1852, aliases: ['морська', 'морські', 'nmi', 'nautical'] }
+    ];
+
+    const $ = (id) => document.getElementById(id);
+    const els = {
+      preset: $('preset'), scaleA: $('scaleA'), scaleB: $('scaleB'), invertBtn: $('invertBtn'),
+      realValue: $('realValue'), realUnit: $('realUnit'), drawingValue: $('drawingValue'), drawingUnit: $('drawingUnit'),
+      swapUnitsBtn: $('swapUnitsBtn'), copyResultBtn: $('copyResultBtn'), copyLinkBtn: $('copyLinkBtn'), clearBtn: $('clearBtn'), themeBtn: $('themeBtn'),
+      resultMain: $('resultMain'), resultSub: $('resultSub'), resultFlipBtn: $('resultFlipBtn'), formulaBox: $('formulaBox'),
+      realBar: $('realBar'), drawingBar: $('drawingBar'), realBarText: $('realBarText'), drawingBarText: $('drawingBarText'), toast: $('toast')
+    };
+
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    let source = 'real';
+    let resultDirection = 'drawing-first';
+    let lock = false;
+    let listeningButton = null;
+    let stepRepeatTimer = null;
+    let stepRepeatInterval = null;
+    let manualTheme = false;
+
+    function populateUnits() {
+      const html = units.map(u => `<option value="${u.id}">${u.name}</option>`).join('');
+      els.realUnit.innerHTML = html;
+      els.drawingUnit.innerHTML = html;
+      els.realUnit.value = 'm';
+      els.drawingUnit.value = 'cm';
+    }
+
+    function parseNumber(value) {
+      const normalized = String(value ?? '').trim().replace(/\s+/g, '').replace(',', '.');
+      if (!normalized || normalized === 'any') return NaN;
+      return Number(normalized);
+    }
+function clampNonNegativeInput(input, minValue = 0) {
+  const value = parseNumber(input.value);
+
+  if (input.value === '' || !Number.isFinite(value)) return;
+
+  if (value < minValue) {
+    input.value = inputFormat(minValue);
+  }
+}
+function isBlankInput(input) {
+  return String(input.value ?? '').trim() === '';
+}
+function clearCalculatedDisplay(message = 'Введіть одну з довжин') {
+  updateBars();
+  els.resultMain.textContent = '—';
+  els.resultSub.textContent = message;
+  els.formulaBox.textContent = '—';
+  writeUrl(false);
+}
+function blockInvalidNumberChars(input) {
+  const blockedKeys = ['-', '+', 'e', 'E'];
+
+
+
+
+
+  input.addEventListener('keydown', (event) => {
+    if (blockedKeys.includes(event.key)) {
+      event.preventDefault();
+    }
+  });
+
+  input.addEventListener('beforeinput', (event) => {
+    if (event.data && /[-+eE]/.test(event.data)) {
+      event.preventDefault();
+    }
+  });
+
+  input.addEventListener('paste', (event) => {
+    const text = event.clipboardData.getData('text');
+
+    if (/[-+eE]/.test(text)) {
+      event.preventDefault();
+    }
+  });
+}
+    function unit(id) { return units.find(u => u.id === id) || units[0]; }
+    function unitLabel(id) { return unit(id).label; }
+    function toMeters(value, unitId) { return value * unit(unitId).toM; }
+    function fromMeters(value, unitId) { return value / unit(unitId).toM; }
+
+    function currentScale() {
+      const a = parseNumber(els.scaleA.value);
+      const b = parseNumber(els.scaleB.value);
+      if (!Number.isFinite(a) || !Number.isFinite(b) || a <= 0 || b <= 0) throw new Error('Перевірте масштаб A:B');
+      return { a, b };
+    }
+
+    function nice(value, maxDigits = 6) {
+      if (!Number.isFinite(value)) return '—';
+      const abs = Math.abs(value);
+      if (abs !== 0 && (abs >= 1e9 || abs < 1e-6)) return value.toExponential(4);
+      return new Intl.NumberFormat('uk-UA', { maximumFractionDigits: maxDigits, useGrouping: true }).format(Number(value.toPrecision(12)));
+    }
+
+    function inputFormat(value) {
+      if (!Number.isFinite(value)) return '';
+      const abs = Math.abs(value);
+      if (abs !== 0 && abs < 0.000001) return value.toExponential(6);
+      return Number(value.toPrecision(12)).toString();
+    }
+
+    function scaleText() {
+      const { a, b } = currentScale();
+      return `${nice(a, 6)}:${nice(b, 6)}`.replace(/\s/g, '');
+    }
+
+    function convertFromReal() {
+      const { a, b } = currentScale();
+      const real = parseNumber(els.realValue.value);
+      if (!Number.isFinite(real)) throw new Error('Введіть реальну довжину');
+      return fromMeters(toMeters(real, els.realUnit.value) * a / b, els.drawingUnit.value);
+    }
+
+    function convertFromDrawing() {
+      const { a, b } = currentScale();
+      const drawing = parseNumber(els.drawingValue.value);
+      if (!Number.isFinite(drawing)) throw new Error('Введіть довжину на кресленні');
+      return fromMeters(toMeters(drawing, els.drawingUnit.value) * b / a, els.realUnit.value);
+    }
+
+    function updatePreset() {
+      let text;
+      try { text = scaleText(); } catch { return; }
+      const option = Array.from(els.preset.options).find(o => o.value === text);
+      els.preset.value = option ? text : 'custom';
+    }
+
+    function resultSentence() {
+      const real = parseNumber(els.realValue.value);
+      const drawing = parseNumber(els.drawingValue.value);
+      const realText = `${nice(real)} ${unitLabel(els.realUnit.value)}`;
+      const drawingText = `${nice(drawing)} ${unitLabel(els.drawingUnit.value)}`;
+      const scale = scaleText();
+      if (!Number.isFinite(real) || !Number.isFinite(drawing)) return '—';
+      if (resultDirection === 'real-first') return `${realText} у реальному розмірі = ${drawingText} у масштабі ${scale}`;
+      return `${drawingText} на кресленні = ${realText} у масштабі ${scale}`;
+    }
+
+    function resultSentenceHtml() {
+      const real = parseNumber(els.realValue.value);
+      const drawing = parseNumber(els.drawingValue.value);
+      const realHtml = `<span class="result-value real">${nice(real)} ${unitLabel(els.realUnit.value)}</span>`;
+      const drawingHtml = `<span class="result-value drawing">${nice(drawing)} ${unitLabel(els.drawingUnit.value)}</span>`;
+      const scale = scaleText();
+      if (!Number.isFinite(real) || !Number.isFinite(drawing)) return '—';
+      if (resultDirection === 'real-first') return `${realHtml} у реальному розмірі = <span class="result-chip-gap"></span>${drawingHtml}<span class="result-nowrap"></span> <span class="result-nowrap">у масштабі ${scale}</span>`;
+      return `${drawingHtml} <span class="result-nowrap">на кресленні</span> = <span class="result-chip-gap"></span>${realHtml} <span class="result-nowrap">у масштабі ${scale}</span>`;
+    }
+
+    function renderResult(formula) {
+      els.resultMain.innerHTML = resultSentenceHtml();
+      els.resultSub.textContent = '';
+      els.formulaBox.innerHTML = `<code>${formula}</code>`;
+    }
+
+    function calculate() {
+      if (source === 'real' && isBlankInput(els.realValue)) {
+  els.drawingValue.value = '';
+  clearCalculatedDisplay();
+  return;
+}
+
+if (source === 'drawing' && isBlankInput(els.drawingValue)) {
+  els.realValue.value = '';
+  clearCalculatedDisplay();
+  return;
+}
+      if (lock) return;
+      lock = true;
+      try {
+        const sc = currentScale();
+        let formula;
+        if (source === 'real') {
+          const resultValue = convertFromReal();
+          els.drawingValue.value = inputFormat(resultValue);
+          formula = `креслення = реальна × A / B = ${nice(parseNumber(els.realValue.value))} ${unitLabel(els.realUnit.value)} × ${nice(sc.a)} / ${nice(sc.b)}`;
+        } else {
+          const resultValue = convertFromDrawing();
+          els.realValue.value = inputFormat(resultValue);
+          formula = `реальна = креслення × B / A = ${nice(parseNumber(els.drawingValue.value))} ${unitLabel(els.drawingUnit.value)} × ${nice(sc.b)} / ${nice(sc.a)}`;
+        }
+        renderResult(formula);
+        updateBars();
+        updatePreset();
+        writeUrl(false);
+      } catch (error) {
+        els.resultMain.textContent = '—';
+        els.resultSub.textContent = error.message || 'Неможливо виконати розрахунок';
+        els.formulaBox.textContent = '—';
+      } finally {
+        lock = false;
+      }
+    }
+
+    function updateBars() {
+      const realInput = parseNumber(els.realValue.value);
+      const drawingInput = parseNumber(els.drawingValue.value);
+      els.realBarText.textContent = Number.isFinite(realInput) ? `${nice(realInput)} ${unitLabel(els.realUnit.value)}` : '—';
+      els.drawingBarText.textContent = Number.isFinite(drawingInput) ? `${nice(drawingInput)} ${unitLabel(els.drawingUnit.value)}` : '—';
+      const realM = Number.isFinite(realInput) ? Math.abs(toMeters(realInput, els.realUnit.value)) : 0;
+      const drawingM = Number.isFinite(drawingInput) ? Math.abs(toMeters(drawingInput, els.drawingUnit.value)) : 0;
+      const max = Math.max(realM, drawingM);
+      if (!Number.isFinite(max) || max <= 0) {
+        els.realBar.style.width = '0%';
+        els.drawingBar.style.width = '0%';
+        return;
+      }
+      els.realBar.style.width = `${Math.min(100, realM / max * 100)}%`;
+      els.drawingBar.style.width = `${Math.min(100, drawingM / max * 100)}%`;
+    }
+
+    function setPreset(value) {
+      if (value === 'custom') return;
+      const [a, b] = value.split(':').map(Number);
+      if (a > 0 && b > 0) {
+        els.scaleA.value = a;
+        els.scaleB.value = b;
+        calculate();
+      }
+    }
+
+    function invertScale() {
+      const a = els.scaleA.value;
+      els.scaleA.value = els.scaleB.value;
+      els.scaleB.value = a;
+      calculate();
+    }
+
+    function swapUnits() {
+      const realUnit = els.realUnit.value;
+      els.realUnit.value = els.drawingUnit.value;
+      els.drawingUnit.value = realUnit;
+      calculate();
+    }
+
+    function clearValues() {
+  els.realValue.value = '';
+  els.drawingValue.value = '';
+  source = 'real';
+  clearCalculatedDisplay();
+  toast('Поля очищено');
+}
+
+    function resultText() { return resultSentence(); }
+
+    async function copyText(text, success) {
+      try { await navigator.clipboard.writeText(text); }
+      catch {
+        const area = document.createElement('textarea');
+        area.value = text;
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand('copy');
+        area.remove();
+      }
+      toast(success);
+    }
+
+    function toast(message) {
+      els.toast.textContent = message;
+      els.toast.classList.add('show');
+      clearTimeout(toast._t);
+      toast._t = setTimeout(() => els.toast.classList.remove('show'), 1700);
+    }
+
+    function params() {
+      return new URLSearchParams({
+        a: els.scaleA.value,
+        b: els.scaleB.value,
+        rv: els.realValue.value,
+        ru: els.realUnit.value,
+        dv: els.drawingValue.value,
+        du: els.drawingUnit.value,
+        src: source,
+        dir: resultDirection
+      });
+    }
+
+    function writeUrl(push = false) {
+      const url = `${location.pathname}?${params().toString()}`;
+      try {
+        if (push) history.pushState(null, '', url);
+        else history.replaceState(null, '', url);
+      } catch { /* sandboxed preview may block history */ }
+    }
+
+    function readUrl() {
+      const q = new URLSearchParams(location.search);
+      const assign = (el, key) => { if (q.has(key)) el.value = q.get(key); };
+      assign(els.scaleA, 'a');
+      assign(els.scaleB, 'b');
+      assign(els.realValue, 'rv');
+      assign(els.realUnit, 'ru');
+      assign(els.drawingValue, 'dv');
+      assign(els.drawingUnit, 'du');
+      if (q.has('src')) source = q.get('src') === 'drawing' ? 'drawing' : 'real';
+      if (q.has('dir')) resultDirection = q.get('dir') === 'real-first' ? 'real-first' : 'drawing-first';
+    }
+
+    function setTheme(theme) {
+      document.documentElement.dataset.theme = theme;
+    }
+
+    function initTheme() {
+      const query = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
+      setTheme(query && query.matches ? 'dark' : 'light');
+      query?.addEventListener?.('change', (event) => {
+        if (!manualTheme) setTheme(event.matches ? 'dark' : 'light');
+      });
+    }
+
+    function parseVoiceText(text, target) {
+      const normalized = text.toLowerCase().replace(/,/g, '.');
+      const number = normalized.match(/\d+(?:\.\d+)?/);
+      if (!number) {
+        toast('Не знайдено число');
+        return;
+      }
+      const foundUnit = units.find(u => u.aliases.some(alias => normalized.includes(alias)));
+      if (target === 'real') {
+        els.realValue.value = number[0];
+        if (foundUnit) els.realUnit.value = foundUnit.id;
+        source = 'real';
+      } else {
+        els.drawingValue.value = number[0];
+        if (foundUnit) els.drawingUnit.value = foundUnit.id;
+        source = 'drawing';
+      }
+      calculate();
+      toast(`Розпізнано: ${text}`);
+    }
+
+    function startVoice(target, button) {
+      if (!SpeechRecognition) {
+        toast('Голосове введення не підтримується браузером');
+        return;
+      }
+      if (listeningButton) listeningButton.classList.remove('listening');
+      listeningButton = button;
+      button.classList.add('listening');
+      const recognition = new SpeechRecognition();
+      recognition.lang = 'uk-UA';
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+      recognition.onresult = (event) => parseVoiceText(event.results[0][0].transcript, target);
+      recognition.onerror = () => toast('Не вдалося розпізнати голос');
+      recognition.onend = () => {
+        button.classList.remove('listening');
+        if (listeningButton === button) listeningButton = null;
+      };
+      recognition.start();
+    }
+
+    function stepInput(targetId, direction) {
+      const input = $(targetId);
+      if (!input) return;
+      const current = parseNumber(input.value);
+      const base = Number.isFinite(current) ? current : 0;
+      const rawStep = parseNumber(input.step);
+      const delta = Number.isFinite(rawStep) && rawStep > 0 ? rawStep : 1;
+      let next = base + (direction === 'up' ? delta : -delta);
+
+if (targetId === 'scaleA' || targetId === 'scaleB') {
+  if (next <= 0) next = 1;
+} else {
+  if (next < 0) next = 0;
+}
+
+input.value = inputFormat(next);
+      if (targetId === 'drawingValue') source = 'drawing';
+      if (targetId === 'realValue') source = 'real';
+      calculate();
+    }
+
+    function stopStepRepeat() {
+      clearTimeout(stepRepeatTimer);
+      clearInterval(stepRepeatInterval);
+      stepRepeatTimer = null;
+      stepRepeatInterval = null;
+    }
+
+    function startStepRepeat(button) {
+      stopStepRepeat();
+      const target = button.dataset.stepTarget;
+      const direction = button.dataset.stepDir;
+      stepInput(target, direction);
+      stepRepeatTimer = setTimeout(() => {
+        stepRepeatInterval = setInterval(() => stepInput(target, direction), 80);
+      }, 360);
+    }
+
+function setupAnimatedDetails(detailsId) {
+  const details = document.getElementById(detailsId);
+  if (!details) return;
+
+  const summary = details.querySelector('summary');
+  const body = details.querySelector('.details-body-wrap');
+
+  if (!summary || !body) return;
+if (details.open) {
+  details.classList.add('is-open');
+} else {
+  details.classList.remove('is-open');
+}
+  let timer = null;
+
+  function openDetails() {
+  clearTimeout(timer);
+
+  details.open = true;
+  details.classList.add('is-open');
+
+  body.style.maxHeight = '0px';
+  body.style.opacity = '0';
+  body.style.transform = 'translateY(-4px)';
+
+  requestAnimationFrame(() => {
+    body.style.maxHeight = `${body.scrollHeight}px`;
+    body.style.opacity = '1';
+    body.style.transform = 'translateY(0)';
+  });
+
+  timer = setTimeout(() => {
+    body.style.maxHeight = 'none';
+  }, 260);
+}
+
+  function closeDetails() {
+  clearTimeout(timer);
+
+  details.classList.remove('is-open');
+
+  body.style.maxHeight = `${body.scrollHeight}px`;
+  body.style.opacity = '1';
+  body.style.transform = 'translateY(0)';
+
+  requestAnimationFrame(() => {
+    body.style.maxHeight = '0px';
+    body.style.opacity = '0';
+    body.style.transform = 'translateY(-4px)';
+  });
+
+  timer = setTimeout(() => {
+    details.open = false;
+    body.style.maxHeight = '';
+    body.style.opacity = '';
+    body.style.transform = '';
+  }, 260);
+}
+
+  summary.addEventListener('click', (event) => {
+    event.preventDefault();
+
+    if (details.open) {
+      closeDetails();
+    } else {
+      openDetails();
+    }
+  });
+}
+    function bind() {
+      [
+  els.scaleA,
+  els.scaleB,
+  els.realValue,
+  els.drawingValue
+].forEach(blockInvalidNumberChars);
+      els.preset.addEventListener('change', () => setPreset(els.preset.value));
+      els.scaleA.addEventListener('input', () => {
+  clampNonNegativeInput(els.scaleA, 1);
+  calculate();
+});
+
+els.scaleB.addEventListener('input', () => {
+  clampNonNegativeInput(els.scaleB, 1);
+  calculate();
+});
+
+els.realValue.addEventListener('input', () => {
+  clampNonNegativeInput(els.realValue, 0);
+  source = 'real';
+  calculate();
+});
+
+els.drawingValue.addEventListener('input', () => {
+  clampNonNegativeInput(els.drawingValue, 0);
+  source = 'drawing';
+  calculate();
+});
+      els.drawingValue.addEventListener('input', () => { source = 'drawing'; calculate(); });
+      els.realUnit.addEventListener('change', calculate);
+      els.drawingUnit.addEventListener('change', calculate);
+      els.clearBtn.addEventListener('click', clearValues);
+      els.copyLinkBtn.addEventListener('click', () => { writeUrl(true); copyText(location.href, 'URL скопійовано'); });
+      els.copyResultBtn.addEventListener('click', () => copyText(resultText(), 'Скопійовано'));
+      els.swapUnitsBtn.addEventListener('click', swapUnits);
+      els.resultFlipBtn.addEventListener('click', () => {
+        resultDirection = resultDirection === 'drawing-first' ? 'real-first' : 'drawing-first';
+        calculate();
+      });
+      els.themeBtn.addEventListener('click', () => {
+        manualTheme = true;
+        setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
+      });
+
+      document.querySelectorAll('.step-btn').forEach(button => {
+        button.addEventListener('pointerdown', (event) => {
+          event.preventDefault();
+          button.setPointerCapture?.(event.pointerId);
+          startStepRepeat(button);
+        });
+        button.addEventListener('pointerup', stopStepRepeat);
+        button.addEventListener('pointercancel', stopStepRepeat);
+        button.addEventListener('lostpointercapture', stopStepRepeat);
+        button.addEventListener('mouseleave', stopStepRepeat);
+      });
+
+      document.querySelectorAll('.voice-btn').forEach(button => {
+        if (!SpeechRecognition) {
+          button.disabled = true;
+          button.title = 'Голосове введення не підтримується цим браузером або режимом запуску';
+        }
+        button.addEventListener('click', () => startVoice(button.dataset.target, button));
+      });
+    }
+
+    populateUnits();
+    initTheme();
+    readUrl();
+    bind();
+    setupAnimatedDetails('formulaDetails');
+    calculate();
+  </script>
+</body>
+</html>
