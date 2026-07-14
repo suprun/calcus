@@ -1086,8 +1086,8 @@ summary::marker {
 }
 
 @media print {
-  /* Приховуємо всю основну сторінку калькулятора */
-  .app, .toast {
+  /* Приховуємо всю основну сторінку калькулятора та бічну панель */
+  .layout-wrapper, .toast, .side-panel {
     display: none !important;
   }
 
