@@ -318,7 +318,7 @@ const SLIDER_MAPS = {
 
 // --- CORE CALCULATION LOGIC ---
 
-function calculateBasePrice(p, intervals) {
+function calculateBasePrice(p, intervals, paramName = "Показник", unit = "") {
     if (p <= 0 || isNaN(p)) {
         return { basePrice: 0, note: "Невірне значення параметра", warning: false };
     }
@@ -328,12 +328,13 @@ function calculateBasePrice(p, intervals) {
 
     let warning = false;
     let warningMsg = "";
+    const unitStr = unit ? " " + unit : "";
     if (p < 0.5 * first.min) {
         warning = true;
-        warningMsg = `Показник (${p}) менше половини мінімального (${first.min}). Відповідно до п. 2.6 Настанови, вартість визначається на підставі трудовитрат. Показано математичний розрахунок за п. 2.4.`;
+        warningMsg = `Показник "${paramName}" (${p}${unitStr}) менше половини мінімального (${first.min}${unitStr}). Відповідно до п. 2.6 Настанови, вартість визначається на підставі трудовитрат. Показано математичний розрахунок за п. 2.4.`;
     } else if (p > 2 * last.max) {
         warning = true;
-        warningMsg = `Показник (${p}) більше ніж удвічі перевищує максимальний (${last.max}). Відповідно до п. 2.6 Настанови, вартість визначається на підставі трудовитрат. Показано орієнтовний розрахунок за п. 2.5.`;
+        warningMsg = `Показник "${paramName}" (${p}${unitStr}) більше ніж удвічі перевищує максимальний (${last.max}${unitStr}). Відповідно до п. 2.6 Настанови, вартість визначається на підставі трудовитрат. Показано орієнтовний розрахунок за п. 2.5.`;
     }
 
     if (p < first.min) {
@@ -524,6 +525,7 @@ function setupAnimatedDetails(detailsId) {
 document.addEventListener("DOMContentLoaded", () => {
     initTabs();
     initTheme();
+    initGuidebook();
     initSliders();
     // initCheckboxIcons(); // Inline SVGs are now hardcoded in index.html for better customization
     initEventListeners();
@@ -764,7 +766,12 @@ function initEventListeners() {
         scrollTrigger.addEventListener("click", () => {
             const dest = document.getElementById("outputBottom");
             if (dest) {
-                dest.scrollIntoView({ behavior: "smooth", block: "end" });
+                const warningBox = dest.querySelector(".alert-warning-box");
+                if (warningBox) {
+                    warningBox.scrollIntoView({ behavior: "smooth", block: "end" });
+                } else {
+                    dest.scrollIntoView({ behavior: "smooth", block: "end" });
+                }
             }
         });
     }
@@ -782,11 +789,6 @@ function initEventListeners() {
         }
     });
 
-    // Clear (Reset) button trigger
-    const clearBtn = document.getElementById("clearBtn");
-    if (clearBtn) {
-        clearBtn.addEventListener("click", resetAllInputs);
-    }
 
     // Bind custom steppers repeat hold events
     document.querySelectorAll('.step-btn').forEach(button => {
@@ -1024,7 +1026,7 @@ function updateFormulaBox(docType, p, A, B, K, Kzag, Kdir, notes) {
         `;
     }
 
-    formulaBox.innerHTML = content;
+    formulaBox.innerHTML = linkifyReferences(content);
 }
 
 // --- DYNAMIC CALCULATOR EXECUTOR ---
@@ -1035,6 +1037,9 @@ function calc() {
 
     const docType = activeTab.getAttribute("data-target");
 
+    // Clear previous field warning icons
+    document.querySelectorAll(".field-warning-icon").forEach(el => el.innerHTML = "");
+    let warningFieldId = "";
 
     const output = document.getElementById("output");
     const outputBottom = document.getElementById("outputBottom");
@@ -1057,12 +1062,13 @@ function calc() {
 
     if (docType === "stateParts") {
         const p = getInputValue("sp_area", 0);
-        const res = calculateBasePrice(p, TARIFFS.stateParts);
+        const res = calculateBasePrice(p, TARIFFS.stateParts, "Площа території", "тис. км²");
         baseSum = res.basePrice;
 
         if (res.warning) {
             hasAlert = true;
             alertText = res.warningMsg;
+            warningFieldId = "sp_area";
         }
 
         // Get slider coefficients
@@ -1111,12 +1117,13 @@ function calc() {
 
     } else if (docType === "regionalRegion") {
         const p = getInputValue("rr_area", 0);
-        const res = calculateBasePrice(p, TARIFFS.regionalRegion);
+        const res = calculateBasePrice(p, TARIFFS.regionalRegion, "Площа території", "тис. км²");
         baseSum = res.basePrice;
 
         if (res.warning) {
             hasAlert = true;
             alertText = res.warningMsg;
+            warningFieldId = "rr_area";
         }
 
         // Sliders
@@ -1169,12 +1176,13 @@ function calc() {
 
     } else if (docType === "regionalDistrict") {
         const p = getInputValue("rd_area", 0);
-        const res = calculateBasePrice(p, TARIFFS.regionalDistrict);
+        const res = calculateBasePrice(p, TARIFFS.regionalDistrict, "Площа території", "тис. км²");
         baseSum = res.basePrice;
 
         if (res.warning) {
             hasAlert = true;
             alertText = res.warningMsg;
+            warningFieldId = "rd_area";
         }
 
         // Sliders
@@ -1226,11 +1234,12 @@ function calc() {
     } else if (docType === "localComplexPlan") {
         // МІСТОБУДІВНА ЧАСТИНА (тис. км2)
         const areaComplex = getInputValue("cp_area", 0);
-        const resArea = calculateBasePrice(areaComplex, TARIFFS.localComplexArea);
+        const resArea = calculateBasePrice(areaComplex, TARIFFS.localComplexArea, "Площа громади", "тис. км²");
         let m1 = resArea.basePrice;
         if (resArea.warning) {
             hasAlert = true;
             alertText += (alertText ? "<br>" : "") + "Містобудівна частина (площа): " + resArea.warningMsg;
+            warningFieldId = "cp_area";
         }
 
         const popTotal = getInputValue("cp_pop_total", 0);
@@ -1239,21 +1248,51 @@ function calc() {
 
         if (popTotal < popCenter) {
             if (popCenterInput) popCenterInput.classList.add("is-invalid");
+            hasAlert = true;
+            alertText = "Помилка розрахунку: Населення всієї громади (Табл. 6-1) не може бути меншим за населення адміністративного центру (Табл. 5-3)! Будь ласка, скоригуйте значення.";
+            warningFieldId = "cp_pop_center";
             
             html = `
                 <div style="margin: 10px 0; padding: 12px; background: var(--error-bg, #fef2f2); border: 1px solid var(--error, #dc2626); border-radius: var(--radius-sm); color: var(--error-text, #991b1b); font-size: 13px; font-weight: 600; line-height: 1.4;">
-                    Помилка розрахунку: Населення всієї громади (Табл. 6-1) не може бути меншим за населення адміністративного центру (Табл. 5-3)! Будь ласка, скоригуйте значення.
+                    ${alertText}
                 </div>
             `;
-            output.innerHTML = html;
-            outputBottom.innerHTML = html;
+            output.innerHTML = linkifyReferences(html);
+            outputBottom.innerHTML = linkifyReferences(html);
             
             const errorHtml = `Помилка <span class="result-value real result-nowrap" style="color: #dc2626;">розрахунку</span>`;
             resultMain.innerHTML = errorHtml;
             resultMainBottom.innerHTML = errorHtml;
 
-            window.lastCalc = null;
+            // Додаємо іконку попередження біля показника
+            const warningIconContainer = document.getElementById("warning_cp_pop_center");
+            if (warningIconContainer) {
+                warningIconContainer.innerHTML = `
+                    <span class="warning-tooltip-trigger" data-tooltip="${alertText.replace(/"/g, '&quot;')}" style="color: var(--error);">
+                        <svg class="icon" style="width: 16px; height: 16px; stroke: currentColor; fill: none;">
+                            <use href="#i-warning"></use>
+                        </svg>
+                    </span>
+                `;
+            }
+
+            window.lastCalc = {
+                docType: docType,
+                docTypeName: activeTab.textContent,
+                projectName: document.getElementById("projectName")?.value || "",
+                globalKzag: globalKzag,
+                globalKdir: globalKdir,
+                useVat: useVat,
+                mistCost: 0,
+                landCost: 0,
+                expCost: 0,
+                expPercent: 0,
+                vatSum: 0,
+                totalWithVat: 0,
+                alertText: alertText
+            };
             updateUrlFromState();
+            generatePrintReport();
             return;
         } else {
             if (popCenterInput) popCenterInput.classList.remove("is-invalid");
@@ -1265,18 +1304,20 @@ function calc() {
             popOtherEl.value = popOther.toFixed(1);
         }
 
-        const resCenter = calculateBasePrice(popCenter, TARIFFS.localGeneralPlan);
+        const resCenter = calculateBasePrice(popCenter, TARIFFS.localGeneralPlan, "Населення адмінцентру", "тис. осіб");
         let m2 = resCenter.basePrice;
         if (resCenter.warning) {
             hasAlert = true;
             alertText += (alertText ? "<br>" : "") + "Містобудівна частина (адмінцентр): " + resCenter.warningMsg;
+            warningFieldId = "cp_pop_center";
         }
 
-        const resOther = calculateBasePrice(popOther, TARIFFS.localGeneralPlan);
+        const resOther = calculateBasePrice(popOther, TARIFFS.localGeneralPlan, "Населення інших н.п.", "тис. осіб");
         let m3 = resOther.basePrice;
         if (resOther.warning) {
             hasAlert = true;
             alertText += (alertText ? "<br>" : "") + "Містобудівна частина (інші н.п.): " + resOther.warningMsg;
+            warningFieldId = "cp_pop_total";
         }
 
         // Sliders
@@ -1301,11 +1342,12 @@ function calc() {
 
         // ЗЕМЛЕВПОРЯДНА ЧАСТИНА
         const popComplex = getInputValue("cp_pop_total", 0);
-        const resLandPop = calculateBasePrice(popComplex, TARIFFS.localComplexLandPop);
+        const resLandPop = calculateBasePrice(popComplex, TARIFFS.localComplexLandPop, "Населення громади (землевпоряд.)", "тис. осіб");
         let z1 = resLandPop.basePrice;
         if (resLandPop.warning) {
             hasAlert = true;
             alertText += (alertText ? "<br>" : "") + "Землевпорядна частина (населення): " + resLandPop.warningMsg;
+            warningFieldId = "cp_pop_total";
         }
 
         // Sliders
@@ -1314,11 +1356,12 @@ function calc() {
         z1 = z1 * K3 * K4;
 
         const areaLandComplex = areaComplex * 1000;
-        const resLandArea = calculateBasePrice(areaLandComplex, TARIFFS.localComplexLandArea);
+        const resLandArea = calculateBasePrice(areaLandComplex, TARIFFS.localComplexLandArea, "Площа громади (землевпоряд.)", "га");
         let z2 = resLandArea.basePrice;
         if (resLandArea.warning) {
             hasAlert = true;
             alertText += (alertText ? "<br>" : "") + "Землевпорядна частина (площа): " + resLandArea.warningMsg;
+            warningFieldId = "cp_area";
         }
 
         const landCoefs = getComplicatingFactors("cp_land_coefs");
@@ -1359,12 +1402,13 @@ function calc() {
 
     } else if (docType === "localGeneralPlan") {
         const p = getInputValue("gp_pop", 0);
-        const res = calculateBasePrice(p, TARIFFS.localGeneralPlan);
+        const res = calculateBasePrice(p, TARIFFS.localGeneralPlan, "Населення НП", "тис. осіб");
         baseSum = res.basePrice;
 
         if (res.warning) {
             hasAlert = true;
             alertText = res.warningMsg;
+            warningFieldId = "gp_pop";
         }
 
         // Sliders
@@ -1408,11 +1452,12 @@ function calc() {
         const area = getInputValue("dp_area", 0);
 
         // містобудівна складова
-        const resArea = calculateBasePrice(area, TARIFFS.localDetailedArea);
+        const resArea = calculateBasePrice(area, TARIFFS.localDetailedArea, "Площа території ДПТ", "га");
         const baseMist = resArea.basePrice;
         if (resArea.warning) {
             hasAlert = true;
             alertText = "Містобудівна частина: " + resArea.warningMsg;
+            warningFieldId = "dp_area";
         }
 
         // Sliders
@@ -1432,11 +1477,12 @@ function calc() {
         mistCost = baseMist * K_mist * globalKzag * globalKdir;
 
         // землевпорядна складова
-        const resLand = calculateBasePrice(area, TARIFFS.localDetailedLandArea);
+        const resLand = calculateBasePrice(area, TARIFFS.localDetailedLandArea, "Площа території ДПТ", "га");
         const baseLand = resLand.basePrice;
         if (resLand.warning) {
             hasAlert = true;
             alertText += (alertText ? "<br>" : "") + "Землевпорядна частина: " + resLand.warningMsg;
+            warningFieldId = "dp_area";
         }
 
         // Read new land sliders for data format, plots, and zones
@@ -1491,7 +1537,7 @@ function calc() {
     if (alertBox) {
         if (hasAlert) {
             alertBox.style.display = "block";
-            alertBox.innerHTML = alertText;
+            alertBox.innerHTML = linkifyReferences(alertText);
         } else {
             alertBox.style.display = "none";
         }
@@ -1554,14 +1600,40 @@ function calc() {
         </div>
     `;
 
+    // Якщо є попередження, додаємо коричневу плашку в кінець розшифровки
+    if (hasAlert) {
+        html += `
+            <div class="alert-warning-box" style="margin-top: 12px; padding: 10px 12px; background-color: var(--drawing-bg); border: 1px solid var(--drawing-line); color: var(--drawing-text); border-radius: var(--radius-sm); font-size: 12.5px; font-weight: 550; line-height: 1.45; display: flex; align-items: flex-start; gap: 8px; box-sizing: border-box; width: 100%;">
+                <svg class="icon" style="width: 18px; height: 18px; flex-shrink: 0; stroke: currentColor; stroke-width: 2; fill: none; margin-top: 1px;">
+                    <use href="#i-warning"></use>
+                </svg>
+                <div style="flex: 1;">${alertText}</div>
+            </div>
+        `;
+    }
+
     // Set grand total at BOTH top and bottom results
     const totalHtml = `Всього: <span class="result-value real result-nowrap">${formatCurrency(totalWithVat)}</span>`;
 
     resultMain.innerHTML = totalHtml;
     resultMainBottom.innerHTML = totalHtml;
 
-    output.innerHTML = html;
-    outputBottom.innerHTML = html;
+    output.innerHTML = linkifyReferences(html);
+    outputBottom.innerHTML = linkifyReferences(html);
+
+    // Додаємо іконку попередження біля показника, який його тригернув
+    if (hasAlert && warningFieldId) {
+        const warningIconContainer = document.getElementById("warning_" + warningFieldId);
+        if (warningIconContainer) {
+            warningIconContainer.innerHTML = `
+                <span class="warning-tooltip-trigger" data-tooltip="${alertText.replace(/"/g, '&quot;').replace(/<br>/g, ' ')}">
+                    <svg class="icon" style="width: 16px; height: 16px; stroke: currentColor; fill: none;">
+                        <use href="#i-warning"></use>
+                    </svg>
+                </span>
+            `;
+        }
+    }
 
     window.lastCalc = {
         docType: docType,
@@ -1575,7 +1647,8 @@ function calc() {
         expCost: exp.cost,
         expPercent: exp.percent,
         vatSum: vatSum,
-        totalWithVat: totalWithVat
+        totalWithVat: totalWithVat,
+        alertText: hasAlert ? alertText.replace(/<br>/g, " ") : ""
     };
 
     updateUrlFromState();
@@ -1804,6 +1877,11 @@ function exportToExcel() {
     }
     data.push(["ВСЬОГО (з урахуванням ПДВ та експертизи):", calcResult.totalWithVat]);
 
+    if (calcResult.alertText) {
+        data.push(["", ""]);
+        data.push(["ПОПЕРЕДЖЕННЯ:", calcResult.alertText]);
+    }
+
     try {
         const wb = XLSX.utils.book_new();
         const ws = XLSX.utils.aoa_to_sheet(data);
@@ -1997,6 +2075,13 @@ function generatePrintReport() {
             </table>
         </div>
         
+        ${calcResult.alertText ? `
+            <div class="print-alert" style="margin-top: 15px; padding: 10px 12px; border: 1.5px solid #000; background: #fff; font-size: 11px; font-weight: bold; line-height: 1.4; display: flex; align-items: flex-start; gap: 8px;">
+                <span style="font-size: 14px;">⚠️</span>
+                <div><b>УВАГА / Попередження:</b> ${calcResult.alertText}</div>
+            </div>
+        ` : ""}
+        
         <div class="print-footer">
             <p>Калькулятор вартості містобудівної документації розроблено відповідно до Настанови з визначення вартості містобудівної документації Мінрегіону України.</p>
         </div>
@@ -2004,3 +2089,246 @@ function generatePrintReport() {
 
     reportEl.innerHTML = html;
 }
+
+// --- GUIDEBOOK (SIDE PANEL WITH ZERO-MD) INTEGRATION ---
+
+function linkifyReferences(html) {
+    if (!html) return html;
+    
+    // Regex safely matches HTML tags OR reference patterns to avoid altering attribute values:
+    // Group 1: HTML tag
+    // Group 2: Table number X-Y (e.g. 5-1, 6-3)
+    // Group 3, 4, 5: Paragraph (Cyrillic word boundary prefix, paragraph prefix and number, e.g. п. 2.3)
+    // Group 6, 7, 8: Section (Cyrillic word boundary prefix, section prefix and roman/digit number, e.g. розділ 2)
+    const regex = /(<[^>]+>)|(\b\d+[-–]\d+\b)|(^|[^a-zа-яёіїєґ])(п\.|пункті|пункт[а-я]*|пп\.)\s*(\d+\.\d+)(?![a-zа-яёіїєґ])|(^|[^a-zа-яёіїєґ])(розділ[а-я]*)\s*([IVXLCDMІі\d]+)(?![a-zа-яёіїєґ])/gi;
+    
+    return html.replace(regex, function(match, g1, g2, g3, g4, g5, g6, g7, g8) {
+        if (g1) {
+            // HTML tag - return unchanged
+            return g1;
+        }
+        if (g2) {
+            // Table number X-Y (e.g. 5-1)
+            const clean = g2.replace('–', '-');
+            return `<span class="doc-link" data-target="table-${clean}">${g2}</span>`;
+        }
+        if (g4 && g5) {
+            // Paragraph (e.g. п. 2.3)
+            const clean = g5.replace(/\./g, '-');
+            return `${g3}${g4} <span class="doc-link" data-target="p-${clean}">${g5}</span>`;
+        }
+        if (g7 && g8) {
+            // Section (e.g. розділ 2, розділі VІ)
+            let target = "";
+            const val = g8.toUpperCase().trim();
+            if (val === 'І' || val === '1') target = 'section-1';
+            else if (val === 'ІІ' || val === '2') target = 'section-2';
+            else if (val === 'ІІІ' || val === '3') target = 'section-3';
+            else if (val === 'IV' || val === '4') target = 'section-4';
+            else if (val === 'V' || val === '5') target = 'section-5';
+            else if (val === 'VІ' || val === 'VI' || val === '6') target = 'section-6';
+            
+            if (target) {
+                return `${g6}${g7} <span class="doc-link" data-target="${target}">${g8}</span>`;
+            }
+            return match;
+        }
+        return match;
+    });
+}
+
+function openGuidebookTo(targetId) {
+    document.body.classList.add('panel-open');
+    
+    // Reset horizontal scroll inside the side-panel-body container
+    const panelBody = document.querySelector('.side-panel-body');
+    if (panelBody) {
+        panelBody.scrollLeft = 0;
+        if (targetId === 'top') {
+            panelBody.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    }
+    
+    const zeroMd = document.getElementById('zeroMdDoc');
+    if (!zeroMd) return;
+    
+    if (targetId === 'top') {
+        const doReset = () => {
+            const shadow = zeroMd.shadowRoot;
+            if (!shadow) return;
+            shadow.querySelectorAll('.highlight-target').forEach(el => {
+                el.classList.remove('highlight-target');
+            });
+            const mdBody = shadow.querySelector('.markdown-body');
+            if (mdBody) {
+                mdBody.scrollLeft = 0;
+            }
+            shadow.querySelectorAll('table').forEach(tbl => {
+                tbl.scrollLeft = 0;
+            });
+        };
+        if (zeroMd.shadowRoot && zeroMd.shadowRoot.querySelector('.markdown-body')) {
+            doReset();
+        } else {
+            zeroMd.addEventListener('zero-md-rendered', doReset, { once: true });
+        }
+        return;
+    }
+    
+    const doScroll = () => {
+        const shadow = zeroMd.shadowRoot;
+        if (!shadow) return;
+        
+        // Reset horizontal scroll inside shadow DOM markdown container and tables
+        const mdBody = shadow.querySelector('.markdown-body');
+        if (mdBody) {
+            mdBody.scrollLeft = 0;
+        }
+        shadow.querySelectorAll('table').forEach(tbl => {
+            tbl.scrollLeft = 0;
+        });
+        
+        // Find anchor by id or name inside zero-md shadowRoot
+        const target = shadow.querySelector(`#${targetId}`) || shadow.querySelector(`a[name="${targetId}"]`) || shadow.querySelector(`[id="${targetId}"]`);
+        if (target) {
+            // Clear existing highlights immediately
+            shadow.querySelectorAll('.highlight-target').forEach(el => {
+                el.classList.remove('highlight-target');
+            });
+            
+            // Perform scrolling
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            
+            // Highlight sibling element if the target is an anchor tag
+            let elementToHighlight = target;
+            if (target.tagName === 'A' && target.nextElementSibling) {
+                elementToHighlight = target.nextElementSibling;
+            }
+            
+            // Wait for smooth scrolling to complete before flashing the highlight
+            setTimeout(() => {
+                // Ensure no other highlights are active
+                shadow.querySelectorAll('.highlight-target').forEach(el => {
+                    el.classList.remove('highlight-target');
+                });
+                // Force reflow and add class
+                void elementToHighlight.offsetWidth;
+                elementToHighlight.classList.add('highlight-target');
+            }, 600);
+        } else {
+            console.warn("Could not find anchor inside zero-md shadowRoot:", targetId);
+        }
+    };
+    
+    // Check if zero-md content is already rendered
+    if (zeroMd.shadowRoot && zeroMd.shadowRoot.querySelector('.markdown-body')) {
+        doScroll();
+    } else {
+        // Wait for rendering event
+        zeroMd.addEventListener('zero-md-rendered', () => {
+            setTimeout(doScroll, 150);
+        }, { once: true });
+    }
+}
+
+function linkifyStaticElements() {
+    const selectors = [
+        '.form-group-title',
+        'label',
+        '.unit-label',
+        '.checkbox-label',
+        '.sub',
+        '.group-title-row',
+        '.info-note'
+    ];
+    selectors.forEach(sel => {
+        document.querySelectorAll(sel).forEach(el => {
+            if (/(Таблиц[іея]|Таблиця|Табл\.)(\s+)(\d+[-–]\d+)/gi.test(el.innerHTML)) {
+                if (!el.querySelector('.doc-link')) {
+                    el.innerHTML = linkifyReferences(el.innerHTML);
+                }
+            }
+        });
+    });
+}
+
+function initGuidebook() {
+    const docBtn = document.getElementById("docBtn");
+    const closePanelBtn = document.getElementById("closePanelBtn");
+    const resizer = document.getElementById("sidePanelResizer");
+    const sidePanel = document.getElementById("sidePanel");
+    
+    // Linkify static labels and headers on page load
+    linkifyStaticElements();
+    
+    // Load saved width from localStorage
+    const savedWidth = localStorage.getItem('side-panel-width');
+    if (savedWidth) {
+        document.documentElement.style.setProperty('--side-panel-width', savedWidth + 'px');
+    }
+    
+    // Resizing logic
+    if (resizer && sidePanel) {
+        resizer.addEventListener('mousedown', function(e) {
+            e.preventDefault();
+            
+            const startX = e.clientX;
+            const startWidth = sidePanel.getBoundingClientRect().width;
+            
+            document.body.classList.add('is-resizing');
+            
+            function onMouseMove(e) {
+                const currentX = e.clientX;
+                const deltaX = startX - currentX;
+                let newWidth = startWidth + deltaX;
+                
+                // Boundaries
+                const minWidth = 320;
+                const maxWidth = window.innerWidth - 320; // Keep at least 320px for calculator
+                
+                if (newWidth < minWidth) newWidth = minWidth;
+                if (newWidth > maxWidth) newWidth = maxWidth;
+                
+                document.documentElement.style.setProperty('--side-panel-width', newWidth + 'px');
+                localStorage.setItem('side-panel-width', newWidth);
+            }
+            
+            function onMouseUp() {
+                document.body.classList.remove('is-resizing');
+                document.removeEventListener('mousemove', onMouseMove);
+                document.removeEventListener('mouseup', onMouseUp);
+            }
+            
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseup', onMouseUp);
+        });
+    }
+    
+    if (docBtn) {
+        docBtn.addEventListener('click', () => {
+            const isOpen = document.body.classList.toggle('panel-open');
+            if (isOpen) {
+                openGuidebookTo('top');
+            }
+        });
+    }
+    
+    if (closePanelBtn) {
+        closePanelBtn.addEventListener('click', () => {
+            document.body.classList.remove('panel-open');
+        });
+    }
+    
+    // Global delegation for clicks on elements with the .doc-link class
+    document.addEventListener('click', function(e) {
+        const docLink = e.target.closest('.doc-link');
+        if (docLink) {
+            e.preventDefault();
+            const targetId = docLink.getAttribute('data-target');
+            if (targetId) {
+                openGuidebookTo(targetId);
+            }
+        }
+    });
+}
+

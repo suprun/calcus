@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<title>Калькулятор проектора</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        max-width: 600px;
+        margin: auto;
+    }
+    h2 {
+        margin-bottom: 10px;
+    }
+    .row {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        gap: 10px;
+    }
+    label {
+        width: 200px;
+    }
+    input {
+        width: 100px;
+        padding: 4px;
+    }
+    select {
+        padding: 4px;
+    }
+    .result {
+        margin-top: 20px;
+        padding: 10px;
+        background: #f3f3f3;
+        border-radius: 6px;
+    }
+</style>
+</head>
+<body>
+
+<h2>Калькулятор розміру екрану</h2>
+
+<div class="row">
+    <label>Формат:</label>
+    <select id="aspect">
+        <option value="16:9">16:9</option>
+        <option value="4:3">4:3</option>
+    </select>
+</div>
+
+<div class="row">
+    <label>Мін. відстань:</label>
+    <input id="minDist" type="number" value="1.6" step="0.1">
+    <select id="minDistUnit">
+        <option>м</option>
+        <option>″</option>
+    </select>
+</div>
+
+<div class="row">
+    <label>Макс. відстань:</label>
+    <input id="maxDist" type="number" value="5.5" step="0.1">
+    <select id="maxDistUnit">
+        <option>м</option>
+        <option>″</option>
+    </select>
+</div>
+
+<div class="row">
+    <label>Мін. діагональ:</label>
+    <input id="minDiag" type="number" value="1.05" step="0.1">
+    <select id="minDiagUnit">
+        <option>м</option>
+        <option>″</option>
+    </select>
+</div>
+
+<div class="row">
+    <label>Макс. діагональ:</label>
+    <input id="maxDiag" type="number" value="3.75" step="0.1">
+    <select id="maxDiagUnit">
+        <option>м</option>
+        <option>″</option>
+    </select>
+</div>
+
+<div class="row">
+    <label>Поточна відстань:</label>
+    <input id="distance" type="number" value="2.5" step="0.1">
+    <select id="distanceUnit">
+        <option>м</option>
+        <option>″</option>
+    </select>
+</div>
+
+<div class="result" id="output"></div>
+
+<script>
+const M_TO_INCH = 39.3701;
+
+function toMeters(value, unit) {
+    return unit === "м" ? value : value / M_TO_INCH;
+}
+
+function toInches(m) {
+    return m * M_TO_INCH;
+}
+
+function getAspect() {
+    const val = document.getElementById("aspect").value;
+    return val === "16:9" ? [16, 9] : [4, 3];
+}
+
+function calc() {
+    // Зчитування значень
+    let minDist = toMeters(
+        parseFloat(document.getElementById("minDist").value),
+        document.getElementById("minDistUnit").value
+    );
+
+    let maxDist = toMeters(
+        parseFloat(document.getElementById("maxDist").value),
+        document.getElementById("maxDistUnit").value
+    );
+
+    let distance = toMeters(
+        parseFloat(document.getElementById("distance").value),
+        document.getElementById("distanceUnit").value
+    );
+
+    let minDiag = toMeters(
+        parseFloat(document.getElementById("minDiag").value),
+        document.getElementById("minDiagUnit").value
+    );
+
+    let maxDiag = toMeters(
+        parseFloat(document.getElementById("maxDiag").value),
+        document.getElementById("maxDiagUnit").value
+    );
+
+    // Інтерполяція
+    distance = Math.max(minDist, Math.min(maxDist, distance));
+
+    let ratio = (maxDist !== minDist)
+        ? (distance - minDist) / (maxDist - minDist)
+        : 0;
+
+    let diag = minDiag + ratio * (maxDiag - minDiag);
+
+    // Геометрія
+    const [wR, hR] = getAspect();
+    const k = diag / Math.sqrt(wR*wR + hR*hR);
+
+    let width = k * wR;
+    let height = k * hR;
+
+    // Вивід
+    document.getElementById("output").innerHTML = `
+        <b>Результат:</b><br>
+        Діагональ: ${diag.toFixed(2)} м (${toInches(diag).toFixed(1)}″)<br>
+        Ширина: ${width.toFixed(2)} м (${toInches(width).toFixed(1)}″)<br>
+        Висота: ${height.toFixed(2)} м (${toInches(height).toFixed(1)}″)
+    `;
+}
+
+// Слухачі подій
+document.querySelectorAll("input, select").forEach(el => {
+    el.addEventListener("input", calc);
+});
+
+// Перший запуск
+calc();
+</script>
+
+</body>
+</html>
