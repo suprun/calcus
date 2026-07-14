@@ -1260,7 +1260,7 @@ function calc() {
             output.innerHTML = linkifyReferences(html);
             outputBottom.innerHTML = linkifyReferences(html);
 
-            const errorHtml = `Помилка <span class="result-value real result-nowrap" style="color: #dc2626;">розрахунку</span>`;
+            const errorHtml = `<span class="result-value result-nowrap" style="color: var(--error-text, #991b1b); border: 1px solid var(--error, #dc2626); background: var(--error-bg, #fef2f2);">Помилка розрахунку</span>`;
             resultMain.innerHTML = errorHtml;
             resultMainBottom.innerHTML = errorHtml;
 
