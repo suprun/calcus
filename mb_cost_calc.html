@@ -12,6 +12,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <!-- Import zero-md web component -->
+    <script type="module" src="https://cdn.jsdelivr.net/npm/zero-md@3?register"></script>
 </head>
 
 <body>
@@ -75,6 +77,11 @@
             <polyline points="14 2 14 8 20 8" />
             <line x1="16" y1="13" x2="8" y2="13" />
             <line x1="16" y1="17" x2="8" y2="17" />
+        </symbol>
+        <symbol id="i-warning" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+            <line x1="12" y1="9" x2="12" y2="13"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
         </symbol>
         <symbol id="i-share" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
             stroke-linecap="round" stroke-linejoin="round">
@@ -148,9 +155,17 @@
             <polyline points="14 2 14 8 20 8" />
             <path d="M9 15l2 2 4-4" />
         </symbol>
+        <symbol id="i-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" y1="15" x2="12" y2="3" />
+        </symbol>
     </svg>
 
-    <div class="app">
+    <div class="layout-wrapper">
+        <div class="main-viewport">
+            <div class="app">
         <header class="top">
             <span class="title-side-icon" aria-hidden="true">
                 <svg class="icon">
@@ -161,6 +176,11 @@
                 <h1>Кошторис містобудівної документації</h1>
                 <p class="sub">Визначення вартості розроблення та проведення експертизи</p>
             </div>
+            <button class="btn icon" id="docBtn" type="button" title="Довідник (Настанова)" aria-label="Відкрити довідник">
+                <svg class="icon">
+                    <use href="#i-list"></use>
+                </svg>
+            </button>
             <button class="btn icon" id="themeBtn" type="button" title="Змінити тему" aria-label="Змінити тему">
                 <svg class="icon">
                     <use href="#i-theme"></use>
@@ -277,9 +297,6 @@
                     </div>
                 </div>
 
-                <!-- Warnings / alerts -->
-                <div id="alertBox" class="alert alert-warning left-aligned-padding"></div>
-
                 <!-- Form 1: Схема окремої частини України -->
                 <div id="stateParts" class="form-section active">
                     <div class="section-group">
@@ -295,7 +312,7 @@
                             <div class="row">
                                 <label>Площа території:
                                     <span class="tooltip-trigger"
-                                        data-tooltip="Об'єкт проектування в тисячах квадратних кілометрів (тис. км2).">i</span>
+                                        data-tooltip="Об'єкт проектування в тисячах квадратних кілометрів (тис. км2).">i</span><span class="field-warning-icon" id="warning_sp_area"></span>
                                 </label>
                                 <div class="number-shell has-stepper real">
                                     <input class="control number-input" id="sp_area" type="number" value="15.0"
@@ -520,7 +537,7 @@
                             <div class="row">
                                 <label>Площа території:
                                     <span class="tooltip-trigger"
-                                        data-tooltip="Основний показник (Р) в тисячах квадратних кілометрів (тис. км2).">i</span>
+                                        data-tooltip="Основний показник (Р) в тисячах квадратних кілометрів (тис. км2).">i</span><span class="field-warning-icon" id="warning_rr_area"></span>
                                 </label>
                                 <div class="number-shell has-stepper real">
                                     <input class="control number-input" id="rr_area" type="number" value="25.0"
@@ -768,7 +785,7 @@
                             <div class="row">
                                 <label>Площа території:
                                     <span class="tooltip-trigger"
-                                        data-tooltip="Основний показник об'єкта (Р) в тисячах квадратних кілометрів (тис. км2).">i</span>
+                                        data-tooltip="Основний показник об'єкта (Р) в тисячах квадратних кілометрів (тис. км2).">i</span><span class="field-warning-icon" id="warning_rd_area"></span>
                                 </label>
                                 <div class="number-shell has-stepper real">
                                     <input class="control number-input" id="rd_area" type="number" value="2.5"
@@ -1006,7 +1023,7 @@
                             <div class="row">
                                 <label>Площа громади (Табл. 5-1, 6-3):
                                     <span class="tooltip-trigger"
-                                        data-tooltip="Площа всієї території громади в тисячах квадратних кілометрів (тис. км²). Для землевпорядної частини площа автоматично перераховується у км² (множиться на 1000).">i</span>
+                                        data-tooltip="Площа всієї території громади в тисячах квадратних кілометрів (тис. км²). Для землевпорядної частини площа автоматично перераховується у км² (множиться на 1000).">i</span><span class="field-warning-icon" id="warning_cp_area"></span>
                                 </label>
                                 <div class="number-shell has-stepper real">
                                     <input class="control number-input" id="cp_area" type="number" value="0.45"
@@ -1042,7 +1059,7 @@
                             <div class="row">
                                 <label>Населення адмінцентру (Табл. 5-3):
                                     <span class="tooltip-trigger"
-                                        data-tooltip="Чисельність населення адміністративного центру громади в тисячах осіб.">i</span>
+                                        data-tooltip="Чисельність населення адміністративного центру громади в тисячах осіб.">i</span><span class="field-warning-icon" id="warning_cp_pop_center"></span>
                                 </label>
                                 <div class="number-shell has-stepper real">
                                     <input class="control number-input" id="cp_pop_center" type="number" value="12.5"
@@ -1377,7 +1394,7 @@
                             <div class="row">
                                 <label>Населення НП (Р):
                                     <span class="tooltip-trigger"
-                                        data-tooltip="Чисельність населення населеного пункту в тисячах осіб.">i</span>
+                                        data-tooltip="Чисельність населення населеного пункту в тисячах осіб.">i</span><span class="field-warning-icon" id="warning_gp_pop"></span>
                                 </label>
                                 <div class="number-shell has-stepper real">
                                     <input class="control number-input" id="gp_pop" type="number" value="15.0"
@@ -1545,7 +1562,7 @@
                             <div class="row">
                                 <label>Площа території ДПТ:
                                     <span class="tooltip-trigger"
-                                        data-tooltip="Основний показник об'єкта (Р) в гектарах (га).">i</span>
+                                        data-tooltip="Основний показник об'єкта (Р) в гектарах (га).">i</span><span class="field-warning-icon" id="warning_dp_area"></span>
                                 </label>
                                 <div class="number-shell has-stepper real">
                                     <input class="control number-input" id="dp_area" type="number" value="45.0"
@@ -1850,23 +1867,19 @@
                                 <use href="#i-copy"></use>
                             </svg>
                         </button>
-                        <button class="btn icon danger" id="clearBtn" type="button" title="Очистити все"
-                            aria-label="Очистити все">
-                            <svg class="icon">
-                                <use href="#i-trash"></use>
-                            </svg>
-                        </button>
-                        <button class="btn icon" id="pdfResultBtnBottom" type="button" title="Звіт в PDF"
+                        <button class="btn" id="pdfResultBtnBottom" type="button" title="Звіт в PDF"
                             aria-label="Звіт в PDF">
                             <svg class="icon">
                                 <use href="#i-pdf"></use>
                             </svg>
+                            <span class="btn-text">Друк/PDF</span>
                         </button>
-                        <button class="btn icon" id="excelResultBtnBottom" type="button" title="Зберегти в Excel (xlsx)"
+                        <button class="btn" id="excelResultBtnBottom" type="button" title="Зберегти в Excel (xlsx)"
                             aria-label="Зберегти в Excel (xlsx)">
                             <svg class="icon">
                                 <use href="#i-table"></use>
                             </svg>
+                            <span class="btn-text">Ексель</span>
                         </button>
                         <button class="btn icon" id="shareResultBtnBottom" type="button" title="Поділитись посиланням"
                             aria-label="Поділитись посиланням">
@@ -1904,13 +1917,145 @@
         </main>
 
         <div class="footer-note">
-            Розроблено відповідно до проекту <a
-                href="knowledgebase/%D0%9C%D1%96%D0%BD%D1%96%D1%81%D1%82%D0%B5%D1%80%D1%81%D1%82%D0%B2%D0%BE%20%D1%80%D0%B5%D0%B3%D1%96%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D0%B3%D0%BE%20%D1%80%D0%BE%D0%B7%D0%B2%D0%B8%D1%82%D0%BA%D1%83,%20%D0%B1%D1%83%D0%B4%D1%96%D0%B2%D0%BD%D0%B8%D1%86%D1%82%D0%B2%D0%B0%20%D1%82%D0%B0.pdf"
-                target="_blank">Настанови з визначення вартості містобудівної документації</a> Мінрегіону України.<br>
+            Розроблено відповідно до проекту <a href="#" class="doc-link" data-target="section-1">Настанови з визначення вартості містобудівної документації</a> Мінрегіону України.<br>
             Всі розрахунки є орієнтовними та базуються на офіційних коефіцієнтах з використанням інтерполяції та
             експертизи.
         </div>
     </div>
+    </div> <!-- Close main-viewport -->
+
+    <!-- Side Panel for Guidebook -->
+    <aside class="side-panel" id="sidePanel" aria-label="Довідник">
+        <div class="side-panel-resizer" id="sidePanelResizer"></div>
+        <div class="side-panel-header">
+            <h2>Довідник: Настанова</h2>
+            <div style="display: flex; gap: 8px; align-items: center;">
+                <a href="knowledgebase/%D0%9C%D1%96%D0%BD%D1%96%D1%81%D1%82%D0%B5%D1%80%D1%81%D1%82%D0%B2%D0%BE%20%D1%80%D0%B5%D0%B3%D1%96%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D0%B3%D0%BE%20%D1%80%D0%BE%D0%B7%D0%B2%D0%B8%D1%82%D0%BA%D1%83,%20%D0%B1%D1%83%D0%B4%D1%96%D0%B2%D0%BD%D0%B8%D1%86%D1%82%D0%B2%D0%B0%20%D1%82%D0%B0.pdf" 
+                   class="btn icon" 
+                   download 
+                   title="Завантажити оригінальний PDF" 
+                   aria-label="Завантажити PDF">
+                    <svg class="icon">
+                        <use href="#i-download"></use>
+                    </svg>
+                </a>
+                <button class="btn icon close-btn" id="closePanelBtn" type="button" title="Закрити панель" aria-label="Закрити панель">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="side-panel-body">
+            <zero-md id="zeroMdDoc" src="knowledgebase/Міністерство регіонального розвитку, будівництва та.md">
+                <template data-append>
+                    <style>
+                        :host {
+                            display: block;
+                            font-family: Inter, system-ui, -apple-system, sans-serif;
+                            color: var(--text);
+                            color-scheme: var(--color-scheme, light) !important;
+                        }
+                        .katex-mathml {
+                            display: none !important;
+                        }
+                        .markdown-body {
+                            padding: 18px;
+                            font-size: 14px;
+                            line-height: 1.5;
+                            background-color: var(--panel) !important;
+                            color: var(--text) !important;
+                            color-scheme: var(--color-scheme, light) !important;
+                            --color-fg-default: var(--text) !important;
+                            --color-canvas-default: var(--panel) !important;
+                            --color-canvas-subtle: var(--panel-soft) !important;
+                            --color-border-default: var(--line) !important;
+                            --color-border-muted: var(--line) !important;
+                            --color-fg-muted: var(--muted) !important;
+                            --color-accent-fg: var(--real-text) !important;
+                        }
+                        h1, h2, h3, h4 {
+                            color: var(--text);
+                            border-bottom: 1px solid var(--line);
+                            padding-bottom: 6px;
+                            margin-top: 24px;
+                            margin-bottom: 12px;
+                        }
+                        h1 { font-size: 1.6em; }
+                        h2 { font-size: 1.35em; }
+                        h3 { font-size: 1.15em; }
+                        table {
+                            display: block;
+                            width: 100%;
+                            overflow-x: auto;
+                            border-collapse: collapse;
+                            margin-top: 12px;
+                            margin-bottom: 16px;
+                            font-size: 12.5px;
+                            -webkit-overflow-scrolling: touch;
+                            color-scheme: var(--color-scheme, light) !important;
+                        }
+                        table, tr, td {
+                            background-color: transparent !important;
+                            color: var(--text) !important;
+                        }
+                        tr:nth-child(2n) {
+                            background-color: var(--panel-soft) !important;
+                        }
+                        th, td {
+                            border: 1px solid var(--line-strong) !important;
+                            padding: 8px 10px;
+                            text-align: left;
+                            color: var(--text) !important;
+                        }
+                        th {
+                            background-color: var(--hover) !important;
+                            font-weight: 600;
+                        }
+                        blockquote {
+                            margin: 12px 0;
+                            padding: 8px 16px;
+                            background-color: var(--panel-soft) !important;
+                            border-left: 4px solid var(--line-strong) !important;
+                            color: var(--muted) !important;
+                        }
+                        code, pre {
+                            background-color: var(--panel-soft) !important;
+                            color: var(--text) !important;
+                        }
+                        .katex-display {
+                            overflow-x: auto;
+                            overflow-y: hidden;
+                            padding: 8px 0;
+                        }
+                        a {
+                            color: var(--real-text);
+                            text-decoration: none;
+                        }
+                        a:hover {
+                            text-decoration: underline;
+                        }
+                        @keyframes highlight-flash {
+                            0% {
+                                background-color: rgba(253, 224, 71, 0.45);
+                                box-shadow: 0 0 10px rgba(253, 224, 71, 0.55);
+                            }
+                            100% {
+                                background-color: transparent;
+                                box-shadow: none;
+                            }
+                        }
+                        .highlight-target {
+                            animation: highlight-flash 2.2s ease-out forwards;
+                            border-radius: 4px;
+                        }
+                    </style>
+                </template>
+            </zero-md>
+        </div>
+    </aside>
+    </div> <!-- Close layout-wrapper -->
 
     <!-- Toast notification box -->
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
