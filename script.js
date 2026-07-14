@@ -1446,6 +1446,9 @@ function calc() {
                 <span class="result-sub-label">Вартість розроблення (без ПДВ):</span>
                 <span class="result-value real">${formatCurrency(finalDocCost)}</span>
             </div>
+            <div style="margin-top: 10px; padding: 10px 12px; background: var(--drawing-bg); border: 1px solid var(--drawing-line); border-radius: var(--radius-sm); color: var(--drawing-text); font-size: 12px; line-height: 1.4;">
+                <strong>Зверніть увагу:</strong> Відповідно до Настанови, вартість розроблення генерального плану визначається за Таблицею 5-3 на основі чисельності населення без окремого розрахунку вартості містобудівної та землевпорядної частини.
+            </div>
         `;
 
     } else if (docType === "localDetailedPlan") {
