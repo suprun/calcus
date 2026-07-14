@@ -1251,7 +1251,7 @@ function calc() {
             hasAlert = true;
             alertText = "Помилка розрахунку: Населення всієї громади (Табл. 6-1) не може бути меншим за населення адміністративного центру (Табл. 5-3)! Будь ласка, скоригуйте значення.";
             warningFieldId = "cp_pop_center";
-            
+
             html = `
                 <div style="margin: 10px 0; padding: 12px; background: var(--error-bg, #fef2f2); border: 1px solid var(--error, #dc2626); border-radius: var(--radius-sm); color: var(--error-text, #991b1b); font-size: 13px; font-weight: 600; line-height: 1.4;">
                     ${alertText}
@@ -1259,7 +1259,7 @@ function calc() {
             `;
             output.innerHTML = linkifyReferences(html);
             outputBottom.innerHTML = linkifyReferences(html);
-            
+
             const errorHtml = `Помилка <span class="result-value real result-nowrap" style="color: #dc2626;">розрахунку</span>`;
             resultMain.innerHTML = errorHtml;
             resultMainBottom.innerHTML = errorHtml;
@@ -1867,15 +1867,15 @@ function exportToExcel() {
         data.push(["Містобудівна складова:", calcResult.mistCost]);
         data.push(["Землевпорядна складова:", calcResult.landCost]);
     }
-    
+
     // Сума проектування без експертизи та ПДВ
     data.push(["Вартість розроблення документації (без ПДВ):", calcResult.mistCost + calcResult.landCost]);
-    
+
     data.push(["Проведення експертизи:", calcResult.expCost > 0 ? calcResult.expCost : "не проводиться"]);
     if (calcResult.useVat) {
         data.push(["ПДВ (20%):", calcResult.vatSum]);
     }
-    data.push(["ВСЬОГО (з урахуванням ПДВ та експертизи):", calcResult.totalWithVat]);
+    data.push(["ВСЬОГО:", calcResult.totalWithVat]);
 
     if (calcResult.alertText) {
         data.push(["", ""]);
@@ -2070,7 +2070,7 @@ function generatePrintReport() {
         `;
     }
     html += `
-        <tr class="grand-total"><td><b>ВСЬОГО (з урахуванням ПДВ та експертизи):</b></td><td style="text-align: right;"><b>${formatCurrency(calcResult.totalWithVat)}</b></td></tr>
+        <tr class="grand-total"><td><b>ВСЬОГО:</b></td><td style="text-align: right;"><b>${formatCurrency(calcResult.totalWithVat)}</b></td></tr>
                 </tbody>
             </table>
         </div>
@@ -2094,15 +2094,15 @@ function generatePrintReport() {
 
 function linkifyReferences(html) {
     if (!html) return html;
-    
+
     // Regex safely matches HTML tags OR reference patterns to avoid altering attribute values:
     // Group 1: HTML tag
     // Group 2: Table number X-Y (e.g. 5-1, 6-3)
     // Group 3, 4, 5: Paragraph (Cyrillic word boundary prefix, paragraph prefix and number, e.g. п. 2.3)
     // Group 6, 7, 8: Section (Cyrillic word boundary prefix, section prefix and roman/digit number, e.g. розділ 2)
     const regex = /(<[^>]+>)|(\b\d+[-–]\d+\b)|(^|[^a-zа-яёіїєґ])(п\.|пункті|пункт[а-я]*|пп\.)\s*(\d+\.\d+)(?![a-zа-яёіїєґ])|(^|[^a-zа-яёіїєґ])(розділ[а-я]*)\s*([IVXLCDMІі\d]+)(?![a-zа-яёіїєґ])/gi;
-    
-    return html.replace(regex, function(match, g1, g2, g3, g4, g5, g6, g7, g8) {
+
+    return html.replace(regex, function (match, g1, g2, g3, g4, g5, g6, g7, g8) {
         if (g1) {
             // HTML tag - return unchanged
             return g1;
@@ -2127,7 +2127,7 @@ function linkifyReferences(html) {
             else if (val === 'IV' || val === '4') target = 'section-4';
             else if (val === 'V' || val === '5') target = 'section-5';
             else if (val === 'VІ' || val === 'VI' || val === '6') target = 'section-6';
-            
+
             if (target) {
                 return `${g6}${g7} <span class="doc-link" data-target="${target}">${g8}</span>`;
             }
@@ -2138,8 +2138,9 @@ function linkifyReferences(html) {
 }
 
 function openGuidebookTo(targetId) {
+    const wasOpen = document.body.classList.contains('panel-open');
     document.body.classList.add('panel-open');
-    
+
     // Reset horizontal scroll inside the side-panel-body container
     const panelBody = document.querySelector('.side-panel-body');
     if (panelBody) {
@@ -2148,10 +2149,10 @@ function openGuidebookTo(targetId) {
             panelBody.scrollTo({ top: 0, behavior: 'smooth' });
         }
     }
-    
+
     const zeroMd = document.getElementById('zeroMdDoc');
     if (!zeroMd) return;
-    
+
     if (targetId === 'top') {
         const doReset = () => {
             const shadow = zeroMd.shadowRoot;
@@ -2168,17 +2169,27 @@ function openGuidebookTo(targetId) {
             });
         };
         if (zeroMd.shadowRoot && zeroMd.shadowRoot.querySelector('.markdown-body')) {
-            doReset();
+            if (!wasOpen) {
+                setTimeout(doReset, 350);
+            } else {
+                doReset();
+            }
         } else {
-            zeroMd.addEventListener('zero-md-rendered', doReset, { once: true });
+            zeroMd.addEventListener('zero-md-rendered', () => {
+                if (!wasOpen) {
+                    setTimeout(doReset, 350);
+                } else {
+                    doReset();
+                }
+            }, { once: true });
         }
         return;
     }
-    
+
     const doScroll = () => {
         const shadow = zeroMd.shadowRoot;
         if (!shadow) return;
-        
+
         // Reset horizontal scroll inside shadow DOM markdown container and tables
         const mdBody = shadow.querySelector('.markdown-body');
         if (mdBody) {
@@ -2187,7 +2198,7 @@ function openGuidebookTo(targetId) {
         shadow.querySelectorAll('table').forEach(tbl => {
             tbl.scrollLeft = 0;
         });
-        
+
         // Find anchor by id or name inside zero-md shadowRoot
         const target = shadow.querySelector(`#${targetId}`) || shadow.querySelector(`a[name="${targetId}"]`) || shadow.querySelector(`[id="${targetId}"]`);
         if (target) {
@@ -2195,16 +2206,16 @@ function openGuidebookTo(targetId) {
             shadow.querySelectorAll('.highlight-target').forEach(el => {
                 el.classList.remove('highlight-target');
             });
-            
+
             // Perform scrolling
             target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            
+
             // Highlight sibling element if the target is an anchor tag
             let elementToHighlight = target;
             if (target.tagName === 'A' && target.nextElementSibling) {
                 elementToHighlight = target.nextElementSibling;
             }
-            
+
             // Wait for smooth scrolling to complete before flashing the highlight
             setTimeout(() => {
                 // Ensure no other highlights are active
@@ -2219,14 +2230,22 @@ function openGuidebookTo(targetId) {
             console.warn("Could not find anchor inside zero-md shadowRoot:", targetId);
         }
     };
-    
+
     // Check if zero-md content is already rendered
     if (zeroMd.shadowRoot && zeroMd.shadowRoot.querySelector('.markdown-body')) {
-        doScroll();
+        if (!wasOpen) {
+            setTimeout(doScroll, 350);
+        } else {
+            doScroll();
+        }
     } else {
         // Wait for rendering event
         zeroMd.addEventListener('zero-md-rendered', () => {
-            setTimeout(doScroll, 150);
+            if (!wasOpen) {
+                setTimeout(doScroll, 350);
+            } else {
+                setTimeout(doScroll, 150);
+            }
         }, { once: true });
     }
 }
@@ -2257,53 +2276,53 @@ function initGuidebook() {
     const closePanelBtn = document.getElementById("closePanelBtn");
     const resizer = document.getElementById("sidePanelResizer");
     const sidePanel = document.getElementById("sidePanel");
-    
+
     // Linkify static labels and headers on page load
     linkifyStaticElements();
-    
+
     // Load saved width from localStorage
     const savedWidth = localStorage.getItem('side-panel-width');
     if (savedWidth) {
         document.documentElement.style.setProperty('--side-panel-width', savedWidth + 'px');
     }
-    
+
     // Resizing logic
     if (resizer && sidePanel) {
-        resizer.addEventListener('mousedown', function(e) {
+        resizer.addEventListener('mousedown', function (e) {
             e.preventDefault();
-            
+
             const startX = e.clientX;
             const startWidth = sidePanel.getBoundingClientRect().width;
-            
+
             document.body.classList.add('is-resizing');
-            
+
             function onMouseMove(e) {
                 const currentX = e.clientX;
                 const deltaX = startX - currentX;
                 let newWidth = startWidth + deltaX;
-                
+
                 // Boundaries
                 const minWidth = 320;
                 const maxWidth = window.innerWidth - 320; // Keep at least 320px for calculator
-                
+
                 if (newWidth < minWidth) newWidth = minWidth;
                 if (newWidth > maxWidth) newWidth = maxWidth;
-                
+
                 document.documentElement.style.setProperty('--side-panel-width', newWidth + 'px');
                 localStorage.setItem('side-panel-width', newWidth);
             }
-            
+
             function onMouseUp() {
                 document.body.classList.remove('is-resizing');
                 document.removeEventListener('mousemove', onMouseMove);
                 document.removeEventListener('mouseup', onMouseUp);
             }
-            
+
             document.addEventListener('mousemove', onMouseMove);
             document.addEventListener('mouseup', onMouseUp);
         });
     }
-    
+
     if (docBtn) {
         docBtn.addEventListener('click', () => {
             const isOpen = document.body.classList.toggle('panel-open');
@@ -2312,15 +2331,15 @@ function initGuidebook() {
             }
         });
     }
-    
+
     if (closePanelBtn) {
         closePanelBtn.addEventListener('click', () => {
             document.body.classList.remove('panel-open');
         });
     }
-    
+
     // Global delegation for clicks on elements with the .doc-link class
-    document.addEventListener('click', function(e) {
+    document.addEventListener('click', function (e) {
         const docLink = e.target.closest('.doc-link');
         if (docLink) {
             e.preventDefault();
