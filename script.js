@@ -3057,6 +3057,9 @@ function prepareAndShowConfirmation(item) {
         }
         details["Кількість міських н.п. в області"] = `${item.rawData.urban_villages_count || 0} (міст/смт)`;
         details["Кількість сільських н.п. в області"] = `${item.rawData.rural_villages_count || 0} (сіл/селищ)`;
+        if (typeof item.rawData.cities100_count !== "undefined") {
+            details["Кількість міст понад 100 тис. осіб"] = item.rawData.cities100_count;
+        }
     } else if (item.type === "region") {
         const rawSquare = parseFloat(item.rawData.square);
         const areaVal = !isNaN(rawSquare) ? rawSquare / 1000 : 0;
@@ -3208,6 +3211,22 @@ function applyAdminUnit(item) {
             ruralSliderInput.value = sliderIdx;
             ruralSliderInput.dispatchEvent(new Event("input", { bubbles: true }));
             ruralSliderInput.dispatchEvent(new Event("change", { bubbles: true }));
+        }
+
+        // 6. Set cities over 100k count slider rr_f_cities100
+        const cities100Count = parseInt(item.rawData.cities100_count) || 0;
+        const cities100SliderInput = document.getElementById("rr_f_cities100");
+        if (cities100SliderInput) {
+            let sliderIdx = 0;
+            if (cities100Count === 0) sliderIdx = 0;
+            else if (cities100Count === 1) sliderIdx = 1;
+            else if (cities100Count === 2) sliderIdx = 2;
+            else if (cities100Count === 3) sliderIdx = 3;
+            else sliderIdx = 4; // >3 міст
+
+            cities100SliderInput.value = sliderIdx;
+            cities100SliderInput.dispatchEvent(new Event("input", { bubbles: true }));
+            cities100SliderInput.dispatchEvent(new Event("change", { bubbles: true }));
         }
 
     } else if (item.type === "region") {
