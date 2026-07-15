@@ -1,0 +1,4162 @@
+[
+  {
+    "city": "http://www.wikidata.org/entity/Q1899",
+    "cityLabel": "Київ",
+    "population": "2952301",
+    "area": "848"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1899",
+    "cityLabel": "Київ",
+    "population": "2952301",
+    "area": "848"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q42308",
+    "cityLabel": "Харків",
+    "population": "1421125",
+    "area": "350"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1874",
+    "cityLabel": "Одеса",
+    "population": "1010537",
+    "area": "236.9"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q48256",
+    "cityLabel": "Дніпро",
+    "population": "968502",
+    "area": "405"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q48256",
+    "cityLabel": "Дніпро",
+    "population": "968502",
+    "area": "405"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q43070",
+    "cityLabel": "Донецьк",
+    "population": "901645",
+    "area": "358"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q36036",
+    "cityLabel": "Львів",
+    "population": "717273",
+    "area": "182"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q157835",
+    "cityLabel": "Запоріжжя",
+    "population": "710052",
+    "area": "331"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q157835",
+    "cityLabel": "Запоріжжя",
+    "population": "710052",
+    "area": "331"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q157137",
+    "cityLabel": "Кривий Ріг",
+    "population": "603904",
+    "area": "410"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q157137",
+    "cityLabel": "Кривий Ріг",
+    "population": "603904",
+    "area": "410"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q157137",
+    "cityLabel": "Кривий Ріг",
+    "population": "603904",
+    "area": "410"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q7525",
+    "cityLabel": "Севастополь",
+    "population": "485386",
+    "area": "863.6"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q7525",
+    "cityLabel": "Севастополь",
+    "population": "485386",
+    "area": "863.6"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q41572",
+    "cityLabel": "Миколаїв",
+    "population": "470011",
+    "area": "253"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q134279",
+    "cityLabel": "Луганськ",
+    "population": "417990",
+    "area": "257"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q157144",
+    "cityLabel": "Вінниця",
+    "population": "369739",
+    "area": "113.2"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q157144",
+    "cityLabel": "Вінниця",
+    "population": "369739",
+    "area": "113.2"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q157134",
+    "cityLabel": "Макіївка",
+    "population": "343158",
+    "area": "426"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q157134",
+    "cityLabel": "Макіївка",
+    "population": "338968",
+    "area": "426"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q19566",
+    "cityLabel": "Сімферополь",
+    "population": "335009",
+    "area": "107"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q19566",
+    "cityLabel": "Сімферополь",
+    "population": "335009",
+    "area": "107"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q157053",
+    "cityLabel": "Чернігів",
+    "population": "286899",
+    "area": "79"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q156747",
+    "cityLabel": "Полтава",
+    "population": "283402",
+    "area": "103"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q156732",
+    "cityLabel": "Херсон",
+    "population": "279131",
+    "area": "68.7"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q156717",
+    "cityLabel": "Хмельницький",
+    "population": "274452",
+    "area": "93.05"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q157055",
+    "cityLabel": "Черкаси",
+    "population": "269836",
+    "area": "78"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q156752",
+    "cityLabel": "Суми",
+    "population": "265758",
+    "area": "145"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q157725",
+    "cityLabel": "Чернівці",
+    "population": "265471",
+    "area": "153"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q157725",
+    "cityLabel": "Чернівці",
+    "population": "265471",
+    "area": "153"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q156713",
+    "cityLabel": "Житомир",
+    "population": "261624",
+    "area": "65"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q157260",
+    "cityLabel": "Горлівка",
+    "population": "256714",
+    "area": "422"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q37133",
+    "cityLabel": "Маріуполь",
+    "population": "250000",
+    "area": "244"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q156739",
+    "cityLabel": "Рівне",
+    "population": "245289",
+    "area": "58"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q157260",
+    "cityLabel": "Горлівка",
+    "population": "239828",
+    "area": "422"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q156726",
+    "cityLabel": "Івано-Франківськ",
+    "population": "238196",
+    "area": "119"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q156726",
+    "cityLabel": "Івано-Франківськ",
+    "population": "238196",
+    "area": "119"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q156719",
+    "cityLabel": "Кам'янське",
+    "population": "226845",
+    "area": "138"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q156743",
+    "cityLabel": "Тернопіль",
+    "population": "225238",
+    "area": "59"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q158292",
+    "cityLabel": "Кропивницький",
+    "population": "219676",
+    "area": "103"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q7550",
+    "cityLabel": "Луцьк",
+    "population": "215986",
+    "area": "42"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q7550",
+    "cityLabel": "Луцьк",
+    "population": "215986",
+    "area": "42"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q7550",
+    "cityLabel": "Луцьк",
+    "population": "215986",
+    "area": "42"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q156724",
+    "cityLabel": "Кременчук",
+    "population": "215271",
+    "area": "96"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q33342",
+    "cityLabel": "Біла Церква",
+    "population": "208944",
+    "area": "67.84"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q157065",
+    "cityLabel": "Керч",
+    "population": "151103",
+    "area": "108"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q157065",
+    "cityLabel": "Керч",
+    "population": "151103",
+    "area": "108"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q33349",
+    "cityLabel": "Мелітополь",
+    "population": "148851",
+    "area": "49.66"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q33613",
+    "cityLabel": "Краматорськ",
+    "population": "147145",
+    "area": "77.36"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q33613",
+    "cityLabel": "Краматорськ",
+    "population": "147145",
+    "area": "77.36"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q612773",
+    "cityLabel": "Хрустальний",
+    "population": "124000",
+    "area": "153.56"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q156711",
+    "cityLabel": "Ужгород",
+    "population": "115449",
+    "area": "40"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q156711",
+    "cityLabel": "Ужгород",
+    "population": "115449",
+    "area": "40"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q156711",
+    "cityLabel": "Ужгород",
+    "population": "115449",
+    "area": "40"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q841026",
+    "cityLabel": "Бровари",
+    "population": "109473",
+    "area": "34"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q841026",
+    "cityLabel": "Бровари",
+    "population": "109473",
+    "area": "34"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q33292",
+    "cityLabel": "Бердянськ",
+    "population": "106311",
+    "area": "80"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q33292",
+    "cityLabel": "Бердянськ",
+    "population": "106311",
+    "area": "80"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q612773",
+    "cityLabel": "Хрустальний",
+    "population": "106000",
+    "area": "153.56"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q33345",
+    "cityLabel": "Євпаторія",
+    "population": "105549",
+    "area": "65"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q33345",
+    "cityLabel": "Євпаторія",
+    "population": "105549",
+    "area": "65"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q161144",
+    "cityLabel": "Алчевськ",
+    "population": "105398",
+    "area": "50"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q156760",
+    "cityLabel": "Нікополь",
+    "population": "105160",
+    "area": "50"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q156760",
+    "cityLabel": "Нікополь",
+    "population": "105160",
+    "area": "50"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q33581",
+    "cityLabel": "Слов'янськ",
+    "population": "105141",
+    "area": "58.9"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q33581",
+    "cityLabel": "Слов'янськ",
+    "population": "105141",
+    "area": "58.9"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q237206",
+    "cityLabel": "Павлоград",
+    "population": "101430",
+    "area": "59"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q193965",
+    "cityLabel": "Кам'янець-Подільський",
+    "population": "96896",
+    "area": "27.871"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q193965",
+    "cityLabel": "Кам'янець-Подільський",
+    "population": "96896",
+    "area": "27.871"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q33280",
+    "cityLabel": "Лисичанськ",
+    "population": "96161",
+    "area": "95.64"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q572366",
+    "cityLabel": "Довжанськ",
+    "population": "95153",
+    "area": "83.84"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146456",
+    "cityLabel": "Мукачево",
+    "population": "85569",
+    "area": "27"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q162083",
+    "cityLabel": "Конотоп",
+    "population": "83543",
+    "area": "43.78"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q162083",
+    "cityLabel": "Конотоп",
+    "population": "83543",
+    "area": "43.78"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q208499",
+    "cityLabel": "Умань",
+    "population": "82154",
+    "area": "41"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q612773",
+    "cityLabel": "Хрустальний",
+    "population": "79533",
+    "area": "153.56"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1686835",
+    "cityLabel": "Єнакієве",
+    "population": "79348",
+    "area": "42.5"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q156734",
+    "cityLabel": "Олександрія",
+    "population": "76097",
+    "area": "55"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q837093",
+    "cityLabel": "Кадіївка",
+    "population": "75745",
+    "area": "91.81"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q158821",
+    "cityLabel": "Дрогобич",
+    "population": "73682",
+    "area": "41"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q158799",
+    "cityLabel": "Бердичів",
+    "population": "73046",
+    "area": "35.33"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q165243",
+    "cityLabel": "Костянтинівка",
+    "population": "72888",
+    "area": "66"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q128499",
+    "cityLabel": "Ялта",
+    "population": "72013",
+    "area": "283"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1000454",
+    "cityLabel": "Шостка",
+    "population": "71966",
+    "area": "43.6882"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q706857",
+    "cityLabel": "Бахмут",
+    "population": "71094",
+    "area": "41.6"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q706857",
+    "cityLabel": "Бахмут",
+    "population": "71094",
+    "area": "41.6"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q147739",
+    "cityLabel": "Ізмаїл",
+    "population": "70731",
+    "area": "53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q147739",
+    "cityLabel": "Ізмаїл",
+    "population": "70731",
+    "area": "53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q147739",
+    "cityLabel": "Ізмаїл",
+    "population": "70731",
+    "area": "53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q640680",
+    "cityLabel": "Самар",
+    "population": "69855",
+    "area": "36"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146453",
+    "cityLabel": "Калуш",
+    "population": "67902",
+    "area": "64.53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146453",
+    "cityLabel": "Калуш",
+    "population": "67902",
+    "area": "64.53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146453",
+    "cityLabel": "Калуш",
+    "population": "67631",
+    "area": "64.53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146453",
+    "cityLabel": "Калуш",
+    "population": "67631",
+    "area": "64.53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146453",
+    "cityLabel": "Калуш",
+    "population": "67585",
+    "area": "64.53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146453",
+    "cityLabel": "Калуш",
+    "population": "67585",
+    "area": "64.53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q156704",
+    "cityLabel": "Ковель",
+    "population": "67575",
+    "area": "50"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q156704",
+    "cityLabel": "Ковель",
+    "population": "67575",
+    "area": "50"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146453",
+    "cityLabel": "Калуш",
+    "population": "67562",
+    "area": "64.53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146453",
+    "cityLabel": "Калуш",
+    "population": "67562",
+    "area": "64.53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146453",
+    "cityLabel": "Калуш",
+    "population": "67559",
+    "area": "64.53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146453",
+    "cityLabel": "Калуш",
+    "population": "67559",
+    "area": "64.53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146453",
+    "cityLabel": "Калуш",
+    "population": "67531",
+    "area": "64.53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146453",
+    "cityLabel": "Калуш",
+    "population": "67531",
+    "area": "64.53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146453",
+    "cityLabel": "Калуш",
+    "population": "67519",
+    "area": "64.53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146453",
+    "cityLabel": "Калуш",
+    "population": "67519",
+    "area": "64.53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146453",
+    "cityLabel": "Калуш",
+    "population": "67434",
+    "area": "64.53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146453",
+    "cityLabel": "Калуш",
+    "population": "67434",
+    "area": "64.53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146453",
+    "cityLabel": "Калуш",
+    "population": "67389",
+    "area": "64.53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146453",
+    "cityLabel": "Калуш",
+    "population": "67389",
+    "area": "64.53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146453",
+    "cityLabel": "Калуш",
+    "population": "67290",
+    "area": "64.53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146453",
+    "cityLabel": "Калуш",
+    "population": "67290",
+    "area": "64.53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146453",
+    "cityLabel": "Калуш",
+    "population": "67184",
+    "area": "64.53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146453",
+    "cityLabel": "Калуш",
+    "population": "67184",
+    "area": "64.53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146453",
+    "cityLabel": "Калуш",
+    "population": "67079",
+    "area": "64.53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146453",
+    "cityLabel": "Калуш",
+    "population": "67079",
+    "area": "64.53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q952457",
+    "cityLabel": "Ніжин",
+    "population": "66981",
+    "area": "50.5"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146453",
+    "cityLabel": "Калуш",
+    "population": "66406",
+    "area": "64.53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146453",
+    "cityLabel": "Калуш",
+    "population": "66406",
+    "area": "64.53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146453",
+    "cityLabel": "Калуш",
+    "population": "66404",
+    "area": "64.53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146453",
+    "cityLabel": "Калуш",
+    "population": "66404",
+    "area": "64.53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q158491",
+    "cityLabel": "Феодосія",
+    "population": "66293",
+    "area": "35.2"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q158491",
+    "cityLabel": "Феодосія",
+    "population": "66293",
+    "area": "35.2"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146453",
+    "cityLabel": "Калуш",
+    "population": "66140",
+    "area": "64.53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146453",
+    "cityLabel": "Калуш",
+    "population": "66140",
+    "area": "64.53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146453",
+    "cityLabel": "Калуш",
+    "population": "65814",
+    "area": "64.53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146453",
+    "cityLabel": "Калуш",
+    "population": "65814",
+    "area": "64.53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q219595",
+    "cityLabel": "Сміла",
+    "population": "65675",
+    "area": "39.85"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146453",
+    "cityLabel": "Калуш",
+    "population": "65088",
+    "area": "64.53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146453",
+    "cityLabel": "Калуш",
+    "population": "65088",
+    "area": "64.53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q156825",
+    "cityLabel": "Шептицький",
+    "population": "64297",
+    "area": "37.6"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1000446",
+    "cityLabel": "Покровськ",
+    "population": "63437",
+    "area": "39.3"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1025181",
+    "cityLabel": "Первомайськ",
+    "population": "63377",
+    "area": "25.14"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1025181",
+    "cityLabel": "Первомайськ",
+    "population": "62426",
+    "area": "25.14"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q158910",
+    "cityLabel": "Бориспіль",
+    "population": "62281",
+    "area": "37.01"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q158904",
+    "cityLabel": "Коростень",
+    "population": "61496",
+    "area": "33.851"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q52193",
+    "cityLabel": "Коломия",
+    "population": "60821",
+    "area": "40.72"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146453",
+    "cityLabel": "Калуш",
+    "population": "60153",
+    "area": "64.53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146453",
+    "cityLabel": "Калуш",
+    "population": "60153",
+    "area": "64.53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q922375",
+    "cityLabel": "Рубіжне",
+    "population": "59951",
+    "area": "34"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q158923",
+    "cityLabel": "Стрий",
+    "population": "59425",
+    "area": "16.95"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q889530",
+    "cityLabel": "Чорноморськ",
+    "population": "57983",
+    "area": "25"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q672990",
+    "cityLabel": "Білгород-Дністровський",
+    "population": "57210",
+    "area": "31"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q672990",
+    "cityLabel": "Білгород-Дністровський",
+    "population": "57210",
+    "area": "31"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q71727",
+    "cityLabel": "Ірпінь",
+    "population": "56806",
+    "area": "110.83"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1003757",
+    "cityLabel": "Харцизьк",
+    "population": "56182",
+    "area": "19.3"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q922375",
+    "cityLabel": "Рубіжне",
+    "population": "55247",
+    "area": "34"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q149024",
+    "cityLabel": "Звягель",
+    "population": "55086",
+    "area": "27"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q889630",
+    "cityLabel": "Лозова",
+    "population": "54026",
+    "area": "148"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q157795",
+    "cityLabel": "Дружківка",
+    "population": "53977",
+    "area": "46.53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q157795",
+    "cityLabel": "Дружківка",
+    "population": "53977",
+    "area": "46.53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q157795",
+    "cityLabel": "Дружківка",
+    "population": "53977",
+    "area": "46.53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q162084",
+    "cityLabel": "Чистякове",
+    "population": "53462",
+    "area": "105.8"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q162084",
+    "cityLabel": "Чистякове",
+    "population": "53462",
+    "area": "105.8"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1000404",
+    "cityLabel": "Прилуки",
+    "population": "53395",
+    "area": "42"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q760617",
+    "cityLabel": "Енергодар",
+    "population": "52237",
+    "area": "635"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q609028",
+    "cityLabel": "Антрацит",
+    "population": "52150",
+    "area": "33"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q45872",
+    "cityLabel": "Мирноград",
+    "population": "50360",
+    "area": "22.75"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q998227",
+    "cityLabel": "Горішні Плавні",
+    "population": "49854",
+    "area": "110.968"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q591719",
+    "cityLabel": "Нововолинськ",
+    "population": "49772",
+    "area": "17"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q591719",
+    "cityLabel": "Нововолинськ",
+    "population": "49772",
+    "area": "17"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q29756",
+    "cityLabel": "Шахтарськ",
+    "population": "49482",
+    "area": "42.22"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q672990",
+    "cityLabel": "Білгород-Дністровський",
+    "population": "47727",
+    "area": "31"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q672990",
+    "cityLabel": "Білгород-Дністровський",
+    "population": "47727",
+    "area": "31"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1749424",
+    "cityLabel": "Сніжне",
+    "population": "47259",
+    "area": "18.9"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1012631",
+    "cityLabel": "Ровеньки",
+    "population": "46734",
+    "area": "21.708"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1013471",
+    "cityLabel": "Охтирка",
+    "population": "46660",
+    "area": "31.86"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q161984",
+    "cityLabel": "Фастів",
+    "population": "45907",
+    "area": "43"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q544003",
+    "cityLabel": "Ізюм",
+    "population": "45884",
+    "area": "436"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1011435",
+    "cityLabel": "Світловодськ",
+    "population": "45312",
+    "area": "45"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q987491",
+    "cityLabel": "Нова Каховка",
+    "population": "45069",
+    "area": "22.7"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1659768",
+    "cityLabel": "Брянка",
+    "population": "44987",
+    "area": "63.54"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q610813",
+    "cityLabel": "Марганець",
+    "population": "44980",
+    "area": "37"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q269517",
+    "cityLabel": "Лубни",
+    "population": "44089",
+    "area": "45.6"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q158053",
+    "cityLabel": "Сорокине",
+    "population": "43683",
+    "area": "77.33"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q639054",
+    "cityLabel": "Жовті Води",
+    "population": "42052",
+    "area": "33.25"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997541",
+    "cityLabel": "Вараш",
+    "population": "41711",
+    "area": "11.3"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997440",
+    "cityLabel": "Вишневе",
+    "population": "40919",
+    "area": "25.2"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146453",
+    "cityLabel": "Калуш",
+    "population": "40728",
+    "area": "64.53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146453",
+    "cityLabel": "Калуш",
+    "population": "40728",
+    "area": "64.53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q161965",
+    "cityLabel": "Шепетівка",
+    "population": "40299",
+    "area": "40"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q889588",
+    "cityLabel": "Подільськ",
+    "population": "40155",
+    "area": "25.4"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q160584",
+    "cityLabel": "Сіверськодонецьк",
+    "population": "40000",
+    "area": "42.1"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997440",
+    "cityLabel": "Вишневе",
+    "population": "39900",
+    "area": "25.2"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1013568",
+    "cityLabel": "Південноукраїнськ",
+    "population": "39048",
+    "area": "24.38"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1844446",
+    "cityLabel": "Сокологірськ",
+    "population": "38801",
+    "area": "88.54"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q33544",
+    "cityLabel": "Володимир",
+    "population": "37910",
+    "area": "16.05"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q33544",
+    "cityLabel": "Володимир",
+    "population": "37910",
+    "area": "16.05"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q161961",
+    "cityLabel": "Миргород",
+    "population": "37886",
+    "area": "19"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q161994",
+    "cityLabel": "Ромни",
+    "population": "37765",
+    "area": "65"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997421",
+    "cityLabel": "Васильків",
+    "population": "37696",
+    "area": "29.6"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q932184",
+    "cityLabel": "Дубно",
+    "population": "37545",
+    "area": "27.04"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q639476",
+    "cityLabel": "Покров",
+    "population": "37493",
+    "area": "26"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q161978",
+    "cityLabel": "Джанкой",
+    "population": "37014",
+    "area": "26"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1013474",
+    "cityLabel": "Буча",
+    "population": "36971",
+    "area": "10.55"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997371",
+    "cityLabel": "Нетішин",
+    "population": "36921",
+    "area": "65.92"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2234599",
+    "cityLabel": "Голубівка",
+    "population": "36388",
+    "area": "34.96"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q995152",
+    "cityLabel": "Каховка",
+    "population": "35900",
+    "area": "38.3"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q891175",
+    "cityLabel": "Боярка",
+    "population": "35411",
+    "area": "13"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q156593",
+    "cityLabel": "Самбір",
+    "population": "34444",
+    "area": "24"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1020077",
+    "cityLabel": "Ясинувата",
+    "population": "34144",
+    "area": "19"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1020077",
+    "cityLabel": "Ясинувата",
+    "population": "34144",
+    "area": "19"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q615451",
+    "cityLabel": "Вознесенськ",
+    "population": "34050",
+    "area": "2256"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997429",
+    "cityLabel": "Старокостянтинів",
+    "population": "33921",
+    "area": "40"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q956117",
+    "cityLabel": "Жмеринка",
+    "population": "33754",
+    "area": "18.26"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q956117",
+    "cityLabel": "Жмеринка",
+    "population": "33754",
+    "area": "18.26"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1011303",
+    "cityLabel": "Обухів",
+    "population": "33204",
+    "area": "2.28"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q586710",
+    "cityLabel": "Південне",
+    "population": "32745",
+    "area": "1042"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q157525",
+    "cityLabel": "Борислав",
+    "population": "32473",
+    "area": "37"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q791673",
+    "cityLabel": "Авдіївка",
+    "population": "31940",
+    "area": "29"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q864827",
+    "cityLabel": "Глухів",
+    "population": "31789",
+    "area": "83.74"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q148985",
+    "cityLabel": "Костопіль",
+    "population": "31463",
+    "area": "63.73"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q46001",
+    "cityLabel": "Алушта",
+    "population": "31364",
+    "area": "6.983"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q889618",
+    "cityLabel": "Чугуїв",
+    "population": "31018",
+    "area": "12.8"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2416525",
+    "cityLabel": "Торецьк",
+    "population": "30914",
+    "area": "22.6"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1025851",
+    "cityLabel": "Новояворівськ",
+    "population": "30723",
+    "area": "2.03"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997469",
+    "cityLabel": "Могилів-Подільський",
+    "population": "29925",
+    "area": "21.63"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997469",
+    "cityLabel": "Могилів-Подільський",
+    "population": "29925",
+    "area": "21.63"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1004257",
+    "cityLabel": "Вишгород",
+    "population": "29913",
+    "area": "11.4"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q640798",
+    "cityLabel": "Синельникове",
+    "population": "29651",
+    "area": "23.41"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q760235",
+    "cityLabel": "Токмак",
+    "population": "29573",
+    "area": "32.46"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q760235",
+    "cityLabel": "Токмак",
+    "population": "29573",
+    "area": "32.46"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q148473",
+    "cityLabel": "Чортків",
+    "population": "29053",
+    "area": "30"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q889579",
+    "cityLabel": "Златопіль",
+    "population": "28986",
+    "area": "9"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q986263",
+    "cityLabel": "Балаклія",
+    "population": "28868",
+    "area": "162.68"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2415973",
+    "cityLabel": "Добропілля",
+    "population": "28757",
+    "area": "11.89"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2415973",
+    "cityLabel": "Добропілля",
+    "population": "28757",
+    "area": "11.89"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997512",
+    "cityLabel": "Сарни",
+    "population": "28626",
+    "area": "21.15"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q158604",
+    "cityLabel": "Бахчисарай",
+    "population": "28609",
+    "area": "55"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q157440",
+    "cityLabel": "Трускавець",
+    "population": "28287",
+    "area": "70"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2496758",
+    "cityLabel": "Хрестівка",
+    "population": "28149",
+    "area": "7.25"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146469",
+    "cityLabel": "Хуст",
+    "population": "28039",
+    "area": "20.7"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q156809",
+    "cityLabel": "Новий Розділ",
+    "population": "27841",
+    "area": "22"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q219769",
+    "cityLabel": "Золотоноша",
+    "population": "27206",
+    "area": "2165"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q889555",
+    "cityLabel": "Куп'янськ",
+    "population": "27169",
+    "area": "33.4"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q604607",
+    "cityLabel": "Шахтарське",
+    "population": "27099",
+    "area": "2.9"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q639839",
+    "cityLabel": "Переяслав",
+    "population": "27088",
+    "area": "32"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q639839",
+    "cityLabel": "Переяслав",
+    "population": "27088",
+    "area": "32"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q574421",
+    "cityLabel": "Тернівка",
+    "population": "26961",
+    "area": "17.61"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1011310",
+    "cityLabel": "Хмільник",
+    "population": "26916",
+    "area": "20.5"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1011310",
+    "cityLabel": "Хмільник",
+    "population": "26916",
+    "area": "20.5"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1011310",
+    "cityLabel": "Хмільник",
+    "population": "26916",
+    "area": "20.5"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2354490",
+    "cityLabel": "Перевальськ",
+    "population": "26132",
+    "area": "30.48"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q574553",
+    "cityLabel": "Гайсин",
+    "population": "25698",
+    "area": "18.26"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q574553",
+    "cityLabel": "Гайсин",
+    "population": "25698",
+    "area": "18.26"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q161987",
+    "cityLabel": "Яни Капу",
+    "population": "25569",
+    "area": "22"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q752334",
+    "cityLabel": "Виноградів",
+    "population": "25317",
+    "area": "32.09"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q148997",
+    "cityLabel": "Малин",
+    "population": "25172",
+    "area": "60.92"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q70231",
+    "cityLabel": "Славутич",
+    "population": "25030",
+    "area": "20.82"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q207105",
+    "cityLabel": "Олешки",
+    "population": "24639",
+    "area": "60.5"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1104773",
+    "cityLabel": "Вовчанськ",
+    "population": "24375",
+    "area": "70.3"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1104773",
+    "cityLabel": "Вовчанськ",
+    "population": "24375",
+    "area": "70.3"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q161970",
+    "cityLabel": "Саки",
+    "population": "24285",
+    "area": "29"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q476688",
+    "cityLabel": "Лебедин",
+    "population": "24238",
+    "area": "16.7"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q476688",
+    "cityLabel": "Лебедин",
+    "population": "24238",
+    "area": "16.7"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2371760",
+    "cityLabel": "Дебальцеве",
+    "population": "24209",
+    "area": "24.31"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q149190",
+    "cityLabel": "Коростишів",
+    "population": "24129",
+    "area": "9.74"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q207105",
+    "cityLabel": "Олешки",
+    "population": "24124",
+    "area": "60.5"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q623594",
+    "cityLabel": "Золочів",
+    "population": "23986",
+    "area": "11.64"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q925340",
+    "cityLabel": "Канів",
+    "population": "23503",
+    "area": "1742"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q465104",
+    "cityLabel": "Броди",
+    "population": "23454",
+    "area": "8.67"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146497",
+    "cityLabel": "Берегове",
+    "population": "23325",
+    "area": "19"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2238005",
+    "cityLabel": "Отаманівка",
+    "population": "22937",
+    "area": "28.8"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q592145",
+    "cityLabel": "Знам'янка",
+    "population": "22936",
+    "area": "15"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2416554",
+    "cityLabel": "Докучаєвськ",
+    "population": "22907",
+    "area": "11.9"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q268638",
+    "cityLabel": "Гадяч",
+    "population": "22851",
+    "area": "17.78"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q156820",
+    "cityLabel": "Надвірна",
+    "population": "22504",
+    "area": "25.53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1020083",
+    "cityLabel": "Ладижин",
+    "population": "22459",
+    "area": "90"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1020083",
+    "cityLabel": "Ладижин",
+    "population": "22459",
+    "area": "90"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1020083",
+    "cityLabel": "Ладижин",
+    "population": "22459",
+    "area": "90"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2234641",
+    "cityLabel": "Лиман",
+    "population": "22315",
+    "area": "18.2"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q369383",
+    "cityLabel": "Козятин",
+    "population": "22241",
+    "area": "10"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q369383",
+    "cityLabel": "Козятин",
+    "population": "22241",
+    "area": "10"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q369383",
+    "cityLabel": "Козятин",
+    "population": "22241",
+    "area": "10"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1104773",
+    "cityLabel": "Вовчанськ",
+    "population": "22210",
+    "area": "70.3"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1104773",
+    "cityLabel": "Вовчанськ",
+    "population": "22210",
+    "area": "70.3"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2235501",
+    "cityLabel": "Кролевець",
+    "population": "22111",
+    "area": "21.57"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2235501",
+    "cityLabel": "Кролевець",
+    "population": "22111",
+    "area": "31.54"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q577225",
+    "cityLabel": "Вільногірськ",
+    "population": "22079",
+    "area": "10"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1019408",
+    "cityLabel": "Мерефа",
+    "population": "21794",
+    "area": "71.37"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q669688",
+    "cityLabel": "Скадовськ",
+    "population": "21600",
+    "area": "143"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q951436",
+    "cityLabel": "Селидове",
+    "population": "21521",
+    "area": "10.8"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q951436",
+    "cityLabel": "Селидове",
+    "population": "21521",
+    "area": "10.8"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q951436",
+    "cityLabel": "Селидове",
+    "population": "21521",
+    "area": "10.8"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1019408",
+    "cityLabel": "Мерефа",
+    "population": "21421",
+    "area": "71.37"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2354470",
+    "cityLabel": "Суходільськ",
+    "population": "21324",
+    "area": "9.93"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q3562943",
+    "cityLabel": "Волноваха",
+    "population": "21166",
+    "area": "21"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q3562943",
+    "cityLabel": "Волноваха",
+    "population": "21166",
+    "area": "21"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1000927",
+    "cityLabel": "Сокаль",
+    "population": "20986",
+    "area": "8.47"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q110668",
+    "cityLabel": "Стебник",
+    "population": "20935",
+    "area": "8.9"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q110668",
+    "cityLabel": "Стебник",
+    "population": "20888",
+    "area": "8.9"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q889542",
+    "cityLabel": "Люботин",
+    "population": "20887",
+    "area": "31.1"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q110668",
+    "cityLabel": "Стебник",
+    "population": "20858",
+    "area": "8.9"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1104773",
+    "cityLabel": "Вовчанськ",
+    "population": "20836",
+    "area": "70.3"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1104773",
+    "cityLabel": "Вовчанськ",
+    "population": "20836",
+    "area": "70.3"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q110668",
+    "cityLabel": "Стебник",
+    "population": "20784",
+    "area": "8.9"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q849116",
+    "cityLabel": "Кременець",
+    "population": "20674",
+    "area": "20.76"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q849116",
+    "cityLabel": "Кременець",
+    "population": "20674",
+    "area": "20.76"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q110668",
+    "cityLabel": "Стебник",
+    "population": "20645",
+    "area": "8.9"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1104773",
+    "cityLabel": "Вовчанськ",
+    "population": "20592",
+    "area": "70.3"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1104773",
+    "cityLabel": "Вовчанськ",
+    "population": "20592",
+    "area": "70.3"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q110668",
+    "cityLabel": "Стебник",
+    "population": "20511",
+    "area": "8.9"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1104773",
+    "cityLabel": "Вовчанськ",
+    "population": "20435",
+    "area": "70.3"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1104773",
+    "cityLabel": "Вовчанськ",
+    "population": "20435",
+    "area": "70.3"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q157472",
+    "cityLabel": "Долина",
+    "population": "20417",
+    "area": "27"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q110668",
+    "cityLabel": "Стебник",
+    "population": "20398",
+    "area": "8.9"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q110668",
+    "cityLabel": "Стебник",
+    "population": "20200",
+    "area": "8.9"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997351",
+    "cityLabel": "Полонне",
+    "population": "20172",
+    "area": "2353"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1104739",
+    "cityLabel": "Берестин",
+    "population": "20013",
+    "area": "13.55"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q606706",
+    "cityLabel": "Тростянець",
+    "population": "19985",
+    "area": "23.8"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q805554",
+    "cityLabel": "Балта",
+    "population": "19353",
+    "area": "22.79"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q591822",
+    "cityLabel": "Долинська",
+    "population": "19287",
+    "area": "1213"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q761130",
+    "cityLabel": "Генічеськ",
+    "population": "19253",
+    "area": "6"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q639442",
+    "cityLabel": "Підгороднє",
+    "population": "19138",
+    "area": "35.5"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997412",
+    "cityLabel": "Винники",
+    "population": "19037",
+    "area": "6.7"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997434",
+    "cityLabel": "Яготин",
+    "population": "18995",
+    "area": "57.5"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q987345",
+    "cityLabel": "Старобільськ",
+    "population": "18796",
+    "area": "13.32"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1104773",
+    "cityLabel": "Вовчанськ",
+    "population": "18644",
+    "area": "70.3"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1104773",
+    "cityLabel": "Вовчанськ",
+    "population": "18644",
+    "area": "70.3"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1020122",
+    "cityLabel": "Калинівка",
+    "population": "18492",
+    "area": "9.88"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1020122",
+    "cityLabel": "Калинівка",
+    "population": "18492",
+    "area": "9.88"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q149144",
+    "cityLabel": "Бахмач",
+    "population": "18441",
+    "area": "189"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2350295",
+    "cityLabel": "Кремінна",
+    "population": "18417",
+    "area": "15.72"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2414524",
+    "cityLabel": "Сватове",
+    "population": "18417",
+    "area": "27"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1996358",
+    "cityLabel": "Амвросіївка",
+    "population": "18413",
+    "area": "19.4"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1996358",
+    "cityLabel": "Амвросіївка",
+    "population": "18413",
+    "area": "19.4"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1020096",
+    "cityLabel": "Красилів",
+    "population": "18356",
+    "area": "28.31"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q219762",
+    "cityLabel": "Волочиськ",
+    "population": "18295",
+    "area": "14.61"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q640661",
+    "cityLabel": "П'ятихатки",
+    "population": "18140",
+    "area": "18.38"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q368856",
+    "cityLabel": "Пологи",
+    "population": "18111",
+    "area": "16"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2415989",
+    "cityLabel": "Лутугине",
+    "population": "18107",
+    "area": "5"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q669778",
+    "cityLabel": "Зугрес",
+    "population": "18024",
+    "area": "14.5"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q669778",
+    "cityLabel": "Зугрес",
+    "population": "18024",
+    "area": "14.5"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q737634",
+    "cityLabel": "Роздільна",
+    "population": "18015",
+    "area": "7.207"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q669688",
+    "cityLabel": "Скадовськ",
+    "population": "18000",
+    "area": "143"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q841029",
+    "cityLabel": "Ізяслав",
+    "population": "18000",
+    "area": "23.91"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q737634",
+    "cityLabel": "Роздільна",
+    "population": "17995",
+    "area": "7.207"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1104773",
+    "cityLabel": "Вовчанськ",
+    "population": "17942",
+    "area": "70.3"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1104773",
+    "cityLabel": "Вовчанськ",
+    "population": "17942",
+    "area": "70.3"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q737634",
+    "cityLabel": "Роздільна",
+    "population": "17931",
+    "area": "7.207"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q7830",
+    "cityLabel": "Судак",
+    "population": "17834",
+    "area": "15"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q737634",
+    "cityLabel": "Роздільна",
+    "population": "17754",
+    "area": "7.207"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1104773",
+    "cityLabel": "Вовчанськ",
+    "population": "17747",
+    "area": "70.3"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1104773",
+    "cityLabel": "Вовчанськ",
+    "population": "17747",
+    "area": "70.3"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q760599",
+    "cityLabel": "Дніпрорудне",
+    "population": "17736",
+    "area": "7.43"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q890311",
+    "cityLabel": "Рені",
+    "population": "17736",
+    "area": "393.33"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q890311",
+    "cityLabel": "Рені",
+    "population": "17736",
+    "area": "393.33"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q737634",
+    "cityLabel": "Роздільна",
+    "population": "17603",
+    "area": "7.207"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q737634",
+    "cityLabel": "Роздільна",
+    "population": "17593",
+    "area": "7.207"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1104773",
+    "cityLabel": "Вовчанськ",
+    "population": "17459",
+    "area": "70.3"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1104773",
+    "cityLabel": "Вовчанськ",
+    "population": "17459",
+    "area": "70.3"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1106109",
+    "cityLabel": "Дергачі",
+    "population": "17433",
+    "area": "137.6592"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q890122",
+    "cityLabel": "Болград",
+    "population": "17400",
+    "area": "94"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q669688",
+    "cityLabel": "Скадовськ",
+    "population": "17344",
+    "area": "143"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q219766",
+    "cityLabel": "Корсунь-Шевченківський",
+    "population": "17216",
+    "area": "118.65"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q793424",
+    "cityLabel": "Бережани",
+    "population": "17139",
+    "area": "5.8"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q219836",
+    "cityLabel": "Звенигородка",
+    "population": "17078",
+    "area": "20.8"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146551",
+    "cityLabel": "Свалява",
+    "population": "17068",
+    "area": "12.584"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q841029",
+    "cityLabel": "Ізяслав",
+    "population": "16901",
+    "area": "23.91"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q145957",
+    "cityLabel": "Шпола",
+    "population": "16616",
+    "area": "61.29"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q219856",
+    "cityLabel": "Городок",
+    "population": "16516",
+    "area": "21.32"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q591863",
+    "cityLabel": "Новоукраїнка",
+    "population": "16338",
+    "area": "206"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q863330",
+    "cityLabel": "Білогірськ",
+    "population": "16298",
+    "area": "5.42"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1936339",
+    "cityLabel": "Богуслав",
+    "population": "16190",
+    "area": "71"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q930449",
+    "cityLabel": "Городок",
+    "population": "16085",
+    "area": "29.62"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q47218",
+    "cityLabel": "Українка",
+    "population": "16056",
+    "area": "5.91"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q760555",
+    "cityLabel": "Березань",
+    "population": "16047",
+    "area": "32.92"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q737634",
+    "cityLabel": "Роздільна",
+    "population": "15928",
+    "area": "7.207"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q70598",
+    "cityLabel": "Сквира",
+    "population": "15889",
+    "area": "6328"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q591896",
+    "cityLabel": "Білопілля",
+    "population": "15850",
+    "area": "12.8"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q219591",
+    "cityLabel": "Багачеве",
+    "population": "15763",
+    "area": "10.89"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997412",
+    "cityLabel": "Винники",
+    "population": "15723",
+    "area": "6.7"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q219767",
+    "cityLabel": "Дунаївці",
+    "population": "15707",
+    "area": "1.91"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q664445",
+    "cityLabel": "Вознесенівка",
+    "population": "15659",
+    "area": "6.91"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q664445",
+    "cityLabel": "Вознесенівка",
+    "population": "15659",
+    "area": "6.91"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q140671",
+    "cityLabel": "Острог",
+    "population": "15642",
+    "area": "10.9"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146510",
+    "cityLabel": "Рахів",
+    "population": "15536",
+    "area": "52.42"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q639428",
+    "cityLabel": "Верхньодніпровськ",
+    "population": "15477",
+    "area": "10"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2415345",
+    "cityLabel": "Іловайськ",
+    "population": "15447",
+    "area": "10.8"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2415345",
+    "cityLabel": "Іловайськ",
+    "population": "15447",
+    "area": "10.8"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q737925",
+    "cityLabel": "Бар",
+    "population": "15337",
+    "area": "5.95"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q737925",
+    "cityLabel": "Бар",
+    "population": "15337",
+    "area": "5.95"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q27039",
+    "cityLabel": "Овруч",
+    "population": "15250",
+    "area": "9"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q664445",
+    "cityLabel": "Вознесенівка",
+    "population": "15218",
+    "area": "6.91"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q664445",
+    "cityLabel": "Вознесенівка",
+    "population": "15218",
+    "area": "6.91"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q591896",
+    "cityLabel": "Білопілля",
+    "population": "15215",
+    "area": "12.8"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146557",
+    "cityLabel": "Бурштин",
+    "population": "15039",
+    "area": "32.71"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q889563",
+    "cityLabel": "Новий Буг",
+    "population": "15003",
+    "area": "12"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1143233",
+    "cityLabel": "Ольвія",
+    "population": "15000"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1143233",
+    "cityLabel": "Ольвія",
+    "population": "15000"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1143233",
+    "cityLabel": "Ольвія",
+    "population": "15000"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q269523",
+    "cityLabel": "Пирятин",
+    "population": "14988",
+    "area": "7.2"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q58475",
+    "cityLabel": "Миколаїв (Львівська область)",
+    "population": "14915",
+    "area": "5"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1075057",
+    "cityLabel": "Путивль",
+    "population": "14886",
+    "area": "10.51"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q889930",
+    "cityLabel": "Богодухів",
+    "population": "14882",
+    "area": "83.52"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2416423",
+    "cityLabel": "Вугледар",
+    "population": "14822",
+    "area": "5.32"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2416423",
+    "cityLabel": "Вугледар",
+    "population": "14822",
+    "area": "5.32"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q890122",
+    "cityLabel": "Болград",
+    "population": "14818",
+    "area": "94"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2415374",
+    "cityLabel": "Красногорівка",
+    "population": "14666",
+    "area": "11"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2415374",
+    "cityLabel": "Красногорівка",
+    "population": "14666",
+    "area": "11"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2351983",
+    "cityLabel": "Білозерське",
+    "population": "14634",
+    "area": "2.48"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997568",
+    "cityLabel": "Тульчин",
+    "population": "14446",
+    "area": "9.26"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997568",
+    "cityLabel": "Тульчин",
+    "population": "14446",
+    "area": "9.26"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q582033",
+    "cityLabel": "Золоте",
+    "population": "14376",
+    "area": "24.91"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q719051",
+    "cityLabel": "Арциз",
+    "population": "14355",
+    "area": "118.44"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q713225",
+    "cityLabel": "Вільнянськ",
+    "population": "14324",
+    "area": "4.2"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q376473",
+    "cityLabel": "Новогродівка",
+    "population": "14300",
+    "area": "5.55"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q147747",
+    "cityLabel": "Сторожинець",
+    "population": "14138",
+    "area": "5.8"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1106097",
+    "cityLabel": "Зміїв",
+    "population": "14071",
+    "area": "55.77"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q591848",
+    "cityLabel": "Гайворон",
+    "population": "14010",
+    "area": "11.3"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q850072",
+    "cityLabel": "Очаків",
+    "population": "13927",
+    "area": "1249"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q737634",
+    "cityLabel": "Роздільна",
+    "population": "13909",
+    "area": "7.207"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q752183",
+    "cityLabel": "Інкерман",
+    "population": "13858",
+    "area": "2"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q219770",
+    "cityLabel": "Жашків",
+    "population": "13853",
+    "area": "13"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q864836",
+    "cityLabel": "Жовква",
+    "population": "13852",
+    "area": "7.64"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146453",
+    "cityLabel": "Калуш",
+    "population": "13800",
+    "area": "64.53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146453",
+    "cityLabel": "Калуш",
+    "population": "13800",
+    "area": "64.53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q219869",
+    "cityLabel": "Городище",
+    "population": "13799",
+    "area": "21.69"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q148890",
+    "cityLabel": "Ківерці",
+    "population": "13798",
+    "area": "8.48"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q149163",
+    "cityLabel": "Радомишль",
+    "population": "13685",
+    "area": "35"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q752183",
+    "cityLabel": "Інкерман",
+    "population": "13604",
+    "area": "2"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q219593",
+    "cityLabel": "Тальне",
+    "population": "13558",
+    "area": "161"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q760224",
+    "cityLabel": "Гола Пристань",
+    "population": "13544",
+    "area": "5.26"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2415307",
+    "cityLabel": "Петрово-Красносілля",
+    "population": "13500",
+    "area": "23.23"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q570563",
+    "cityLabel": "Бунге",
+    "population": "13495",
+    "area": "9.51"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q570563",
+    "cityLabel": "Бунге",
+    "population": "13495",
+    "area": "9.51"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1020112",
+    "cityLabel": "Носівка",
+    "population": "13310",
+    "area": "26.85"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q148910",
+    "cityLabel": "Березне",
+    "population": "13285",
+    "area": "3.5"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1020091",
+    "cityLabel": "Теребовля",
+    "population": "13279",
+    "area": "1069"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997392",
+    "cityLabel": "Яворів",
+    "population": "13172",
+    "area": "23.35"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1020055",
+    "cityLabel": "Соснівка",
+    "population": "13163",
+    "area": "1.98"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1947441",
+    "cityLabel": "Кагарлик",
+    "population": "13133",
+    "area": "21.38"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997392",
+    "cityLabel": "Яворів",
+    "population": "13115",
+    "area": "23.35"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q475572",
+    "cityLabel": "Апостолове",
+    "population": "13069",
+    "area": "15.83"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997392",
+    "cityLabel": "Яворів",
+    "population": "13057",
+    "area": "23.35"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q70602",
+    "cityLabel": "Тетіїв",
+    "population": "13015",
+    "area": "13.04"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q582033",
+    "cityLabel": "Золоте",
+    "population": "13007",
+    "area": "24.91"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997392",
+    "cityLabel": "Яворів",
+    "population": "12963",
+    "area": "23.35"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997392",
+    "cityLabel": "Яворів",
+    "population": "12946",
+    "area": "23.35"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1020055",
+    "cityLabel": "Соснівка",
+    "population": "12935",
+    "area": "1.98"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997392",
+    "cityLabel": "Яворів",
+    "population": "12934",
+    "area": "23.35"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997392",
+    "cityLabel": "Яворів",
+    "population": "12888",
+    "area": "23.35"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146453",
+    "cityLabel": "Калуш",
+    "population": "12873",
+    "area": "64.53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146453",
+    "cityLabel": "Калуш",
+    "population": "12873",
+    "area": "64.53"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997392",
+    "cityLabel": "Яворів",
+    "population": "12785",
+    "area": "23.35"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q269530",
+    "cityLabel": "Хорол",
+    "population": "12720",
+    "area": "13.95"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q640713",
+    "cityLabel": "Зеленодольськ",
+    "population": "12692",
+    "area": "16.596"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q147758",
+    "cityLabel": "Новгород-Сіверський",
+    "population": "12647",
+    "area": "11.81"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q712272",
+    "cityLabel": "Василівка",
+    "population": "12567",
+    "area": "10.23"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q849109",
+    "cityLabel": "Бучач",
+    "population": "12511",
+    "area": "9.98"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q148896",
+    "cityLabel": "Рожище",
+    "population": "12483",
+    "area": "10.07"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1000461",
+    "cityLabel": "Камінь-Каширський",
+    "population": "12477",
+    "area": "7.64"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q752183",
+    "cityLabel": "Інкерман",
+    "population": "12442",
+    "area": "2"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q861873",
+    "cityLabel": "Біляївка",
+    "population": "12355",
+    "area": "17.422"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q827229",
+    "cityLabel": "Бершадь",
+    "population": "12205",
+    "area": "7.1"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q827229",
+    "cityLabel": "Бершадь",
+    "population": "12205",
+    "area": "7.1"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q149181",
+    "cityLabel": "Корюківка",
+    "population": "12202",
+    "area": "22"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2354462",
+    "cityLabel": "Боково-Хрустальне",
+    "population": "12197",
+    "area": "27.51"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q155330",
+    "cityLabel": "Гнівань",
+    "population": "12191",
+    "area": "14.75"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q155330",
+    "cityLabel": "Гнівань",
+    "population": "12191",
+    "area": "14.75"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q572899",
+    "cityLabel": "Баштанка",
+    "population": "12180",
+    "area": "7.14"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q849109",
+    "cityLabel": "Бучач",
+    "population": "12171",
+    "area": "9.98"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q70592",
+    "cityLabel": "Узин",
+    "population": "12147",
+    "area": "67"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q829317",
+    "cityLabel": "Берислав",
+    "population": "12123",
+    "area": "9.11"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q760594",
+    "cityLabel": "Кам'янка-Дніпровська",
+    "population": "12117",
+    "area": "20.65"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q70592",
+    "cityLabel": "Узин",
+    "population": "12077",
+    "area": "67"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q889549",
+    "cityLabel": "Снігурівка",
+    "population": "12045",
+    "area": "7.58"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q752183",
+    "cityLabel": "Інкерман",
+    "population": "11985",
+    "area": "2"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q752183",
+    "cityLabel": "Інкерман",
+    "population": "11921",
+    "area": "2"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2354450",
+    "cityLabel": "Жданівка",
+    "population": "11913",
+    "area": "2"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q829317",
+    "cityLabel": "Берислав",
+    "population": "11895",
+    "area": "9.11"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q752183",
+    "cityLabel": "Інкерман",
+    "population": "11884",
+    "area": "2"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q752183",
+    "cityLabel": "Інкерман",
+    "population": "11862",
+    "area": "2"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1020058",
+    "cityLabel": "Городня",
+    "population": "11852",
+    "area": "12.68"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2496842",
+    "cityLabel": "Українськ",
+    "population": "11824",
+    "area": "2.04"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2496842",
+    "cityLabel": "Українськ",
+    "population": "11824",
+    "area": "2.04"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q752183",
+    "cityLabel": "Інкерман",
+    "population": "11793",
+    "area": "2"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q148917",
+    "cityLabel": "Баранівка",
+    "population": "11765",
+    "area": "22.34"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q591896",
+    "cityLabel": "Білопілля",
+    "population": "11743",
+    "area": "12.8"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q13520833",
+    "cityLabel": "Кам'янка",
+    "population": "11741",
+    "area": "15.23"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q607203",
+    "cityLabel": "Нова Одеса",
+    "population": "11690",
+    "area": "20.65"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1025487",
+    "cityLabel": "Кальміуське",
+    "population": "11603",
+    "area": "11.9"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q269512",
+    "cityLabel": "Лохвиця",
+    "population": "11485",
+    "area": "14.92"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2235493",
+    "cityLabel": "Миронівка",
+    "population": "11478",
+    "area": "11.5"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2235493",
+    "cityLabel": "Миронівка",
+    "population": "11478",
+    "area": "11.5"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997335",
+    "cityLabel": "Немирів",
+    "population": "11421",
+    "area": "13"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997335",
+    "cityLabel": "Немирів",
+    "population": "11421",
+    "area": "13"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q391938",
+    "cityLabel": "Щастя",
+    "population": "11411",
+    "area": "16.39"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2621513",
+    "cityLabel": "Гірник",
+    "population": "11378",
+    "area": "5.1"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2493295",
+    "cityLabel": "Світлодарськ",
+    "population": "11281",
+    "area": "1.8"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1104773",
+    "cityLabel": "Вовчанськ",
+    "population": "11211",
+    "area": "70.3"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1104773",
+    "cityLabel": "Вовчанськ",
+    "population": "11211",
+    "area": "70.3"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q932248",
+    "cityLabel": "Іллінці",
+    "population": "11095",
+    "area": "5.95"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q932248",
+    "cityLabel": "Іллінці",
+    "population": "11095",
+    "area": "5.95"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1020055",
+    "cityLabel": "Соснівка",
+    "population": "11058",
+    "area": "1.98"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2353526",
+    "cityLabel": "Новоазовськ",
+    "population": "11051",
+    "area": "8"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2353526",
+    "cityLabel": "Новоазовськ",
+    "population": "11051",
+    "area": "8"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2353526",
+    "cityLabel": "Новоазовськ",
+    "population": "11051",
+    "area": "8"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1104773",
+    "cityLabel": "Вовчанськ",
+    "population": "11020",
+    "area": "70.3"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1104773",
+    "cityLabel": "Вовчанськ",
+    "population": "11020",
+    "area": "70.3"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997359",
+    "cityLabel": "Жидачів",
+    "population": "10962",
+    "area": "13.44"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q149596",
+    "cityLabel": "Мена",
+    "population": "10935",
+    "area": "9.95"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q591884",
+    "cityLabel": "Бобринець",
+    "population": "10898",
+    "area": "18.13"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q149166",
+    "cityLabel": "Бобровиця",
+    "population": "10894",
+    "area": "11.43"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1940853",
+    "cityLabel": "Сіверськ",
+    "population": "10875",
+    "area": "11"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q148990",
+    "cityLabel": "Сновськ",
+    "population": "10825",
+    "area": "1.28"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q752183",
+    "cityLabel": "Інкерман",
+    "population": "10743",
+    "area": "2"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997478",
+    "cityLabel": "Новомиргород",
+    "population": "10715",
+    "area": "88.52"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1020055",
+    "cityLabel": "Соснівка",
+    "population": "10712",
+    "area": "1.98"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q149201",
+    "cityLabel": "Ічня",
+    "population": "10709",
+    "area": "16.16"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q492297",
+    "cityLabel": "Ямпіль",
+    "population": "10679",
+    "area": "9.5"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1020055",
+    "cityLabel": "Соснівка",
+    "population": "10658",
+    "area": "1.98"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q268814",
+    "cityLabel": "Гребінка",
+    "population": "10645",
+    "area": "8.7"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q148923",
+    "cityLabel": "Борщів",
+    "population": "10632",
+    "area": "3"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q752183",
+    "cityLabel": "Інкерман",
+    "population": "10628",
+    "area": "2"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q149193",
+    "cityLabel": "Новодністровськ",
+    "population": "10590",
+    "area": "709"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2415358",
+    "cityLabel": "Моспине",
+    "population": "10471",
+    "area": "12"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2415358",
+    "cityLabel": "Моспине",
+    "population": "10471",
+    "area": "12"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q576937",
+    "cityLabel": "Старий Крим",
+    "population": "10470",
+    "area": "9.97"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1020330",
+    "cityLabel": "Кам'янка-Бузька",
+    "population": "10397",
+    "area": "8.63"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q591884",
+    "cityLabel": "Бобринець",
+    "population": "10396",
+    "area": "18.13"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q760227",
+    "cityLabel": "Таврійськ",
+    "population": "10360",
+    "area": "14.9"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q752183",
+    "cityLabel": "Інкерман",
+    "population": "10350",
+    "area": "2"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q752183",
+    "cityLabel": "Інкерман",
+    "population": "10348",
+    "area": "2"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146595",
+    "cityLabel": "Болехів",
+    "population": "10330",
+    "area": "300.36"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q974468",
+    "cityLabel": "Любомль",
+    "population": "10295",
+    "area": "12"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q148912",
+    "cityLabel": "Борзна",
+    "population": "10205",
+    "area": "107.8"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q752183",
+    "cityLabel": "Інкерман",
+    "population": "10204",
+    "area": "2"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q752183",
+    "cityLabel": "Інкерман",
+    "population": "10196",
+    "area": "2"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q65380",
+    "cityLabel": "Тараща",
+    "population": "10195",
+    "area": "36.96"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1020069",
+    "cityLabel": "Радивилів",
+    "population": "10190",
+    "area": "5.06"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q752183",
+    "cityLabel": "Інкерман",
+    "population": "10178",
+    "area": "2"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q889566",
+    "cityLabel": "Теплодар",
+    "population": "10148",
+    "area": "3"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q752183",
+    "cityLabel": "Інкерман",
+    "population": "10145",
+    "area": "2"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997522",
+    "cityLabel": "Щолкіне",
+    "population": "10131",
+    "area": "34.2"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q752183",
+    "cityLabel": "Інкерман",
+    "population": "10056",
+    "area": "2"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q913143",
+    "cityLabel": "Олевськ",
+    "population": "10032",
+    "area": "10.48"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q591872",
+    "cityLabel": "Мала Виска",
+    "population": "9960",
+    "area": "12.1"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q995147",
+    "cityLabel": "Верхівцеве",
+    "population": "9948",
+    "area": "14"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q156818",
+    "cityLabel": "Снятин",
+    "population": "9942",
+    "area": "35.29"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q219599",
+    "cityLabel": "Христинівка",
+    "population": "9879",
+    "area": "13"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q269547",
+    "cityLabel": "Зіньків",
+    "population": "9856",
+    "area": "11.37"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q819103",
+    "cityLabel": "Березівка",
+    "population": "9845",
+    "area": "34.46"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q269538",
+    "cityLabel": "Кобеляки",
+    "population": "9841",
+    "area": "15"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q219775",
+    "cityLabel": "Деражня",
+    "population": "9772",
+    "area": "17.55"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q904046",
+    "cityLabel": "Радехів",
+    "population": "9746",
+    "area": "16.26"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q573621",
+    "cityLabel": "Перещепине",
+    "population": "9639",
+    "area": "12.91"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q737634",
+    "cityLabel": "Роздільна",
+    "population": "9572",
+    "area": "7.207"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1633740",
+    "cityLabel": "Зимогір'я",
+    "population": "9557",
+    "area": "8.56"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q485891",
+    "cityLabel": "Ананьїв",
+    "population": "9476",
+    "area": "11.2"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q205765",
+    "cityLabel": "Дубровиця",
+    "population": "9424",
+    "area": "8.88"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1019852",
+    "cityLabel": "Пустомити",
+    "population": "9372",
+    "area": "13.374"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q156588",
+    "cityLabel": "Тисмениця",
+    "population": "9287",
+    "area": "38.16"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1104747",
+    "cityLabel": "Валки",
+    "population": "9235",
+    "area": "13.19"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q213065",
+    "cityLabel": "Погребище",
+    "population": "9209",
+    "area": "8.7"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146474",
+    "cityLabel": "Іршава",
+    "population": "9163",
+    "area": "19.8"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1020108",
+    "cityLabel": "Мостиська",
+    "population": "9103",
+    "area": "7.46"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q213183",
+    "cityLabel": "Заліщики",
+    "population": "9021",
+    "area": "7.16"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q278678",
+    "cityLabel": "Помічна",
+    "population": "8994",
+    "area": "8.15"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q157520",
+    "cityLabel": "Городенка",
+    "population": "8972",
+    "area": "56"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q268791",
+    "cityLabel": "Глобине",
+    "population": "8955",
+    "area": "17.5"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997404",
+    "cityLabel": "Ходорів",
+    "population": "8954",
+    "area": "8.25"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q45883",
+    "cityLabel": "Хотин",
+    "population": "8936",
+    "area": "20.39"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q148974",
+    "cityLabel": "Горохів",
+    "population": "8925",
+    "area": "11.22"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q219820",
+    "cityLabel": "Монастирище",
+    "population": "8925",
+    "area": "5.51"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146516",
+    "cityLabel": "Тячів",
+    "population": "8887",
+    "area": "27"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q157457",
+    "cityLabel": "Тлумач",
+    "population": "8886",
+    "area": "19.57"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1104747",
+    "cityLabel": "Валки",
+    "population": "8721",
+    "area": "13.19"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q485891",
+    "cityLabel": "Ананьїв",
+    "population": "8718",
+    "area": "11.2"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q282824",
+    "cityLabel": "Буськ",
+    "population": "8662",
+    "area": "9"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q149173",
+    "cityLabel": "Сокиряни",
+    "population": "8652",
+    "area": "3"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q918619",
+    "cityLabel": "Солотвино",
+    "population": "8632",
+    "area": "11.1"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q219193",
+    "cityLabel": "Чоп",
+    "population": "8626",
+    "area": "6.19"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q148928",
+    "cityLabel": "Зборів",
+    "population": "8600",
+    "area": "7.8132"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997343",
+    "cityLabel": "Рава-Руська",
+    "population": "8586",
+    "area": "10.41"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997343",
+    "cityLabel": "Рава-Руська",
+    "population": "8586",
+    "area": "10.41"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q161980",
+    "cityLabel": "Чигирин",
+    "population": "8539",
+    "area": "10.7"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q157461",
+    "cityLabel": "Косів",
+    "population": "8522",
+    "area": "11.38"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1104747",
+    "cityLabel": "Валки",
+    "population": "8468",
+    "area": "13.19"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q591788",
+    "cityLabel": "Ланівці",
+    "population": "8401",
+    "area": "15"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q148909",
+    "cityLabel": "Андрушівка",
+    "population": "8325",
+    "area": "6.8"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q591812",
+    "cityLabel": "Буринь",
+    "population": "8197",
+    "area": "16.63"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1104773",
+    "cityLabel": "Вовчанськ",
+    "population": "8191",
+    "area": "70.3"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1104773",
+    "cityLabel": "Вовчанськ",
+    "population": "8191",
+    "area": "70.3"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q809665",
+    "cityLabel": "Барвінкове",
+    "population": "8110",
+    "area": "19.65"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146524",
+    "cityLabel": "Яремче",
+    "population": "8094",
+    "area": "657"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q149155",
+    "cityLabel": "Семенівка",
+    "population": "8052",
+    "area": "19.86"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997462",
+    "cityLabel": "Перемишляни",
+    "population": "7967",
+    "area": "4.65"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997549",
+    "cityLabel": "Липовець",
+    "population": "7958",
+    "area": "10.33"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1104747",
+    "cityLabel": "Валки",
+    "population": "7938",
+    "area": "13.19"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2354480",
+    "cityLabel": "Білицьке",
+    "population": "7913",
+    "area": "2.05"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2354480",
+    "cityLabel": "Білицьке",
+    "population": "7913",
+    "area": "2.05"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q149035",
+    "cityLabel": "Заставна",
+    "population": "7807",
+    "area": "9"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q889536",
+    "cityLabel": "Вилкове",
+    "population": "7804",
+    "area": "349.79"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q889536",
+    "cityLabel": "Вилкове",
+    "population": "7804",
+    "area": "349.79"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q156821",
+    "cityLabel": "Рогатин",
+    "population": "7797",
+    "area": "9"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q485891",
+    "cityLabel": "Ананьїв",
+    "population": "7789",
+    "area": "11.2"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q269438",
+    "cityLabel": "Заводське",
+    "population": "7712",
+    "area": "12.93"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q149060",
+    "cityLabel": "Почаїв",
+    "population": "7691",
+    "area": "44"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q149030",
+    "cityLabel": "Новоселиця",
+    "population": "7588",
+    "area": "6.47"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997462",
+    "cityLabel": "Перемишляни",
+    "population": "7565",
+    "area": "4.65"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997462",
+    "cityLabel": "Перемишляни",
+    "population": "7500",
+    "area": "4.65"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q829317",
+    "cityLabel": "Берислав",
+    "population": "7435",
+    "area": "9.11"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997462",
+    "cityLabel": "Перемишляни",
+    "population": "7402",
+    "area": "4.65"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q785296",
+    "cityLabel": "Південне",
+    "population": "7394",
+    "area": "16.93"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q71731",
+    "cityLabel": "Ржищів",
+    "population": "7359",
+    "area": "35.6"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1025478",
+    "cityLabel": "Вуглегірськ",
+    "population": "7294",
+    "area": "7.3"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2350829",
+    "cityLabel": "Кипуче",
+    "population": "7203",
+    "area": "16.25"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997462",
+    "cityLabel": "Перемишляни",
+    "population": "7178",
+    "area": "4.65"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q662097",
+    "cityLabel": "Зоринськ",
+    "population": "7173",
+    "area": "8.68"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997398",
+    "cityLabel": "Корець",
+    "population": "6984",
+    "area": "6"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q691504",
+    "cityLabel": "Шаргород",
+    "population": "6982",
+    "area": "6.87"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q591794",
+    "cityLabel": "Ворожба",
+    "population": "6972",
+    "area": "4.039"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q288160",
+    "cityLabel": "Привілля",
+    "population": "6970",
+    "area": "6.05"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997462",
+    "cityLabel": "Перемишляни",
+    "population": "6946",
+    "area": "4.65"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q932234",
+    "cityLabel": "Турка",
+    "population": "6925",
+    "area": "3"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2353496",
+    "cityLabel": "Середина-Буда",
+    "population": "6888",
+    "area": "27.03"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997462",
+    "cityLabel": "Перемишляни",
+    "population": "6887",
+    "area": "4.65"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997462",
+    "cityLabel": "Перемишляни",
+    "population": "6885",
+    "area": "4.65"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997462",
+    "cityLabel": "Перемишляни",
+    "population": "6853",
+    "area": "4.65"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1945882",
+    "cityLabel": "Олександрівськ",
+    "population": "6709",
+    "area": "3.78"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q149178",
+    "cityLabel": "Хоростків",
+    "population": "6703",
+    "area": "29.52"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997462",
+    "cityLabel": "Перемишляни",
+    "population": "6684",
+    "area": "4.65"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q148928",
+    "cityLabel": "Зборів",
+    "population": "6664",
+    "area": "7.8132"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2473421",
+    "cityLabel": "Літин",
+    "population": "6658",
+    "area": "6.79"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1025844",
+    "cityLabel": "Старий Самбір",
+    "population": "6630",
+    "area": "14.5"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997462",
+    "cityLabel": "Перемишляни",
+    "population": "6606",
+    "area": "4.65"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997381",
+    "cityLabel": "Копичинці",
+    "population": "6587",
+    "area": "35.4"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997462",
+    "cityLabel": "Перемишляни",
+    "population": "6552",
+    "area": "4.65"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146542",
+    "cityLabel": "Перечин",
+    "population": "6477",
+    "area": "7.45"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1026911",
+    "cityLabel": "Судова Вишня",
+    "population": "6470",
+    "area": "2.81"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997462",
+    "cityLabel": "Перемишляни",
+    "population": "6415",
+    "area": "4.65"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q912378",
+    "cityLabel": "Великі Мости",
+    "population": "6298",
+    "area": "7.91"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1020103",
+    "cityLabel": "Благовіщенське",
+    "population": "6232",
+    "area": "7.05"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q146450",
+    "cityLabel": "Галич",
+    "population": "6155",
+    "area": "24.67"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q913962",
+    "cityLabel": "Сколе",
+    "population": "6146",
+    "area": "45.9"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q149151",
+    "cityLabel": "Кіцмань",
+    "population": "6135",
+    "area": "8.6"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q913962",
+    "cityLabel": "Сколе",
+    "population": "6104",
+    "area": "45.9"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1006629",
+    "cityLabel": "Молочанськ",
+    "population": "6099",
+    "area": "8.5"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q913962",
+    "cityLabel": "Сколе",
+    "population": "6054",
+    "area": "45.9"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997462",
+    "cityLabel": "Перемишляни",
+    "population": "5972",
+    "area": "4.65"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q737634",
+    "cityLabel": "Роздільна",
+    "population": "5925",
+    "area": "7.207"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997462",
+    "cityLabel": "Перемишляни",
+    "population": "5900",
+    "area": "4.65"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q156592",
+    "cityLabel": "Моршин",
+    "population": "5850",
+    "area": "20"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1019815",
+    "cityLabel": "Остер",
+    "population": "5655",
+    "area": "14.13"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1022503",
+    "cityLabel": "Монастириська",
+    "population": "5492",
+    "area": "10.65"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q219601",
+    "cityLabel": "Шумськ",
+    "population": "5366",
+    "area": "5.19"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q149271",
+    "cityLabel": "Чуднів",
+    "population": "5357",
+    "area": "10"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q218393",
+    "cityLabel": "Карлівка",
+    "population": "5346",
+    "area": "15.59"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q258223",
+    "cityLabel": "Рудки",
+    "population": "5278",
+    "area": "3.8"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2415287",
+    "cityLabel": "Міусинськ",
+    "population": "4830",
+    "area": "1807"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997462",
+    "cityLabel": "Перемишляни",
+    "population": "4724",
+    "area": "4.65"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q385857",
+    "cityLabel": "Хутір-Михайлівський",
+    "population": "4504",
+    "area": "8.5"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2234586",
+    "cityLabel": "Алмазна",
+    "population": "4301",
+    "area": "1.33"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q268768",
+    "cityLabel": "Новий Калинів",
+    "population": "4256",
+    "area": "2.1"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1020087",
+    "cityLabel": "Святогірськ",
+    "population": "4226",
+    "area": "8.4"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1020087",
+    "cityLabel": "Святогірськ",
+    "population": "4226",
+    "area": "8.4"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q149118",
+    "cityLabel": "Вижниця",
+    "population": "4133",
+    "area": "9"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q268656",
+    "cityLabel": "Добромиль",
+    "population": "4111",
+    "area": "4.97"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1020128",
+    "cityLabel": "Хирів",
+    "population": "4104",
+    "area": "3.43"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q149118",
+    "cityLabel": "Вижниця",
+    "population": "4068",
+    "area": "9"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q149118",
+    "cityLabel": "Вижниця",
+    "population": "4032",
+    "area": "9"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q149118",
+    "cityLabel": "Вижниця",
+    "population": "3997",
+    "area": "9"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q149118",
+    "cityLabel": "Вижниця",
+    "population": "3875",
+    "area": "9"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q149159",
+    "cityLabel": "Скалат",
+    "population": "3833",
+    "area": "6"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q149118",
+    "cityLabel": "Вижниця",
+    "population": "3803",
+    "area": "9"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q156808",
+    "cityLabel": "Бібрка",
+    "population": "3761",
+    "area": "5.14"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1004265",
+    "cityLabel": "Комарно",
+    "population": "3653",
+    "area": "7.3"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997462",
+    "cityLabel": "Перемишляни",
+    "population": "3645",
+    "area": "4.65"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q997502",
+    "cityLabel": "Глиняни",
+    "population": "3103",
+    "area": "5.45"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1050383",
+    "cityLabel": "Олика",
+    "population": "3079",
+    "area": "4.91"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q149170",
+    "cityLabel": "Підгайці",
+    "population": "2661",
+    "area": "3.14"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2091648",
+    "cityLabel": "Мамалига",
+    "population": "2589"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q149016",
+    "cityLabel": "Батурин",
+    "population": "2552",
+    "area": "700"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q1020055",
+    "cityLabel": "Соснівка",
+    "population": "2401",
+    "area": "1.98"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q737634",
+    "cityLabel": "Роздільна",
+    "population": "2357",
+    "area": "7.207"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q156565",
+    "cityLabel": "Белз",
+    "population": "2191",
+    "area": "5.85"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q147741",
+    "cityLabel": "Герца",
+    "population": "2118",
+    "area": "3.223"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q147292",
+    "cityLabel": "Устилуг",
+    "population": "2060",
+    "area": "4.03"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q737634",
+    "cityLabel": "Роздільна",
+    "population": "2026",
+    "area": "7.207"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q737634",
+    "cityLabel": "Роздільна",
+    "population": "1951",
+    "area": "7.207"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q737634",
+    "cityLabel": "Роздільна",
+    "population": "1714",
+    "area": "7.207"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q819126",
+    "cityLabel": "Берестечко",
+    "population": "1630",
+    "area": "9.8"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2416543",
+    "cityLabel": "Родинське",
+    "population": "1500",
+    "area": "6.7"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2416543",
+    "cityLabel": "Родинське",
+    "population": "1500",
+    "area": "6.7"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q737634",
+    "cityLabel": "Роздільна",
+    "population": "1174",
+    "area": "7.207"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q4238074",
+    "cityLabel": "Красна Талівка",
+    "population": "1081",
+    "area": "4.35"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q2415330",
+    "cityLabel": "Часів Яр",
+    "population": "1000",
+    "area": "18"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q156812",
+    "cityLabel": "Угнів",
+    "population": "939",
+    "area": "2.48"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q737634",
+    "cityLabel": "Роздільна",
+    "population": "613",
+    "area": "7.207"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q521105",
+    "cityLabel": "Оріхів",
+    "population": "600",
+    "area": "10.38"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q640649",
+    "cityLabel": "Гуляйполе",
+    "population": "150",
+    "area": "24.75"
+  },
+  {
+    "city": "http://www.wikidata.org/entity/Q737634",
+    "cityLabel": "Роздільна",
+    "population": "101",
+    "area": "7.207"
+  }
+]

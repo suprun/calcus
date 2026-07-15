@@ -30,6 +30,13 @@
             <rect x="9" y="9" width="11" height="11" rx="2" />
             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
         </symbol>
+        <symbol id="i-sparkles" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path
+                d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.937A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .962 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.582a.5.5 0 0 1 0 .962L15.5 14.063A2 2 0 0 0 14.063 15.5L12.481 21.635a.5.5 0 0 1-.962 0z" />
+            <path d="M20 3h.01" />
+            <path d="M4 20h.01" />
+        </symbol>
         <symbol id="i-calculator" viewBox="0 0 24 24">
             <path
                 d="M1 21V3C1 1.89543 1.89543 1 3 1H21C22.1046 1 23 1.89543 23 3V21C23 22.1046 22.1046 23 21 23H3C1.89543 23 1 22.1046 1 21Z">
@@ -199,8 +206,53 @@
 
                     <!-- Form controls area -->
                     <section class="body">
-                        <div class="group-title-row"
-                            style="margin-top:0; border:none; padding-top:0; margin-bottom:8px;">
+                        <!-- Autocomplete search block template, dynamically moved into forms by JS -->
+                        <div id="adminSearchWrapper" style="display: none; width: 100%; margin-bottom: 16px;">
+                            <label
+                                style="display: block; margin-bottom: 6px; font-weight: 500; font-size: 13px;">Автозаповнення:
+                                <span class="tooltip-trigger"
+                                    data-tooltip="Швидкий пошук та автоматичне заповнення вихідних показників.">i</span>
+                            </label>
+                            <div class="autocomplete-wrapper" style="width: 100%;">
+                                <span class="input-icon-left" aria-hidden="true">
+                                    <svg class="icon">
+                                        <use href="#i-sparkles"></use>
+                                    </svg>
+                                </span>
+                                <input class="control text-input" id="adminSearch" type="text"
+                                    placeholder="Введіть назву Адмін одиниці" autocomplete="off"
+                                    style="padding-right: 36px;">
+                                <button class="input-clear-btn" id="adminSearchClearBtn" type="button"
+                                    style="display: none;" title="Очистити поле">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                                    </svg>
+                                </button>
+                                <div class="autocomplete-spinner" id="adminSearchSpinner" style="display: none;"></div>
+                                <div class="autocomplete-suggestions" id="adminSuggestions" style="display: none;">
+                                </div>
+                            </div>
+                            <p class="field-explanation"
+                                style="font-size: 11.5px; color: var(--muted); margin-top: 6px; line-height: 1.4; margin-bottom: 0;">
+                                Дозволяє швидко знайти адміністративну одиницю та автоматично заповнити її
+                                <strong>площу</strong> та <strong>населення</strong>.<br>
+                                Дані взято з <a href="https://decentralization.ua/" target="_blank" rel="noopener"
+                                    style="color: var(--real-text); text-decoration: underline;">Портал
+                                    децентралізації</a>
+                                (громади/райони/області) та <a href="https://uk.wikipedia.org/" target="_blank"
+                                    rel="noopener"
+                                    style="color: var(--real-text); text-decoration: underline;">Вікіпедія</a>
+                                (для НП), для точного розрахунку звіряйтесь з актуальними
+                                джерелами. <br> Специфічні коефіцієнти
+                                (вплив
+                                військових дій, статус курорту, лісистість тощо) необхідно вказати вручну.
+                            </p>
+                        </div>
+
+
+                        <div class="group-title-row">
                             <span class="side-icon settings" aria-hidden="true">
                                 <svg class="icon">
                                     <use href="#i-list"></use>
@@ -217,7 +269,7 @@
                             <button class="tab-btn" data-target="localDetailedPlan">Детальний план (ДПТ)</button>
                         </div>
 
-                        <div class="group-title-row" style="margin-top:12px; margin-bottom:8px;">
+                        <div class="group-title-row">
                             <span class="side-icon settings" aria-hidden="true">
                                 <svg class="icon">
                                     <use href="#i-edit"></use>
@@ -225,7 +277,7 @@
                             </span>
                             <div class="form-group-title" style="margin:0;">Назва об'єкта / договору:</div>
                         </div>
-                        <div class="left-aligned-padding" style="margin-bottom:16px;">
+                        <div class="left-aligned-padding">
                             <div class="input-shell-with-button">
                                 <input class="control text-input" id="projectName" type="text"
                                     placeholder="Необов’язково">
@@ -239,70 +291,6 @@
                             </div>
                         </div>
 
-                        <!-- Global input variables Group (no border on first settings section group) -->
-                        <div class="section-group global-settings-row">
-                            <div class="group-title-row">
-                                <span class="side-icon settings" aria-hidden="true">
-                                    <svg class="icon">
-                                        <use href="#i-settings"></use>
-                                    </svg>
-                                </span>
-                                <div class="form-group-title">Загальні параметри:</div>
-                            </div>
-                            <div class="group-inputs-container left-aligned-padding">
-                                <div class="row">
-                                    <label>Загальний коефіцієнт (Кзаг):
-                                        <span class="tooltip-trigger"
-                                            data-tooltip="Наведений в пункті 2 (проєктно-планувальні роботи) таблиці 3 додатку 7 Настанови з визначення вартості проєктних, науково-проєктних, вишукувальних робіт та експертизи проєктної документації на будівництво.">i</span>
-                                    </label>
-                                    <div class="number-shell has-stepper">
-                                        <input class="control number-input" id="kzag" type="number" value="43.36"
-                                            step="0.01" min="0.1">
-                                        <div class="custom-stepper">
-                                            <button class="step-btn up" data-step-target="kzag" data-step-dir="up"
-                                                type="button" aria-label="Збільшити"></button>
-                                            <button class="step-btn down" data-step-target="kzag" data-step-dir="down"
-                                                type="button" aria-label="Зменшити"></button>
-                                        </div>
-                                    </div>
-                                    <span class="unit-label">коеф.</span>
-                                </div>
-
-                                <div class="row">
-                                    <label>Поправочний коефіцієнт (Кдир):
-                                        <span class="tooltip-trigger"
-                                            data-tooltip="П. 40 (Районне планування) табл. 1 дод. 7 Настанови з визначення вартості проєктних, науково-проєктних, вишукувальних робіт та експертизи проєктної документації на будівництво.">i</span>
-                                    </label>
-                                    <div class="number-shell has-stepper">
-                                        <input class="control number-input" id="kdir" type="number" value="1.01"
-                                            step="0.01" min="0.1">
-                                        <div class="custom-stepper">
-                                            <button class="step-btn up" data-step-target="kdir" data-step-dir="up"
-                                                type="button" aria-label="Збільшити"></button>
-                                            <button class="step-btn down" data-step-target="kdir" data-step-dir="down"
-                                                type="button" aria-label="Зменшити"></button>
-                                        </div>
-                                    </div>
-                                    <span class="unit-label">коеф.</span>
-                                </div>
-
-                                <label class="checkbox-row"
-                                    style="cursor:pointer; display:flex; align-items:center; gap:8px;">
-                                    <input id="useVat" type="checkbox" style="cursor:pointer;">
-                                    <svg class="icon checkbox-icon" viewBox="0 0 24 24" fill="none"
-                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" style="width:16px; height:16px;">
-                                        <line x1="19" y1="5" x2="5" y2="19" />
-                                        <circle cx="6.5" cy="6.5" r="2.5" />
-                                        <circle cx="17.5" cy="17.5" r="2.5" />
-                                    </svg>
-                                    <span class="checkbox-label">Податок на додану вартість (ПДВ) <span
-                                            class="tooltip-trigger"
-                                            data-tooltip="Додає 20% ПДВ до вартості розроблення та експертизи."
-                                            style="margin-left:4px;">i</span></span>
-                                </label>
-                            </div>
-                        </div>
 
                         <!-- Form 1: Схема окремої частини України -->
                         <div id="stateParts" class="form-section active">
@@ -574,6 +562,7 @@
                                     <div class="form-group-title">Вихідні показники:</div>
                                 </div>
                                 <div class="group-inputs-container left-aligned-padding">
+                                    <div class="admin-search-container-target"></div>
                                     <div class="row">
                                         <label>Площа території:
                                             <span class="tooltip-trigger"
@@ -860,6 +849,7 @@
                                     <div class="form-group-title">Вихідні показники:</div>
                                 </div>
                                 <div class="group-inputs-container left-aligned-padding">
+                                    <div class="admin-search-container-target"></div>
                                     <div class="row">
                                         <label>Площа території:
                                             <span class="tooltip-trigger"
@@ -1110,6 +1100,7 @@
                                     <div class="form-group-title">А. МІСТОБУДІВНА ЧАСТИНА (П. 2.9):</div>
                                 </div>
                                 <div class="group-inputs-container left-aligned-padding">
+                                    <div class="admin-search-container-target"></div>
                                     <div class="row">
                                         <label>Площа громади (Табл. 5-1, 6-3):
                                             <span class="tooltip-trigger"
@@ -1502,6 +1493,7 @@
                                     <div class="form-group-title">Вихідні показники:</div>
                                 </div>
                                 <div class="group-inputs-container left-aligned-padding">
+                                    <div class="admin-search-container-target"></div>
                                     <div class="row">
                                         <label>Населення НП (Р):
                                             <span class="tooltip-trigger"
@@ -1992,6 +1984,88 @@
                             </div>
                         </div>
 
+                        <!-- Global input variables Group (re-positioned before bottom results) -->
+                        <div class="section-group global-settings-row">
+                            <div class="group-title-row">
+                                <span class="side-icon settings" aria-hidden="true">
+                                    <svg class="icon">
+                                        <use href="#i-settings"></use>
+                                    </svg>
+                                </span>
+                                <div class="form-group-title">Загальні параметри:</div>
+                            </div>
+                            <div class="group-inputs-container left-aligned-padding">
+                                <div class="row">
+                                    <div>
+                                        <label>Загальний коефіцієнт (Кзаг):
+                                            <span class="tooltip-trigger"
+                                                data-tooltip="Наведений в пункті 2 (проєктно-планувальні роботи) таблиці 3 додатку 7 Настанови з визначення вартості проєктних, науково-проєктних, вишукувальних робіт та експертизи проєктної документації на будівництво.">i</span>
+                                        </label>
+                                        <div style="font-size: 11px; margin-top: 2px; color: var(--muted);">
+                                            <span class="doc-link" data-target="p-2-3">п. 2.3 Настанови</span> (<a
+                                                href="https://e-construction.gov.ua/laws_detail/2702455691775313887"
+                                                target="_blank" rel="noopener"
+                                                style="color: var(--real-text); text-decoration: underline;">Додаток 7,
+                                                Табл. 3, п. 2</a>)
+                                        </div>
+                                    </div>
+                                    <div class="number-shell has-stepper">
+                                        <input class="control number-input" id="kzag" type="number" value="43.36"
+                                            step="0.01" min="0.1">
+                                        <div class="custom-stepper">
+                                            <button class="step-btn up" data-step-target="kzag" data-step-dir="up"
+                                                type="button" aria-label="Збільшити"></button>
+                                            <button class="step-btn down" data-step-target="kzag" data-step-dir="down"
+                                                type="button" aria-label="Зменшити"></button>
+                                        </div>
+                                    </div>
+                                    <span class="unit-label">коеф.</span>
+                                </div>
+
+                                <div class="row">
+                                    <div>
+                                        <label>Поправочний коефіцієнт (Кдир):
+                                            <span class="tooltip-trigger"
+                                                data-tooltip="П. 40 (Районне планування) табл. 1 дод. 7 Настанови з визначення вартості проєктних, науково-проєктних, вишукувальних робіт та експертизи проєктної документації на будівництво.">i</span>
+                                        </label>
+                                        <div style="font-size: 11px; margin-top: 2px; color: var(--muted);">
+                                            <span class="doc-link" data-target="p-2-3">п. 2.3 Настанови</span> (<a
+                                                href="https://e-construction.gov.ua/laws_detail/2702455691775313887"
+                                                target="_blank" rel="noopener"
+                                                style="color: var(--real-text); text-decoration: underline;">Додаток 7,
+                                                Табл. 1, п. 40</a>)
+                                        </div>
+                                    </div>
+                                    <div class="number-shell has-stepper">
+                                        <input class="control number-input" id="kdir" type="number" value="1.01"
+                                            step="0.01" min="0.1">
+                                        <div class="custom-stepper">
+                                            <button class="step-btn up" data-step-target="kdir" data-step-dir="up"
+                                                type="button" aria-label="Збільшити"></button>
+                                            <button class="step-btn down" data-step-target="kdir" data-step-dir="down"
+                                                type="button" aria-label="Зменшити"></button>
+                                        </div>
+                                    </div>
+                                    <span class="unit-label">коеф.</span>
+                                </div>
+
+                                <label class="checkbox-row"
+                                    style="cursor:pointer; display:flex; align-items:center; gap:8px;">
+                                    <input id="useVat" type="checkbox" style="cursor:pointer;">
+                                    <svg class="icon checkbox-icon" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" style="width:16px; height:16px;">
+                                        <line x1="19" y1="5" x2="5" y2="19" />
+                                        <circle cx="6.5" cy="6.5" r="2.5" />
+                                        <circle cx="17.5" cy="17.5" r="2.5" />
+                                    </svg>
+                                    <span class="checkbox-label">Податок на додану вартість (ПДВ) <span
+                                            class="tooltip-trigger"
+                                            data-tooltip="Додає 20% ПДВ до вартості розроблення та експертизи."
+                                            style="margin-left:4px;">i</span></span>
+                                </label>
+                            </div>
+                        </div>
                     </section>
 
                     <!-- Replicated bottom results panel (sticky at bottom) -->
@@ -2244,6 +2318,27 @@
             </div>
         </aside>
     </div> <!-- Close layout-wrapper -->
+
+    <!-- Autocomplete Admin Unit Modal Popup -->
+    <div class="modal-overlay" id="adminModal" style="display: none;">
+        <div class="modal-box">
+            <header class="modal-header">
+                <svg class="icon modal-sparkles">
+                    <use href="#i-sparkles"></use>
+                </svg>
+                <h3 class="modal-title">Застосувати вихідні дані?</h3>
+            </header>
+            <div class="modal-body" id="adminModalBody">
+                <!-- Dynamic Content -->
+            </div>
+            <footer class="modal-footer" style="display: flex; gap: 12px; width: 100%;">
+                <button class="btn primary-btn" id="adminModalApplyBtn" type="button"
+                    style="flex: 1; justify-content: center;">Застосувати</button>
+                <button class="btn secondary-btn" id="adminModalCancelBtn" type="button"
+                    style="flex: 1; justify-content: center; background: var(--panel-soft); color: var(--text); border: 1px solid var(--line-strong);">Скасувати</button>
+            </footer>
+        </div>
+    </div>
 
     <!-- Toast notification box -->
     <div class="toast" id="toast" role="status" aria-live="polite"></div>

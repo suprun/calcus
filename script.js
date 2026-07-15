@@ -529,10 +529,13 @@ document.addEventListener("DOMContentLoaded", () => {
     initSliders();
     // initCheckboxIcons(); // Inline SVGs are now hardcoded in index.html for better customization
     initEventListeners();
+    initAutocomplete();
     setupAnimatedDetails('formulaDetails');
     restoreStateFromUrl();
+    updateAutocompletePosition();
     calc(); // First run
 });
+
 
 function initTabs() {
     const tabs = document.querySelectorAll(".tab-btn");
@@ -549,6 +552,7 @@ function initTabs() {
             if (activeSection) {
                 activeSection.classList.add("active");
             }
+            updateAutocompletePosition();
             calc(); // Recalculate
         });
     });
@@ -693,12 +697,58 @@ function getSliderValue(id) {
     return item.val;
 }
 
+/**
+ * Auto-sync population number inputs to their corresponding sliders.
+ * cp_pop_total → cp_f_pop (community population range)
+ * gp_pop → gp_city_k (settlement type: normal / million+ / Kyiv)
+ */
+function initPopulationSliderSync() {
+    // Комплексний план: населення громади → слайдер діапазону населення
+    const cpPopInput = document.getElementById("cp_pop_total");
+    const cpPopSlider = document.getElementById("cp_f_pop");
+    if (cpPopInput && cpPopSlider) {
+        cpPopInput.addEventListener("input", () => {
+            const pop = parseFloat(cpPopInput.value) || 0; // тис. осіб
+            let idx = 0;
+            if (pop > 120) idx = 4;
+            else if (pop > 60) idx = 3;
+            else if (pop > 30) idx = 2;
+            else if (pop > 10) idx = 1;
+            else idx = 0;
+
+            if (parseInt(cpPopSlider.value) !== idx) {
+                cpPopSlider.value = idx;
+                cpPopSlider.dispatchEvent(new Event("input", { bubbles: true }));
+            }
+        });
+    }
+
+    // Генеральний план: населення НП → слайдер типу НП
+    const gpPopInput = document.getElementById("gp_pop");
+    const gpCitySlider = document.getElementById("gp_city_k");
+    if (gpPopInput && gpCitySlider) {
+        gpPopInput.addEventListener("input", () => {
+            const pop = parseFloat(gpPopInput.value) || 0; // тис. осіб
+            let idx = 0; // звичайне місто/село
+            if (pop >= 1000) idx = 1; // мільйонник
+
+            if (parseInt(gpCitySlider.value) !== idx) {
+                gpCitySlider.value = idx;
+                gpCitySlider.dispatchEvent(new Event("input", { bubbles: true }));
+            }
+        });
+    }
+}
+
 function initEventListeners() {
     const inputs = document.querySelectorAll("input, select");
     inputs.forEach(el => {
         el.addEventListener("input", calc);
         el.addEventListener("change", calc);
     });
+
+    // Sync population inputs to corresponding sliders
+    initPopulationSliderSync();
 
     // Top and Bottom Copy results triggers
     const copyBtns = [
@@ -1709,6 +1759,7 @@ function restoreStateFromUrl() {
             if (activeSection) {
                 activeSection.classList.add("active");
             }
+            updateAutocompletePosition();
         }
     }
 
@@ -2353,4 +2404,738 @@ function initGuidebook() {
         }
     });
 }
+
+// --- AUTOCOMPLETE ADMIN UNITS INTEGRATION ---
+
+let autocompleteData = {
+    loaded: false,
+    loading: false,
+    searchIndex: []
+};
+
+async function fetchAutocompleteData() {
+    if (autocompleteData.loaded || autocompleteData.loading) return;
+
+    autocompleteData.loading = true;
+    const spinner = document.getElementById("adminSearchSpinner");
+    if (spinner) spinner.style.display = "block";
+
+    let areas = [];
+    let regions = [];
+    let communities = [];
+    let wikidataCities = [];
+    let loadedSuccessfully = false;
+
+    try {
+        console.log("Loading admin units from local admin_units.json database...");
+        const resLocal = await fetch("admin_units.json");
+        if (!resLocal.ok) throw new Error(`HTTP ${resLocal.status} on local JSON`);
+        const localData = await resLocal.json();
+
+        areas = localData.areas || [];
+        regions = localData.regions || [];
+        communities = localData.communities || [];
+
+        loadedSuccessfully = true;
+        console.log("Admin units database loaded successfully.");
+    } catch (localErr) {
+        console.error("Failed to load local admin units database: ", localErr);
+        showToast("Помилка завантаження даних для автозаповнення");
+    }
+
+    try {
+        console.log("Loading Wikipedia city database from query.json...");
+        const resWiki = await fetch("query.json");
+        if (resWiki.ok) {
+            wikidataCities = await resWiki.json();
+            console.log(`Loaded ${wikidataCities.length} cities from Wikipedia.`);
+        }
+    } catch (wikiErr) {
+        console.error("Failed to load query.json Wikipedia database:", wikiErr);
+    }
+
+    if (loadedSuccessfully) {
+        // Count actual communities and sum properties per area and region
+        const communitiesCountMap = {};
+        const communitiesSquareMap = {};
+        const communitiesPopulationMap = {};
+        const communitiesRuralMap = {};
+        const communitiesUrbanMap = {};
+
+        const regionSquareMap = {};
+        const regionPopulationMap = {};
+        const regionRuralMap = {};
+        const regionUrbanMap = {};
+
+        communities.forEach(comm => {
+            const ruralVal = parseInt(comm.rural_villages_count) || 0;
+            const urbanVal = parseInt(comm.urban_villages_count) || 0;
+
+            // For Areas
+            if (comm.area_id) {
+                communitiesCountMap[comm.area_id] = (communitiesCountMap[comm.area_id] || 0) + 1;
+
+                const sq = parseFloat(comm.square) || 0;
+                communitiesSquareMap[comm.area_id] = (communitiesSquareMap[comm.area_id] || 0) + sq;
+
+                const pop = parseFloat(comm.population) || 0;
+                communitiesPopulationMap[comm.area_id] = (communitiesPopulationMap[comm.area_id] || 0) + pop;
+
+                communitiesRuralMap[comm.area_id] = (communitiesRuralMap[comm.area_id] || 0) + ruralVal;
+                communitiesUrbanMap[comm.area_id] = (communitiesUrbanMap[comm.area_id] || 0) + urbanVal;
+            }
+
+            // For Regions (Districts)
+            if (comm.region_id) {
+                const sq = parseFloat(comm.square) || 0;
+                regionSquareMap[comm.region_id] = (regionSquareMap[comm.region_id] || 0) + sq;
+
+                const pop = parseFloat(comm.population) || 0;
+                regionPopulationMap[comm.region_id] = (regionPopulationMap[comm.region_id] || 0) + pop;
+
+                regionRuralMap[comm.region_id] = (regionRuralMap[comm.region_id] || 0) + ruralVal;
+                regionUrbanMap[comm.region_id] = (regionUrbanMap[comm.region_id] || 0) + urbanVal;
+            }
+        });
+
+        // Build map of areas for quick lookup by ID
+        const areasMap = {};
+        areas.forEach(a => { areasMap[a.id] = a.title; });
+
+        // Build combined search index
+        const index = [];
+
+        areas.forEach(area => {
+            // Fallback for area stats if database contains placeholder values (e.g. city Kyiv with square=1, population=1)
+            if (!area.square || area.square <= 1.0) {
+                area.square = communitiesSquareMap[area.id] || area.square || 0;
+            }
+            if (!area.population || area.population <= 1) {
+                area.population = communitiesPopulationMap[area.id] || area.population || 0;
+            }
+
+            // Store dynamic community count
+            area.actual_community_count = communitiesCountMap[area.id] || 0;
+
+            // Store dynamic village counts
+            area.rural_villages_count = communitiesRuralMap[area.id] || 0;
+            area.urban_villages_count = communitiesUrbanMap[area.id] || 0;
+
+            index.push({
+                type: "area",
+                id: area.id,
+                title: area.title,
+                subtitle: "Область",
+                searchString: area.title.toLowerCase(),
+                rawData: area
+            });
+        });
+
+        regions.forEach(region => {
+            // Fallback for region square if it is null/0
+            const rawSquare = parseFloat(region.square);
+            if (isNaN(rawSquare) || rawSquare <= 0) {
+                region.square = regionSquareMap[region.id] || 0;
+            }
+
+            // Fallback for region population if it is null/0
+            const rawPop = parseFloat(region.population);
+            if (isNaN(rawPop) || rawPop <= 0) {
+                region.population = regionPopulationMap[region.id] || 0;
+            }
+
+            // Store dynamic village counts
+            region.rural_villages_count = regionRuralMap[region.id] || 0;
+            region.urban_villages_count = regionUrbanMap[region.id] || 0;
+
+            const areaName = areasMap[region.area_id] || "";
+            index.push({
+                type: "region",
+                id: region.id,
+                title: region.title,
+                subtitle: areaName ? `${areaName} область` : "Район",
+                searchString: `${region.title} ${areaName}`.toLowerCase(),
+                rawData: region
+            });
+        });
+
+        communities.forEach(comm => {
+            const subtitleParts = [];
+            if (comm.region_name) subtitleParts.push(`${comm.region_name} район`);
+            if (comm.area_name) subtitleParts.push(`${comm.area_name} область`);
+
+            index.push({
+                type: "community",
+                id: comm.id,
+                title: comm.title,
+                subtitle: subtitleParts.join(", "),
+                searchString: `${comm.title} ${comm.region_name || ''} ${comm.area_name || ''}`.toLowerCase(),
+                rawData: comm
+            });
+        });
+
+        // Add Wikipedia cities from query.json
+        const seenCities = new Set();
+        wikidataCities.forEach(item => {
+            const name = item.cityLabel;
+            if (!name || seenCities.has(name)) return;
+            seenCities.add(name);
+
+            index.push({
+                type: "wikidata_city",
+                id: item.city || name,
+                title: name,
+                subtitle: "Населений пункт (Вікіпедія)",
+                searchString: name.toLowerCase(),
+                rawData: {
+                    title: name,
+                    population: parseFloat(item.population) || 0,
+                    square: parseFloat(item.area) || 0
+                }
+            });
+        });
+
+        autocompleteData.searchIndex = index;
+        autocompleteData.loaded = true;
+        console.log(`Autocomplete index loaded successfully with ${index.length} items.`);
+    }
+
+    autocompleteData.loading = false;
+    if (spinner) spinner.style.display = "none";
+}
+
+
+function initAutocomplete() {
+    const input = document.getElementById("adminSearch");
+    const suggestionsBox = document.getElementById("adminSuggestions");
+    const applyBtn = document.getElementById("adminModalApplyBtn");
+    const cancelBtn = document.getElementById("adminModalCancelBtn");
+    const clearBtn = document.getElementById("adminSearchClearBtn");
+    const modal = document.getElementById("adminModal");
+
+    if (!input || !suggestionsBox) return;
+
+    // Load data on focus
+    input.addEventListener("focus", () => {
+        fetchAutocompleteData();
+    });
+
+    // Clear button functionality
+    const updateClearBtnVisibility = () => {
+        if (clearBtn) {
+            clearBtn.style.display = input.value.length > 0 ? "flex" : "none";
+        }
+    };
+    input.addEventListener("input", updateClearBtnVisibility);
+
+    if (clearBtn) {
+        clearBtn.addEventListener("click", () => {
+            input.value = "";
+            clearBtn.style.display = "none";
+            suggestionsBox.style.display = "none";
+            input.focus();
+        });
+    }
+
+    // Autocomplete search logic
+    input.addEventListener("input", () => {
+        const query = input.value.trim().toLowerCase();
+        if (query.length < 2) {
+            suggestionsBox.style.display = "none";
+            return;
+        }
+
+        // Filter matches based on active tab type
+        const activeTabBtn = document.querySelector(".tab-btn.active");
+        const activeTarget = activeTabBtn ? activeTabBtn.getAttribute("data-target") : null;
+
+        let targetType = null;
+        if (activeTarget === "regionalRegion") targetType = "area";
+        else if (activeTarget === "regionalDistrict") targetType = "region";
+        else if (activeTarget === "localComplexPlan") targetType = "community";
+        else if (activeTarget === "localGeneralPlan") targetType = "wikidata_city";
+
+        const matches = autocompleteData.searchIndex.filter(item => {
+            if (!item.searchString.includes(query)) return false;
+            if (targetType && item.type !== targetType) return false;
+            return true;
+        });
+
+        // Limit to 15 suggestions
+        const limited = matches.slice(0, 15);
+        renderSuggestions(limited);
+    });
+
+    // Close suggestions dropdown when clicking outside
+    document.addEventListener("click", (e) => {
+        if (e.target !== input && !suggestionsBox.contains(e.target)) {
+            suggestionsBox.style.display = "none";
+        }
+    });
+
+    // Handle Cancel button click
+    if (cancelBtn && modal) {
+        cancelBtn.addEventListener("click", () => {
+            modal.style.display = "none";
+            window.pendingAdminUnit = null;
+        });
+    }
+
+    // Handle Apply button click
+    if (applyBtn && modal) {
+        applyBtn.addEventListener("click", () => {
+            if (window.pendingAdminUnit) {
+                applyAdminUnit(window.pendingAdminUnit);
+                window.pendingAdminUnit = null;
+            }
+            modal.style.display = "none";
+        });
+    }
+}
+
+function updateAutocompletePosition() {
+    const activeTabBtn = document.querySelector(".tab-btn.active");
+    const targetId = activeTabBtn ? activeTabBtn.getAttribute("data-target") : null;
+    const isSupported = ["regionalRegion", "regionalDistrict", "localComplexPlan", "localGeneralPlan"].includes(targetId);
+
+    const wrapper = document.getElementById("adminSearchWrapper");
+    if (!wrapper) return;
+
+    const input = document.getElementById("adminSearch");
+
+    if (isSupported) {
+        if (input) {
+            if (targetId === "regionalRegion") {
+                input.placeholder = "Введіть назву області";
+            } else if (targetId === "regionalDistrict") {
+                input.placeholder = "Введіть назву району";
+            } else if (targetId === "localComplexPlan") {
+                input.placeholder = "Введіть назву громади";
+            } else if (targetId === "localGeneralPlan") {
+                input.placeholder = "Введіть назву населеного пункту";
+            }
+        }
+
+        const activeSection = document.getElementById(targetId);
+        const placeholder = activeSection ? activeSection.querySelector(".admin-search-container-target") : null;
+        if (placeholder) {
+            placeholder.appendChild(wrapper);
+            wrapper.style.display = "block";
+        } else {
+            wrapper.style.display = "none";
+        }
+    } else {
+        wrapper.style.display = "none";
+    }
+
+    // Hide suggestions dropdown and update clear button visibility
+    const suggestionsBox = document.getElementById("adminSuggestions");
+    if (suggestionsBox) suggestionsBox.style.display = "none";
+    const clearBtn = document.getElementById("adminSearchClearBtn");
+    if (clearBtn) {
+        clearBtn.style.display = input && input.value.length > 0 ? "flex" : "none";
+    }
+}
+
+function renderSuggestions(items) {
+    const suggestionsBox = document.getElementById("adminSuggestions");
+    if (!suggestionsBox) return;
+
+    if (items.length === 0) {
+        suggestionsBox.innerHTML = `
+            <div style="padding: 12px 14px; font-size: 12.5px; color: var(--muted); text-align: center;">
+                Нічого не знайдено
+            </div>
+        `;
+        suggestionsBox.style.display = "block";
+        return;
+    }
+
+    let html = "";
+    items.forEach((item, index) => {
+        let tagClass = "";
+        let tagName = "";
+        if (item.type === "area") {
+            tagClass = "tag-area";
+            tagName = "Область";
+        } else if (item.type === "region") {
+            tagClass = "tag-region";
+            tagName = "Район";
+        } else if (item.type === "community") {
+            tagClass = "tag-community";
+            tagName = "Громада";
+        } else if (item.type === "wikidata_city") {
+            tagClass = "tag-community";
+            tagName = "Місто/Село";
+        }
+
+        html += `
+            <div class="suggestion-item" data-idx="${index}">
+                <div class="suggestion-title">${item.title}</div>
+                <div class="suggestion-subtitle">${item.subtitle}</div>
+                <span class="suggestion-tag ${tagClass}">${tagName}</span>
+            </div>
+        `;
+    });
+
+    suggestionsBox.innerHTML = html;
+    suggestionsBox.style.display = "block";
+
+    // Click events
+    const elements = suggestionsBox.querySelectorAll(".suggestion-item");
+    elements.forEach(el => {
+        el.addEventListener("click", () => {
+            const idx = parseInt(el.getAttribute("data-idx"));
+            const selected = items[idx];
+            if (selected) {
+                window.pendingAdminUnit = selected;
+                suggestionsBox.style.display = "none";
+                document.getElementById("adminSearch").value = selected.title;
+                const clearBtn = document.getElementById("adminSearchClearBtn");
+                if (clearBtn) clearBtn.style.display = "flex";
+                prepareAndShowConfirmation(selected);
+            }
+        });
+    });
+}
+
+function prepareAndShowConfirmation(item) {
+    const details = {};
+
+    if (item.type === "area") {
+        const areaVal = item.rawData.square ? item.rawData.square / 1000 : 0;
+        details["Вид документації"] = "Схема планування території області";
+        details["Площа області"] = areaVal > 0 ? `${areaVal.toFixed(2)} тис. км²` : "Невідомо";
+        details["Чисельність населення"] = item.rawData.population ? `${item.rawData.population.toLocaleString()} осіб` : "Невідомо";
+        if (item.rawData.actual_community_count) {
+            details["Кількість громад в області"] = item.rawData.actual_community_count;
+        } else if (item.rawData.local_community_count) {
+            details["Кількість громад в області"] = item.rawData.local_community_count;
+        }
+        details["Кількість міських н.п. в області"] = `${item.rawData.urban_villages_count || 0} (міст/смт)`;
+        details["Кількість сільських н.п. в області"] = `${item.rawData.rural_villages_count || 0} (сіл/селищ)`;
+    } else if (item.type === "region") {
+        const rawSquare = parseFloat(item.rawData.square);
+        const areaVal = !isNaN(rawSquare) ? rawSquare / 1000 : 0;
+        details["Вид документації"] = "Схема планування території району";
+        details["Площа району"] = areaVal > 0 ? `${areaVal.toFixed(2)} тис. км²` : "Невідомо";
+        details["Чисельність населення"] = item.rawData.population ? `${Math.round(item.rawData.population).toLocaleString()} осіб` : "Невідомо";
+        details["Кількість міських н.п. в районі"] = `${item.rawData.urban_villages_count || 0} (міст/смт)`;
+        details["Кількість сільських н.п. в районі"] = `${item.rawData.rural_villages_count || 0} (сіл/селищ)`;
+    } else if (item.type === "community") {
+        const areaVal = item.rawData.square ? item.rawData.square / 1000 : 0;
+        const popTotalVal = item.rawData.population ? item.rawData.population / 1000 : 0;
+        const popCenterVal = Math.max(0.1, Math.min(popTotalVal, popTotalVal * 0.6));
+        const ruralCount = parseInt(item.rawData.rural_villages_count) || 0;
+        const urbanCount = parseInt(item.rawData.urban_villages_count) || 0;
+
+        details["Вид документації"] = "Комплексний план просторового розвитку громади";
+        details["Площа громади"] = areaVal > 0 ? `${areaVal.toFixed(3)} тис. км² (${item.rawData.square.toFixed(1)} км²)` : "Невідомо";
+        details["Загальне населення громади"] = item.rawData.population ? `${item.rawData.population.toLocaleString()} осіб` : "Невідомо";
+        details["Населення адмінцентру (розрахунковий 60%)"] = popTotalVal > 0 ? `${Math.round(popCenterVal * 1000).toLocaleString()} осіб` : "Невідомо";
+        details["Кількість міських н.п. в громаді"] = `${urbanCount} (міст/смт)`;
+        details["Кількість сільських н.п. в громаді"] = `${ruralCount} (сіл/селищ)`;
+        if (item.rawData.center) {
+            details["Адміністративний центр"] = item.rawData.center;
+        }
+    } else if (item.type === "wikidata_city") {
+        details["Вид документації"] = "Генеральний план населеного пункту";
+        details["Площа НП"] = item.rawData.square ? `${item.rawData.square} км²` : "Невідомо";
+        details["Чисельність населення"] = item.rawData.population ? `${item.rawData.population.toLocaleString()} осіб` : "Невідомо";
+    }
+
+    showConfirmationPopup(item, details);
+}
+
+function showConfirmationPopup(item, details) {
+    const modal = document.getElementById("adminModal");
+    const body = document.getElementById("adminModalBody");
+    if (!modal || !body) return;
+
+    let html = `
+        <p>Ви дійсно бажаєте застосувати дані <strong>${item.title}</strong> до калькулятора?</p>
+        <div class="applied-details-list">
+    `;
+
+    for (const [label, val] of Object.entries(details)) {
+        html += `
+            <div class="applied-detail-item">
+                <span class="applied-detail-label">${label}:</span>
+                <span class="applied-detail-value">${val}</span>
+            </div>
+        `;
+    }
+
+    html += `</div>`;
+    body.innerHTML = html;
+
+    modal.style.display = "flex";
+}
+
+function applyAdminUnit(item) {
+    const nameInput = document.getElementById("projectName");
+    if (nameInput) {
+        let nameVal = "";
+        if (item.type === "area") {
+            nameVal = "Схема планування території області: " + item.title;
+        } else if (item.type === "region") {
+            nameVal = "Схема планування території району: " + item.title;
+        } else if (item.type === "community") {
+            nameVal = "Комплексний план просторового розвитку території: " + item.title;
+        } else if (item.type === "wikidata_city") {
+            nameVal = "Генеральний план населеного пункту: " + item.title;
+        }
+
+        if (nameVal) {
+            nameInput.value = nameVal;
+            nameInput.dispatchEvent(new Event("input", { bubbles: true }));
+            nameInput.dispatchEvent(new Event("change", { bubbles: true }));
+        }
+    }
+
+    if (item.type === "area") {
+
+        // 1. Switch to "Схема області" tab (regionalRegion)
+        const tabBtn = document.querySelector(`.tab-btn[data-target="regionalRegion"]`);
+        if (tabBtn) tabBtn.click();
+
+        // 2. Set area (square / 1000)
+        const areaVal = item.rawData.square ? item.rawData.square / 1000 : 0;
+        const areaInput = document.getElementById("rr_area");
+        if (areaInput && areaVal > 0) {
+            areaInput.value = areaVal.toFixed(2);
+            areaInput.dispatchEvent(new Event("input", { bubbles: true }));
+        }
+
+        // 3. Set population slider rr_f_pop
+        const popVal = item.rawData.population ? item.rawData.population / 1000000 : 0; // in millions
+        const sliderInput = document.getElementById("rr_f_pop");
+        if (sliderInput && popVal > 0) {
+            let sliderIdx = 0;
+            if (popVal < 0.5) sliderIdx = 0;
+            else if (popVal < 1.0) sliderIdx = 1;
+            else if (popVal < 2.0) sliderIdx = 2;
+            else if (popVal < 3.0) sliderIdx = 3;
+            else sliderIdx = 4;
+
+            sliderInput.value = sliderIdx;
+            sliderInput.dispatchEvent(new Event("input", { bubbles: true }));
+            sliderInput.dispatchEvent(new Event("change", { bubbles: true }));
+        }
+
+        // 4. Set urban count slider rr_f_urban
+        const urbanCount = parseInt(item.rawData.urban_villages_count) || 0;
+        const urbanSliderInput = document.getElementById("rr_f_urban");
+        if (urbanSliderInput) {
+            let sliderIdx = 0;
+            if (urbanCount <= 20) sliderIdx = 0;
+            else if (urbanCount <= 50) sliderIdx = 1;
+            else if (urbanCount <= 100) sliderIdx = 2;
+            else sliderIdx = 3; // >100
+
+            urbanSliderInput.value = sliderIdx;
+            urbanSliderInput.dispatchEvent(new Event("input", { bubbles: true }));
+            urbanSliderInput.dispatchEvent(new Event("change", { bubbles: true }));
+        }
+
+        // 5. Set rural count slider rr_f_rural
+        const ruralCount = parseInt(item.rawData.rural_villages_count) || 0;
+        const ruralSliderInput = document.getElementById("rr_f_rural");
+        if (ruralSliderInput) {
+            let sliderIdx = 0;
+            if (ruralCount < 1000) sliderIdx = 0;
+            else if (ruralCount <= 1500) sliderIdx = 1;
+            else sliderIdx = 2; // >1.5k
+
+            ruralSliderInput.value = sliderIdx;
+            ruralSliderInput.dispatchEvent(new Event("input", { bubbles: true }));
+            ruralSliderInput.dispatchEvent(new Event("change", { bubbles: true }));
+        }
+
+    } else if (item.type === "region") {
+        // 1. Switch to "Схема району" tab (regionalDistrict)
+        const tabBtn = document.querySelector(`.tab-btn[data-target="regionalDistrict"]`);
+        if (tabBtn) tabBtn.click();
+
+        // 2. Set area (square / 1000)
+        const rawSquare = parseFloat(item.rawData.square);
+        const areaVal = !isNaN(rawSquare) ? rawSquare / 1000 : 0;
+        const areaInput = document.getElementById("rd_area");
+        if (areaInput && areaVal > 0) {
+            areaInput.value = areaVal.toFixed(2);
+            areaInput.dispatchEvent(new Event("input", { bubbles: true }));
+        }
+
+        // 3. Set population slider rd_f_pop
+        const popVal = item.rawData.population ? item.rawData.population / 1000 : 0; // in thousands
+        const sliderInput = document.getElementById("rd_f_pop");
+        if (sliderInput && popVal > 0) {
+            let sliderIdx = 0;
+            if (popVal < 40) sliderIdx = 0;
+            else if (popVal < 70) sliderIdx = 1;
+            else if (popVal < 110) sliderIdx = 2;
+            else if (popVal < 150) sliderIdx = 3;
+            else sliderIdx = 4;
+
+            sliderInput.value = sliderIdx;
+            sliderInput.dispatchEvent(new Event("input", { bubbles: true }));
+            sliderInput.dispatchEvent(new Event("change", { bubbles: true }));
+        }
+
+        // 4. Set urban count slider rd_f_urban
+        const urbanCount = parseInt(item.rawData.urban_villages_count) || 0;
+        const urbanSliderInput = document.getElementById("rd_f_urban");
+        if (urbanSliderInput) {
+            let sliderIdx = 0;
+            if (urbanCount <= 1) sliderIdx = 0;
+            else if (urbanCount === 2) sliderIdx = 1;
+            else if (urbanCount === 3) sliderIdx = 2;
+            else sliderIdx = 3; // >3
+
+            urbanSliderInput.value = sliderIdx;
+            urbanSliderInput.dispatchEvent(new Event("input", { bubbles: true }));
+            urbanSliderInput.dispatchEvent(new Event("change", { bubbles: true }));
+        }
+
+        // 5. Set rural count slider rd_f_rural
+        const ruralCount = parseInt(item.rawData.rural_villages_count) || 0;
+        const ruralSliderInput = document.getElementById("rd_f_rural");
+        if (ruralSliderInput) {
+            let sliderIdx = 0;
+            if (ruralCount <= 100) sliderIdx = 0;
+            else if (ruralCount <= 150) sliderIdx = 1;
+            else if (ruralCount <= 200) sliderIdx = 2;
+            else if (ruralCount <= 270) sliderIdx = 3;
+            else if (ruralCount <= 350) sliderIdx = 4;
+            else sliderIdx = 5; // >350
+
+            ruralSliderInput.value = sliderIdx;
+            ruralSliderInput.dispatchEvent(new Event("input", { bubbles: true }));
+            ruralSliderInput.dispatchEvent(new Event("change", { bubbles: true }));
+        }
+
+    } else if (item.type === "community") {
+        // 1. Switch to "Комплексний план" tab (localComplexPlan)
+        const tabBtn = document.querySelector(`.tab-btn[data-target="localComplexPlan"]`);
+        if (tabBtn) tabBtn.click();
+
+        // 2. Set area (square / 1000)
+        const areaVal = item.rawData.square ? item.rawData.square / 1000 : 0;
+        const areaInput = document.getElementById("cp_area");
+        if (areaInput && areaVal > 0) {
+            areaInput.value = areaVal.toFixed(3);
+            areaInput.dispatchEvent(new Event("input", { bubbles: true }));
+        }
+
+        // 3. Set population total (population / 1000)
+        const popTotalVal = item.rawData.population ? item.rawData.population / 1000 : 0; // in thousands
+        const popTotalInput = document.getElementById("cp_pop_total");
+        if (popTotalInput && popTotalVal > 0) {
+            popTotalInput.value = popTotalVal.toFixed(1);
+            popTotalInput.dispatchEvent(new Event("input", { bubbles: true }));
+        }
+
+        // 4. Set population center (estimate 60% of total)
+        const popCenterInput = document.getElementById("cp_pop_center");
+        let popCenterVal = 0;
+        if (popCenterInput && popTotalVal > 0) {
+            popCenterVal = Math.max(0.1, Math.min(popTotalVal, popTotalVal * 0.6));
+            popCenterInput.value = popCenterVal.toFixed(1);
+            popCenterInput.dispatchEvent(new Event("input", { bubbles: true }));
+        }
+
+        // 5. Update other population automatically (subtracted)
+        const popOtherInput = document.getElementById("cp_pop_other");
+        if (popOtherInput && popTotalVal > 0 && popCenterVal > 0) {
+            popOtherInput.value = (popTotalVal - popCenterVal).toFixed(1);
+            popOtherInput.dispatchEvent(new Event("input", { bubbles: true }));
+        }
+
+        // 6. Set population slider cp_f_pop
+        const sliderInput = document.getElementById("cp_f_pop");
+        if (sliderInput && popTotalVal > 0) {
+            let sliderIdx = 0;
+            if (popTotalVal < 10) sliderIdx = 0;
+            else if (popTotalVal < 30) sliderIdx = 1;
+            else if (popTotalVal < 60) sliderIdx = 2;
+            else if (popTotalVal < 120) sliderIdx = 3;
+            else sliderIdx = 4;
+
+            sliderInput.value = sliderIdx;
+            sliderInput.dispatchEvent(new Event("input", { bubbles: true }));
+            sliderInput.dispatchEvent(new Event("change", { bubbles: true }));
+        }
+
+        // 7. Set rural count slider cp_f_rural
+        const ruralCount = parseInt(item.rawData.rural_villages_count) || 0;
+        const ruralSliderInput = document.getElementById("cp_f_rural");
+        if (ruralSliderInput) {
+            let sliderIdx = 0;
+            if (ruralCount < 10) sliderIdx = 0;
+            else if (ruralCount <= 30) sliderIdx = 1;
+            else if (ruralCount <= 60) sliderIdx = 2;
+            else if (ruralCount <= 120) sliderIdx = 3;
+            else sliderIdx = 4;
+
+            ruralSliderInput.value = sliderIdx;
+            ruralSliderInput.dispatchEvent(new Event("input", { bubbles: true }));
+            ruralSliderInput.dispatchEvent(new Event("change", { bubbles: true }));
+        }
+
+        // 8. Set urban count slider cp_f_urban
+        const urbanCount = parseInt(item.rawData.urban_villages_count) || 0;
+        const urbanSliderInput = document.getElementById("cp_f_urban");
+        if (urbanSliderInput) {
+            let sliderIdx = 0;
+            if (urbanCount === 0) sliderIdx = 0;
+            else if (urbanCount === 1) sliderIdx = 1;
+            else if (urbanCount === 2) sliderIdx = 2;
+            else if (urbanCount === 3) sliderIdx = 3;
+            else sliderIdx = 4;
+
+            urbanSliderInput.value = sliderIdx;
+            urbanSliderInput.dispatchEvent(new Event("input", { bubbles: true }));
+            urbanSliderInput.dispatchEvent(new Event("change", { bubbles: true }));
+        }
+    } else if (item.type === "wikidata_city") {
+        // 1. Switch to "Генеральний план" tab (localGeneralPlan)
+        const tabBtn = document.querySelector(`.tab-btn[data-target="localGeneralPlan"]`);
+        if (tabBtn) tabBtn.click();
+
+        // 2. Set population gp_pop (convert absolute value to thousands of people)
+        const popVal = item.rawData.population ? item.rawData.population / 1000 : 0;
+        const popInput = document.getElementById("gp_pop");
+        if (popInput && popVal > 0) {
+            popInput.value = popVal.toFixed(1);
+            popInput.dispatchEvent(new Event("input", { bubbles: true }));
+        }
+
+        // 3. Set city type slider gp_city_k
+        const cityKInput = document.getElementById("gp_city_k");
+        if (cityKInput) {
+            let sliderIdx = 0;
+            if (item.title === "Київ") {
+                sliderIdx = 2; // м. Київ та приміська зона
+            } else if (item.rawData.population >= 1000000) {
+                sliderIdx = 1; // Місто-мільйонник
+            } else {
+                sliderIdx = 0; // Звичайне місто
+            }
+            cityKInput.value = sliderIdx;
+            cityKInput.dispatchEvent(new Event("input", { bubbles: true }));
+            cityKInput.dispatchEvent(new Event("change", { bubbles: true }));
+        }
+    }
+
+    // Update all slider labels across the application
+    updateSliderLabels();
+
+    // Trigger calculation
+    calc();
+
+    // Toast confirmation
+    showToast("Дані успішно застосовано");
+}
+
+
 
