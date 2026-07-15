@@ -2443,17 +2443,6 @@ async function fetchAutocompleteData() {
         showToast("Помилка завантаження даних для автозаповнення");
     }
 
-    try {
-        console.log("Loading Wikipedia city database from query.json...");
-        const resWiki = await fetch("query.json");
-        if (resWiki.ok) {
-            wikidataCities = await resWiki.json();
-            console.log(`Loaded ${wikidataCities.length} cities from Wikipedia.`);
-        }
-    } catch (wikiErr) {
-        console.error("Failed to load query.json Wikipedia database:", wikiErr);
-    }
-
     if (loadedSuccessfully) {
         // Count actual communities and sum properties per area and region
         const communitiesCountMap = {};
@@ -2574,24 +2563,38 @@ async function fetchAutocompleteData() {
             });
         });
 
-        // Add Wikipedia cities from query.json
+        // Add settlements from admin_units.json as wikidata_city
         const seenCities = new Set();
-        wikidataCities.forEach(item => {
-            const name = item.cityLabel;
-            if (!name || seenCities.has(name)) return;
-            seenCities.add(name);
+        communities.forEach(comm => {
+            const setts = comm.settlements || [];
+            setts.forEach(sett => {
+                const name = sett.title;
+                if (!name) return;
 
-            index.push({
-                type: "wikidata_city",
-                id: item.city || name,
-                title: name,
-                subtitle: "Населений пункт (Вікіпедія)",
-                searchString: name.toLowerCase(),
-                rawData: {
+                // Create a unique key for duplicate check to allow same settlement name in different communities
+                const uniqueKey = `${name.toLowerCase()}_${comm.title.toLowerCase()}`;
+                if (seenCities.has(uniqueKey)) return;
+                seenCities.add(uniqueKey);
+
+                const subtitleParts = [];
+                if (sett.type) subtitleParts.push(sett.type);
+                subtitleParts.push(comm.title);
+                if (comm.region_name) subtitleParts.push(`${comm.region_name} район`);
+                if (comm.area_name) subtitleParts.push(`${comm.area_name} область`);
+
+                index.push({
+                    type: "wikidata_city",
+                    id: sett.katottg || name,
                     title: name,
-                    population: parseFloat(item.population) || 0,
-                    square: parseFloat(item.area) || 0
-                }
+                    subtitle: subtitleParts.join(", "),
+                    searchString: `${name} ${sett.type || ''} ${comm.title} ${comm.region_name || ''} ${comm.area_name || ''}`.toLowerCase(),
+                    rawData: {
+                        title: name,
+                        population: parseFloat(sett.population) || 0,
+                        square: parseFloat(sett.square) || 0,
+                        katottg: sett.katottg
+                    }
+                });
             });
         });
 
@@ -2766,7 +2769,7 @@ function renderSuggestions(items) {
             tagName = "Громада";
         } else if (item.type === "wikidata_city") {
             tagClass = "tag-community";
-            tagName = "Місто/Село";
+            tagName = "Населений пункт";
         }
 
         html += `
@@ -2805,8 +2808,8 @@ function prepareAndShowConfirmation(item) {
     if (item.type === "area") {
         const areaVal = item.rawData.square ? item.rawData.square / 1000 : 0;
         details["Вид документації"] = "Схема планування території області";
-        details["Площа області"] = areaVal > 0 ? `${areaVal.toFixed(2)} тис. км²` : "Невідомо";
-        details["Чисельність населення"] = item.rawData.population ? `${item.rawData.population.toLocaleString()} осіб` : "Невідомо";
+        details["Площа області"] = areaVal > 0 ? `${areaVal.toFixed(2)} тис. км²` : "Дані відсутні";
+        details["Чисельність населення"] = item.rawData.population ? `${item.rawData.population.toLocaleString()} осіб` : "Дані відсутні";
         if (item.rawData.actual_community_count) {
             details["Кількість громад в області"] = item.rawData.actual_community_count;
         } else if (item.rawData.local_community_count) {
@@ -2818,30 +2821,41 @@ function prepareAndShowConfirmation(item) {
         const rawSquare = parseFloat(item.rawData.square);
         const areaVal = !isNaN(rawSquare) ? rawSquare / 1000 : 0;
         details["Вид документації"] = "Схема планування території району";
-        details["Площа району"] = areaVal > 0 ? `${areaVal.toFixed(2)} тис. км²` : "Невідомо";
-        details["Чисельність населення"] = item.rawData.population ? `${Math.round(item.rawData.population).toLocaleString()} осіб` : "Невідомо";
+        details["Площа району"] = areaVal > 0 ? `${areaVal.toFixed(2)} тис. км²` : "Дані відсутні";
+        details["Чисельність населення"] = item.rawData.population ? `${Math.round(item.rawData.population).toLocaleString()} осіб` : "Дані відсутні";
         details["Кількість міських н.п. в районі"] = `${item.rawData.urban_villages_count || 0} (міст/смт)`;
         details["Кількість сільських н.п. в районі"] = `${item.rawData.rural_villages_count || 0} (сіл/селищ)`;
     } else if (item.type === "community") {
         const areaVal = item.rawData.square ? item.rawData.square / 1000 : 0;
         const popTotalVal = item.rawData.population ? item.rawData.population / 1000 : 0;
-        const popCenterVal = Math.max(0.1, Math.min(popTotalVal, popTotalVal * 0.6));
+
+        let popCenterVal = item.rawData.center_population ? item.rawData.center_population / 1000 : 0;
+        let isFallback = false;
+        if (popCenterVal <= 0) {
+            popCenterVal = Math.max(0.1, Math.min(popTotalVal, popTotalVal * 0.6));
+            isFallback = true;
+        }
+
         const ruralCount = parseInt(item.rawData.rural_villages_count) || 0;
         const urbanCount = parseInt(item.rawData.urban_villages_count) || 0;
 
         details["Вид документації"] = "Комплексний план просторового розвитку громади";
-        details["Площа громади"] = areaVal > 0 ? `${areaVal.toFixed(3)} тис. км² (${item.rawData.square.toFixed(1)} км²)` : "Невідомо";
-        details["Загальне населення громади"] = item.rawData.population ? `${item.rawData.population.toLocaleString()} осіб` : "Невідомо";
-        details["Населення адмінцентру (розрахунковий 60%)"] = popTotalVal > 0 ? `${Math.round(popCenterVal * 1000).toLocaleString()} осіб` : "Невідомо";
-        details["Кількість міських н.п. в громаді"] = `${urbanCount} (міст/смт)`;
-        details["Кількість сільських н.п. в громаді"] = `${ruralCount} (сіл/селищ)`;
+        details["Площа громади"] = areaVal > 0 ? `${areaVal.toFixed(3)} тис. км² (${item.rawData.square.toFixed(1)} км²)` : "Дані відсутні";
+        details["Загальне населення громади"] = item.rawData.population ? `${item.rawData.population.toLocaleString()} осіб` : "Дані відсутні";
+
         if (item.rawData.center) {
             details["Адміністративний центр"] = item.rawData.center;
         }
+
+        const labelCenterPop = isFallback ? "Населення адмінцентру (розрахунковий 60%)" : "Населення адмінцентру";
+        details[labelCenterPop] = popTotalVal > 0 ? `${Math.round(popCenterVal * 1000).toLocaleString()} осіб` : "Дані відсутні";
+
+        details["Кількість міських н.п. в громаді"] = `${urbanCount} (міст/смт)`;
+        details["Кількість сільських н.п. в громаді"] = `${ruralCount} (сіл/селищ)`;
     } else if (item.type === "wikidata_city") {
         details["Вид документації"] = "Генеральний план населеного пункту";
-        details["Площа НП"] = item.rawData.square ? `${item.rawData.square} км²` : "Невідомо";
-        details["Чисельність населення"] = item.rawData.population ? `${item.rawData.population.toLocaleString()} осіб` : "Невідомо";
+        details["Площа НП"] = item.rawData.square ? `${item.rawData.square} км²` : "Дані відсутні";
+        details["Чисельність населення"] = item.rawData.population ? `${item.rawData.population.toLocaleString()} осіб` : "Дані відсутні";
     }
 
     showConfirmationPopup(item, details);
@@ -3035,11 +3049,13 @@ function applyAdminUnit(item) {
             popTotalInput.dispatchEvent(new Event("input", { bubbles: true }));
         }
 
-        // 4. Set population center (estimate 60% of total)
+        // 4. Set population center (estimate 60% of total if center population not available)
         const popCenterInput = document.getElementById("cp_pop_center");
-        let popCenterVal = 0;
-        if (popCenterInput && popTotalVal > 0) {
+        let popCenterVal = item.rawData.center_population ? item.rawData.center_population / 1000 : 0;
+        if (popCenterVal <= 0 && popTotalVal > 0) {
             popCenterVal = Math.max(0.1, Math.min(popTotalVal, popTotalVal * 0.6));
+        }
+        if (popCenterInput && popCenterVal > 0) {
             popCenterInput.value = popCenterVal.toFixed(1);
             popCenterInput.dispatchEvent(new Event("input", { bubbles: true }));
         }
@@ -3047,7 +3063,7 @@ function applyAdminUnit(item) {
         // 5. Update other population automatically (subtracted)
         const popOtherInput = document.getElementById("cp_pop_other");
         if (popOtherInput && popTotalVal > 0 && popCenterVal > 0) {
-            popOtherInput.value = (popTotalVal - popCenterVal).toFixed(1);
+            popOtherInput.value = Math.max(0, popTotalVal - popCenterVal).toFixed(1);
             popOtherInput.dispatchEvent(new Event("input", { bubbles: true }));
         }
 
