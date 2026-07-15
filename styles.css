@@ -1605,6 +1605,26 @@ body.is-resizing .app {
   color: #f59e0b;
 }
 
+.tag-city {
+  background-color: rgba(139, 92, 246, 0.12);
+  color: #8b5cf6;
+}
+
+.tag-settlement {
+  background-color: rgba(6, 182, 212, 0.12);
+  color: #0891b2;
+}
+
+.tag-village {
+  background-color: rgba(120, 53, 4, 0.1);
+  color: #78350f;
+}
+
+.tag-city-district {
+  background-color: rgba(107, 114, 128, 0.12);
+  color: #4b5563;
+}
+
 /* Modal Popup Window */
 .modal-overlay {
   position: fixed;
@@ -1638,25 +1658,35 @@ body.is-resizing .app {
   animation: scaleUp 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.primary-btn {
-  background: var(--inverse) !important;
-  color: var(--inverse-text) !important;
-  border-color: var(--inverse) !important;
-}
-
-.primary-btn:hover {
-  background: var(--text) !important;
-  color: var(--panel) !important;
-}
-
+.primary-btn,
 .secondary-btn {
   background: var(--panel-soft) !important;
   color: var(--text) !important;
   border: 1px solid var(--line-strong) !important;
+  transition: all 0.15s ease;
 }
 
+.primary-btn:hover,
 .secondary-btn:hover {
   background: var(--hover) !important;
+}
+
+.primary-btn:focus,
+.secondary-btn:focus {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border-color: #000000 !important;
+  outline: none !important;
+  box-shadow: 0 0 0 2px var(--panel), 0 0 0 4px #000000 !important;
+}
+
+[data-theme="dark"] .primary-btn:focus,
+[data-theme="dark"] .secondary-btn:focus {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border-color: #ffffff !important;
+  outline: none !important;
+  box-shadow: 0 0 0 2px var(--panel), 0 0 0 4px #ffffff !important;
 }
 
 
@@ -1748,6 +1778,31 @@ body.is-resizing .app {
   color: #fbbf24;
 }
 
+[data-theme="dark"] .tag-city {
+  background-color: rgba(139, 92, 246, 0.25);
+  color: #a78bfa;
+}
+
+[data-theme="dark"] .tag-settlement {
+  background-color: rgba(6, 182, 212, 0.25);
+  color: #22d3ee;
+}
+
+[data-theme="dark"] .tag-village {
+  background-color: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
+}
+
+[data-theme="dark"] .tag-city-district {
+  background-color: rgba(156, 163, 175, 0.25);
+  color: #9ca3af;
+}
+
+.suggestion-item.keyboard-active {
+  background: var(--hover) !important;
+  outline: 1.5px solid var(--primary);
+}
+
 /* Autocomplete Clear Button */
 .input-clear-btn {
   position: absolute;
@@ -1775,4 +1830,38 @@ body.is-resizing .app {
 .input-clear-btn .icon {
   width: 14px;
   height: 14px;
+}
+
+/* Reset button for coefficients input values */
+.input-reset-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.btn-reset {
+  background: none;
+  border: none;
+  padding: 4px;
+  color: var(--muted);
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+}
+
+.btn-reset:hover {
+  background: var(--hover);
+  color: var(--text);
+}
+
+.btn-reset .icon {
+  width: 15px;
+  height: 15px;
 }

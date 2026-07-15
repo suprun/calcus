@@ -111,6 +111,11 @@
             <path d="M3 9H21" />
             <path d="M3 15H21" />
         </symbol>
+        <symbol id="i-rotate-ccw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <polyline points="3 3 3 8 8 8" />
+        </symbol>
 
         <!-- Document Metaphor SVG icons -->
         <symbol id="i-doc-default" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -238,13 +243,20 @@
                                 style="font-size: 11.5px; color: var(--muted); margin-top: 6px; line-height: 1.4; margin-bottom: 0;">
                                 Дозволяє швидко знайти адміністративну одиницю та автоматично заповнити її
                                 <strong>площу</strong> та <strong>населення</strong>.<br>
-                                Дані взято з: <a href="https://decentralization.ua/" target="_blank" rel="noopener"
-                                    style="color: var(--real-text); text-decoration: underline;">Портал
+                                Дані взято з: <a
+                                    href="https://mindev.gov.ua/diialnist/rozvytok-mistsevoho-samovriaduvannia/kodyfikator-administratyvno-terytorialnykh-odynyts-ta-terytorii-terytorialnykh-hromad"
+                                    target="_blank" rel="noopener"
+                                    style="color: var(--real-text); text-decoration: underline;">Кодифікатор
+                                    КАТОТТГ</a>, <a
+                                    href="https://data.gov.ua/dataset/46ca2741-b4e8-4939-98ec-83199de5e502"
+                                    target="_blank" rel="noopener"
+                                    style="color: var(--real-text); text-decoration: underline;">Держстат (чисельність
+                                    населення)</a>, <a href="https://decentralization.ua/" target="_blank"
+                                    rel="noopener" style="color: var(--real-text); text-decoration: underline;">Портал
                                     децентралізації</a>, <a href="https://uk.wikipedia.org/" target="_blank"
                                     rel="noopener"
-                                    style="color: var(--real-text); text-decoration: underline;">Вікіпедія</a>, <a href="https://mindev.gov.ua/diialnist/rozvytok-mistsevoho-samovriaduvannia/kodyfikator-administratyvno-terytorialnykh-odynyts-ta-terytorii-terytorialnykh-hromad" target="_blank" rel="noopener"
-                                    style="color: var(--real-text); text-decoration: underline;">Кодифікатор КАТОТТГ</a> та <a href="https://data.gov.ua/dataset/46ca2741-b4e8-4939-98ec-83199de5e502" target="_blank" rel="noopener"
-                                    style="color: var(--real-text); text-decoration: underline;">Держстат (чисельність населення)</a>, для точного розрахунку звіряйтесь з актуальними
+                                    style="color: var(--real-text); text-decoration: underline;">Вікіпедія</a>, для
+                                точного розрахунку звіряйтесь з актуальними
                                 джерелами. <br> Специфічні коефіцієнти
                                 військових дій, статус курорту, лісистість тощо) необхідно вказати вручну.
                             </p>
@@ -259,21 +271,23 @@
                             </span>
                             <div class="form-group-title" style="margin:0;">Назва об'єкта / договору:</div>
                         </div>
-                        <div class="left-aligned-padding" style="border-bottom: 1px solid var(--line); padding-bottom: 14px;">
-                            <div class="input-shell-with-button">
+                        <div class="left-aligned-padding"
+                            style="border-bottom: 1px solid var(--line); padding-bottom: 8px; margin-bottom: 8px;">
+                            <div style="position: relative; width: 100%;">
                                 <input class="control text-input" id="projectName" type="text"
-                                    placeholder="Необов’язково">
-                                <button class="inner-action-btn" id="pasteProjectNameBtn" type="button"
-                                    title="Вставити з буфера обміну">
-                                    <svg class="icon">
-                                        <use href="#i-copy"></use>
+                                    placeholder="Необов’язково" style="padding-right: 36px;">
+                                <button class="input-clear-btn" id="projectNameClearBtn" type="button"
+                                    style="display: none;" title="Очистити поле">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                                        <line x1="6" y1="6" x2="18" y2="18"></line>
                                     </svg>
-                                    <span>Вставити</span>
                                 </button>
                             </div>
                         </div>
 
-                        <div class="group-title-row">
+                        <div class="group-title-row" style="margin-top: 8px; margin-bottom: 6px;">
                             <span class="side-icon settings" aria-hidden="true">
                                 <svg class="icon">
                                     <use href="#i-list"></use>
@@ -281,7 +295,8 @@
                             </span>
                             <div class="form-group-title" style="margin:0;">Вид документації:</div>
                         </div>
-                        <div class="tabs-container left-aligned-padding" style="border-bottom: none; padding-bottom: 0; margin-bottom: 0;">
+                        <div class="tabs-container left-aligned-padding"
+                            style="border-bottom: none; padding-bottom: 0; margin-bottom: 0;">
                             <button class="tab-btn active" data-target="stateParts">Схема частини України</button>
                             <button class="tab-btn" data-target="regionalRegion">Схема області</button>
                             <button class="tab-btn" data-target="regionalDistrict">Схема району</button>
@@ -1996,7 +2011,8 @@
                             <div class="group-inputs-container left-aligned-padding">
                                 <div class="row">
                                     <div>
-                                        <label>Загальний коефіцієнт (Кзаг):
+                                        <label id="kzagLabel">Коефіцієнт Кзаг<br><span
+                                                style="color: var(--real-text);">(містобудівна частина)</span>:
                                             <span class="tooltip-trigger"
                                                 data-tooltip="Наведений в пункті 2 (проєктно-планувальні роботи) таблиці 3 додатку 7 Настанови з визначення вартості проєктних, науково-проєктних, вишукувальних робіт та експертизи проєктної документації на будівництво.">i</span>
                                         </label>
@@ -2008,19 +2024,63 @@
                                                 Табл. 3, п. 2</a>)
                                         </div>
                                     </div>
-                                    <div class="number-shell has-stepper">
-                                        <input class="control number-input" id="kzag" type="number" value="43.36"
-                                            step="0.01" min="0.1">
-                                        <div class="custom-stepper">
-                                            <button class="step-btn up" data-step-target="kzag" data-step-dir="up"
-                                                type="button" aria-label="Збільшити"></button>
-                                            <button class="step-btn down" data-step-target="kzag" data-step-dir="down"
-                                                type="button" aria-label="Зменшити"></button>
+                                    <div class="input-reset-wrapper">
+                                        <button class="btn-reset" type="button" data-reset-target="kzag"
+                                            title="Скинути до стандартного значення" aria-label="Скинути до стандартного значення">
+                                            <svg class="icon">
+                                                <use href="#i-rotate-ccw"></use>
+                                            </svg>
+                                        </button>
+                                        <div class="number-shell has-stepper">
+                                            <input class="control number-input" id="kzag" type="number" value="43.36"
+                                                step="0.01" min="0.1">
+                                            <div class="custom-stepper">
+                                                <button class="step-btn up" data-step-target="kzag" data-step-dir="up"
+                                                    type="button" aria-label="Збільшити"></button>
+                                                <button class="step-btn down" data-step-target="kzag" data-step-dir="down"
+                                                    type="button" aria-label="Зменшити"></button>
+                                            </div>
                                         </div>
                                     </div>
                                     <span class="unit-label">коеф.</span>
                                 </div>
-
+ 
+                                <div class="row" id="kzagLandRow">
+                                    <div>
+                                        <label>Коефіцієнт Кзаг<br><span
+                                                style="color: var(--drawing-text);">(землевпорядна частина)</span>:
+                                            <span class="tooltip-trigger"
+                                                data-tooltip="Наведений в пункті 4 (інженерно-геодезичні роботи) таблиці 3 додатку 7 Настанови з визначення вартості проєктних, науково-проєктних, вишукувальних робіт та експертизи проєктної документації на будівництво.">i</span>
+                                        </label>
+                                        <div style="font-size: 11px; margin-top: 2px; color: var(--muted);">
+                                            <span class="doc-link" data-target="p-6-2">п. 6.2 Настанови</span> (<a
+                                                href="https://e-construction.gov.ua/laws_detail/2702455691775313887"
+                                                target="_blank" rel="noopener"
+                                                style="color: var(--real-text); text-decoration: underline;">Додаток 7,
+                                                Табл. 3, п. 4</a>)
+                                        </div>
+                                    </div>
+                                    <div class="input-reset-wrapper">
+                                        <button class="btn-reset" type="button" data-reset-target="kzag_land"
+                                            title="Скинути до стандартного значення" aria-label="Скинути до стандартного значення">
+                                            <svg class="icon">
+                                                <use href="#i-rotate-ccw"></use>
+                                            </svg>
+                                        </button>
+                                        <div class="number-shell has-stepper">
+                                            <input class="control number-input" id="kzag_land" type="number" value="39.66"
+                                                step="0.01" min="0.1">
+                                            <div class="custom-stepper">
+                                                <button class="step-btn up" data-step-target="kzag_land" data-step-dir="up"
+                                                    type="button" aria-label="Збільшити"></button>
+                                                <button class="step-btn down" data-step-target="kzag_land"
+                                                    data-step-dir="down" type="button" aria-label="Зменшити"></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span class="unit-label">коеф.</span>
+                                </div>
+ 
                                 <div class="row">
                                     <div>
                                         <label>Поправочний коефіцієнт (Кдир):
@@ -2035,14 +2095,22 @@
                                                 Табл. 1, п. 40</a>)
                                         </div>
                                     </div>
-                                    <div class="number-shell has-stepper">
-                                        <input class="control number-input" id="kdir" type="number" value="1.01"
-                                            step="0.01" min="0.1">
-                                        <div class="custom-stepper">
-                                            <button class="step-btn up" data-step-target="kdir" data-step-dir="up"
-                                                type="button" aria-label="Збільшити"></button>
-                                            <button class="step-btn down" data-step-target="kdir" data-step-dir="down"
-                                                type="button" aria-label="Зменшити"></button>
+                                    <div class="input-reset-wrapper">
+                                        <button class="btn-reset" type="button" data-reset-target="kdir"
+                                            title="Скинути до стандартного значення" aria-label="Скинути до стандартного значення">
+                                            <svg class="icon">
+                                                <use href="#i-rotate-ccw"></use>
+                                            </svg>
+                                        </button>
+                                        <div class="number-shell has-stepper">
+                                            <input class="control number-input" id="kdir" type="number" value="1.01"
+                                                step="0.01" min="0.1">
+                                            <div class="custom-stepper">
+                                                <button class="step-btn up" data-step-target="kdir" data-step-dir="up"
+                                                    type="button" aria-label="Збільшити"></button>
+                                                <button class="step-btn down" data-step-target="kdir" data-step-dir="down"
+                                                    type="button" aria-label="Зменшити"></button>
+                                            </div>
                                         </div>
                                     </div>
                                     <span class="unit-label">коеф.</span>

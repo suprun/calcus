@@ -790,23 +790,21 @@ function initEventListeners() {
         }
     });
 
-    // Paste Project Name trigger
-    const pasteBtn = document.getElementById("pasteProjectNameBtn");
-    const nameInput = document.getElementById("projectName");
-    if (pasteBtn && nameInput) {
-        pasteBtn.addEventListener("click", async () => {
-            try {
-                const text = await navigator.clipboard.readText();
-                if (text) {
-                    nameInput.value = text;
-                    nameInput.dispatchEvent(new Event("input", { bubbles: true }));
-                    nameInput.dispatchEvent(new Event("change", { bubbles: true }));
-                    showToast("Назву вставлено");
-                }
-            } catch (err) {
-                console.error("Failed to read clipboard: ", err);
-                showToast("Не вдалося отримати доступ до буфера обміну");
-            }
+    // Project Name clear button functionality
+    const projectNameInput = document.getElementById("projectName");
+    const projectNameClearBtn = document.getElementById("projectNameClearBtn");
+    if (projectNameInput && projectNameClearBtn) {
+        const updateProjectNameClearBtnVisibility = () => {
+            projectNameClearBtn.style.display = projectNameInput.value.length > 0 ? "flex" : "none";
+        };
+        projectNameInput.addEventListener("input", updateProjectNameClearBtnVisibility);
+        
+        projectNameClearBtn.addEventListener("click", () => {
+            projectNameInput.value = "";
+            projectNameClearBtn.style.display = "none";
+            projectNameInput.focus();
+            projectNameInput.dispatchEvent(new Event("input", { bubbles: true }));
+            projectNameInput.dispatchEvent(new Event("change", { bubbles: true }));
         });
     }
 
@@ -854,12 +852,26 @@ function initEventListeners() {
         button.addEventListener('lostpointercapture', stopStepRepeat);
         button.addEventListener('mouseleave', stopStepRepeat);
     });
+
+    // Reset buttons logic for coefficients
+    document.querySelectorAll(".btn-reset").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const targetId = btn.getAttribute("data-reset-target");
+            const input = document.getElementById(targetId);
+            if (input) {
+                const defVal = input.getAttribute("value") || "1.0";
+                input.value = defVal;
+                input.dispatchEvent(new Event("input", { bubbles: true }));
+                input.dispatchEvent(new Event("change", { bubbles: true }));
+            }
+        });
+    });
 }
 
 function resetAllInputs() {
     // Number inputs defaults
     const numDefaults = {
-        kzag: "43.36", kdir: "1.01",
+        kzag: "43.36", kzag_land: "39.66", kdir: "1.01",
         sp_area: "15.0", rr_area: "25.0", rd_area: "2.5",
         cp_area: "0.45", cp_pop_center: "12.5", cp_pop_other: "8.3", cp_pop_total: "20.8",
         gp_pop: "15.0", dp_area: "45.0"
@@ -914,6 +926,47 @@ function startStepRepeat(button) {
     stepRepeatTimer = setTimeout(() => {
         stepRepeatInterval = setInterval(() => stepInput(target, direction), 80);
     }, 360);
+}
+
+function getExpertiseMathHTML(finalCost, expPercent) {
+    const costThousand = finalCost / 1000.0;
+    let mathText = "";
+    if (costThousand <= 100.0) {
+        mathText = `оскільки вартість розроблення ${finalCost.toLocaleString(undefined, {maximumFractionDigits: 2})} грн (<b>${costThousand.toFixed(2)}</b> тис. грн) є меншою або дорівнює 100 тис. грн, відсоток експертизи становить фіксовані <b>10.0%</b>.`;
+    } else if (costThousand <= 500.0) {
+        const ratio = (costThousand - 100.1) / (500.0 - 100.1);
+        mathText = `інтервал від 100.1 до 500.0 тис. грн (плавне зменшення від 9% до 8%):<br>
+        <code>Коеф. інтерполяції = (${costThousand.toFixed(2)} - 100.1) / (500.0 - 100.1) = ${ratio.toFixed(4)}</code><br>
+        <code>Відсоток = 9.0 - ${ratio.toFixed(4)} × (9.0 - 8.0) = <b>${expPercent.toFixed(2)}%</b></code>`;
+    } else if (costThousand <= 1000.0) {
+        const ratio = (costThousand - 500.1) / (1000.0 - 500.1);
+        mathText = `інтервал від 500.1 до 1000.0 тис. грн (плавне зменшення від 8% до 7%):<br>
+        <code>Коеф. інтерполяції = (${costThousand.toFixed(2)} - 500.1) / (1000.0 - 500.1) = ${ratio.toFixed(4)}</code><br>
+        <code>Відсоток = 8.0 - ${ratio.toFixed(4)} × (8.0 - 7.0) = <b>${expPercent.toFixed(2)}%</b></code>`;
+    } else if (costThousand <= 2500.0) {
+        const ratio = (costThousand - 1000.1) / (2500.0 - 1000.1);
+        mathText = `інтервал від 1000.1 до 2500.0 тис. грн (плавне зменшення від 7% до 6%):<br>
+        <code>Коеф. інтерполяції = (${costThousand.toFixed(2)} - 1000.1) / (2500.0 - 1000.1) = ${ratio.toFixed(4)}</code><br>
+        <code>Відсоток = 7.0 - ${ratio.toFixed(4)} × (7.0 - 6.0) = <b>${expPercent.toFixed(2)}%</b></code>`;
+    } else if (costThousand <= 5000.0) {
+        const ratio = (costThousand - 2500.1) / (5000.0 - 2500.1);
+        mathText = `інтервал від 2500.1 до 5000.0 тис. грн (плавне зменшення від 6% до 5%):<br>
+        <code>Коеф. інтерполяції = (${costThousand.toFixed(2)} - 2500.1) / (5000.0 - 2500.1) = ${ratio.toFixed(4)}</code><br>
+        <code>Відсоток = 6.0 - ${ratio.toFixed(4)} × (6.0 - 5.0) = <b>${expPercent.toFixed(2)}%</b></code>`;
+    } else if (costThousand <= 7500.0) {
+        const ratio = (costThousand - 5000.1) / (7500.0 - 5000.1);
+        mathText = `інтервал від 5000.1 до 7500.0 тис. грн (плавне зменшення від 5% до 4%):<br>
+        <code>Коеф. інтерполяції = (${costThousand.toFixed(2)} - 5000.1) / (7500.0 - 5000.1) = ${ratio.toFixed(4)}</code><br>
+        <code>Відсоток = 5.0 - ${ratio.toFixed(4)} × (5.0 - 4.0) = <b>${expPercent.toFixed(2)}%</b></code>`;
+    } else if (costThousand <= 10000.0) {
+        const ratio = (costThousand - 7500.1) / (10000.0 - 7500.1);
+        mathText = `інтервал від 7500.1 до 10000.0 тис. грн (плавне зменшення від 4% до 3%):<br>
+        <code>Коеф. інтерполяції = (${costThousand.toFixed(2)} - 7500.1) / (10000.0 - 7500.1) = ${ratio.toFixed(4)}</code><br>
+        <code>Відсоток = 4.0 - ${ratio.toFixed(4)} × (4.0 - 3.0) = <b>${expPercent.toFixed(2)}%</b></code>`;
+    } else {
+        mathText = `оскільки вартість розроблення ${finalCost.toLocaleString(undefined, {maximumFractionDigits: 2})} грн (<b>${costThousand.toFixed(2)}</b> тис. грн) є більшою за 10000 тис. грн, відсоток експертизи становить фіксовані <b>3.0%</b>.`;
+    }
+    return mathText;
 }
 
 function stopStepRepeat() {
@@ -996,88 +1049,129 @@ function formatCurrency(val) {
 
 // --- UPDATE FORMULA DETAILS WINDOW ---
 
-function updateFormulaBox(docType, p, A, B, K, Kzag, Kdir, notes) {
+function updateFormulaBox(docType, data) {
     const formulaBox = document.getElementById("formulaBox");
     if (!formulaBox) return;
 
     let content = "";
 
-    if (docType === "stateParts") {
+    if (docType === "stateParts" || docType === "regionalRegion" || docType === "regionalDistrict") {
+        const baseCalc = data.a + data.b * data.p;
+        const finalCalc = baseCalc * data.K * data.Kzag * data.Kdir;
+        const name = docType === "stateParts" ? "Схеми планування окремої частини України" : docType === "regionalRegion" ? "Схеми планування території області" : "Схеми планування території району";
+        const table = docType === "stateParts" ? "Таблиці 3-1" : docType === "regionalRegion" ? "Таблиці 4-1" : "Таблиці 4-3";
         content = `
-            <strong>Розрахунок Схеми планування окремої частини України</strong><br>
+            <strong>Розрахунок ${name}</strong><br>
             Формула (п. 2.3): <code>C = (A + B × P) × Кзаг × К × Кдир</code><br><br>
+            <strong>Математичний розрахунок за введеними даними:</strong><br>
+            <code>C = (${data.a.toLocaleString()} + ${data.b.toLocaleString()} × ${data.p}) × ${data.Kzag} × ${data.K.toFixed(4)} × ${data.Kdir}</code><br>
+            <code>C = ${baseCalc.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})} × ${data.Kzag} × ${data.K.toFixed(4)} × ${data.Kdir} = <b>${finalCalc.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</b> грн</code><br><br>
             <strong>Поточні значення змінних:</strong><br>
-            • <code>P</code> (площа) = <b>${p}</b> тис. км²<br>
-            • <code>A</code> = <b>${A.toLocaleString()}</b> грн, <code>B</code> = <b>${B.toLocaleString()}</b> грн (з Таблиці 3-1)<br>
-            • <code>Кзаг</code> = <b>${Kzag.toFixed(2)}</b> (індекс переходу)<br>
-            • <code>Кдир</code> = <b>${Kdir.toFixed(2)}</b> (частка прямих витрат)<br>
-            • <code>К</code> = <b>${K.toFixed(4)}</b> (коефіцієнт складності)<br><br>
-            <em>Примітки:</em> ${notes || "немає"}
-        `;
-    } else if (docType === "regionalRegion") {
-        content = `
-            <strong>Розрахунок Схеми планування території області</strong><br>
-            Формула (п. 2.3): <code>C = (A + B × P) × Кзаг × К × Кдир</code><br><br>
-            <strong>Поточні значення змінних:</strong><br>
-            • <code>P</code> (площа) = <b>${p}</b> тис. км²<br>
-            • <code>A</code> = <b>${A.toLocaleString()}</b> грн, <code>B</code> = <b>${B.toLocaleString()}</b> грн (з Таблиці 4-1)<br>
-            • <code>Кзаг</code> = <b>${Kzag.toFixed(2)}</b> (індекс переходу)<br>
-            • <code>Кдир</code> = <b>${Kdir.toFixed(2)}</b> (частка прямих витрат)<br>
-            • <code>К</code> = <b>${K.toFixed(4)}</b> (коефіцієнт складності)<br><br>
-            <em>Примітки:</em> ${notes || "немає"}
-        `;
-    } else if (docType === "regionalDistrict") {
-        content = `
-            <strong>Розрахунок Схеми планування території району</strong><br>
-            Формула (п. 2.3): <code>C = (A + B × P) × Кзаг × К × Кдир</code><br><br>
-            <strong>Поточні значення змінних:</strong><br>
-            • <code>P</code> (площа) = <b>${p}</b> тис. км²<br>
-            • <code>A</code> = <b>${A.toLocaleString()}</b> грн, <code>B</code> = <b>${B.toLocaleString()}</b> грн (з Таблиці 4-3)<br>
-            • <code>Кзаг</code> = <b>${Kzag.toFixed(2)}</b> (індекс переходу)<br>
-            • <code>Кдир</code> = <b>${Kdir.toFixed(2)}</b> (частка прямих витрат)<br>
-            • <code>К</code> = <b>${K.toFixed(4)}</b> (коефіцієнт складності)<br><br>
-            <em>Примітки:</em> ${notes || "немає"}
+            • <code>P</code> (площа) = <b>${data.p}</b> тис. км²<br>
+            • <code>A</code> = <b>${data.a.toLocaleString()}</b> грн, <code>B</code> = <b>${data.b.toLocaleString()}</b> грн (з ${table})<br>
+            • <code>Кзаг</code> = <b>${data.Kzag.toFixed(2)}</b> (індекс переходу)<br>
+            • <code>Кдир</code> = <b>${data.Kdir.toFixed(2)}</b> (частка прямих витрат)<br>
+            • <code>К</code> = <b>${data.K.toFixed(4)}</b> (коефіцієнт складності)<br><br>
+            <em>Примітки:</em> ${data.notes || "немає"}
         `;
     } else if (docType === "localComplexPlan") {
         content = `
             <strong>Розрахунок Комплексного плану просторового розвитку громади (місцевий рівень)</strong><br>
             Формула (п. 2.2): <code>C = C_містобуд + C_землевпоряд</code><br><br>
-            <strong>Складові містобудівної частини (п. 2.9):</strong><br>
-            • <code>С_площі</code> (від площі території громади) за Таблицею 5-1<br>
-            • <code>С_адмінцентру</code> (від населення адмінцентру) за Таблицею 5-3<br>
-            • <code>С_інших_нп</code> (від населення інших нп) за Таблицею 5-3 (примітка: у Настанові помилково вказана Табл. 5-1)<br>
-            • <code>C_містобуд = (С_площі + С_адмінцентру + С_інших_нп) × К_містобуд × Кзаг × Кдир</code><br><br>
-            <strong>Складові землевпорядної частини (п. 6.1):</strong><br>
-            • <code>С_населення</code> (від населення громади) за Таблицею 6-1 (значення в тис. грн) × К3 (землекористувачі) × К4 (категорії земель)<br>
-            • <code>С_площі_зем</code> (від площі громади в км²) за Таблицею 6-3 (значення в тис. грн)<br>
-            • <code>C_землевпоряд = (С_населення + С_площі_зем) × К_землевпоряд × Кзаг × Кдир</code>
+
+            <strong>1. МІСТОБУДІВНА ЧАСТИНА (п. 2.9):</strong><br>
+            <code>C_містобуд = (С_площі + С_адмінцентру + С_інших_нп) × К_містобуд × Кзаг × Кдир</code><br>
+            • <code>С_площі</code> (від площі громади ${data.areaComplex} тис. км²): <b>${data.m1.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</b> грн<br>
+            • <code>С_адмінцентру</code> (від населення адмінцентру ${data.popCenter} тис. осіб): <b>${data.m2.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</b> грн<br>
+            • <code>С_інших_нп</code> (від населення інших нп ${data.popOther.toFixed(1)} тис. осіб): <b>${data.m3.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</b> грн<br>
+            <code>C_містобуд = (${data.m1.toLocaleString(undefined, {maximumFractionDigits: 2})} + ${data.m2.toLocaleString(undefined, {maximumFractionDigits: 2})} + ${data.m3.toLocaleString(undefined, {maximumFractionDigits: 2})}) × ${data.K_mist.toFixed(4)} × ${data.globalKzag.toFixed(2)} × ${data.globalKdir.toFixed(2)}</code><br>
+            <code>C_містобуд = ${(data.m1 + data.m2 + data.m3).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})} × ${data.K_mist.toFixed(4)} × ${data.globalKzag.toFixed(2)} × ${data.globalKdir.toFixed(2)} = <b>${data.mistCost.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</b> грн</code><br><br>
+
+            <strong>2. ЗЕМЛЕВПОРЯДНА ЧАСТИНА (п. 6.1):</strong><br>
+            <code>C_землевпоряд = (С_населення + С_площі_зем) × К_землевпоряд × Кзаг_зем × Кдир</code><br>
+            • <code>С_населення</code> (населення громади ${data.popComplex} тис. осіб, К3=${data.K3}, К4=${data.K4}):<br>
+              <code>С_населення = BasePrice × 1000 × K3 × K4</code><br>
+              <code>С_населення = ${data.z1Base.toLocaleString()} × 1000 × ${data.K3} × ${data.K4} = <b>${data.z1.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</b> грн</code><br>
+            • <code>С_площі_зем</code> (площа громади ${data.areaLandComplex.toFixed(1)} км²):<br>
+              <code>С_площі_зем = BasePrice × 1000</code><br>
+              <code>С_площі_зем = ${data.z2.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})} грн</code><br>
+            <code>C_землевпоряд = (${data.z1.toLocaleString(undefined, {maximumFractionDigits: 2})} + ${data.z2.toLocaleString(undefined, {maximumFractionDigits: 2})}) × ${data.K_land.toFixed(4)} × ${data.kzagLand.toFixed(2)} × ${data.globalKdir.toFixed(2)}</code><br>
+            <code>C_землевпоряд = ${(data.z1 + data.z2).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})} × ${data.K_land.toFixed(4)} × ${data.kzagLand.toFixed(2)} × ${data.globalKdir.toFixed(2)} = <b>${data.landCost.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</b> грн</code><br><br>
+
+            <strong>ЗАГАЛЬНА ВАРТІСТЬ:</strong><br>
+            <code>C = C_містобуд + C_землевпоряд</code><br>
+            <code>C = ${data.mistCost.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})} + ${data.landCost.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})} = <b>${data.finalDocCost.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</b> грн</code>
         `;
     } else if (docType === "localGeneralPlan") {
+        const baseCalc = data.a + data.b * data.p;
+        const finalCalc = baseCalc * data.K * data.Kzag * data.Kdir;
         content = `
             <strong>Розрахунок Генерального плану населеного пункту</strong><br>
             Формула (п. 2.3): <code>C = (A + B × P) × Кзаг × К × Кдир</code><br><br>
+            <strong>Математичний розрахунок за введеними даними:</strong><br>
+            <code>C = (${data.a.toLocaleString()} + ${data.b.toLocaleString()} × ${data.p}) × ${data.Kzag} × ${data.K.toFixed(4)} × ${data.Kdir}</code><br>
+            <code>C = ${baseCalc.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})} × ${data.Kzag} × ${data.K.toFixed(4)} × ${data.Kdir} = <b>${finalCalc.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</b> грн</code><br><br>
             <strong>Поточні значення змінних:</strong><br>
-            • <code>P</code> (населення) = <b>${p}</b> тис. осіб<br>
-            • <code>A</code> = <b>${A.toLocaleString()}</b> грн, <code>B</code> = <b>${B.toLocaleString()}</b> грн (з Таблиці 5-3)<br>
-            • <code>Кзаг</code> = <b>${Kzag.toFixed(2)}</b> (індекс переходу)<br>
-            • <code>Кдир</code> = <b>${Kdir.toFixed(2)}</b> (частка прямих витрат)<br>
-            • <code>К</code> = <b>${K.toFixed(4)}</b> (з урахуванням п. 5.10 для міст-мільйонників/Києва)<br><br>
-            <em>Примітки:</em> ${notes || "немає"}
+            • <code>P</code> (населення) = <b>${data.p}</b> тис. осіб<br>
+            • <code>A</code> = <b>${data.a.toLocaleString()}</b> грн, <code>B</code> = <b>${data.b.toLocaleString()}</b> грн (з Таблиці 5-3)<br>
+            • <code>Кзаг</code> = <b>${data.Kzag.toFixed(2)}</b> (містобудівний індекс)<br>
+            • <code>Кдир</code> = <b>${data.Kdir.toFixed(2)}</b> (частка прямих витрат)<br>
+            • <code>К</code> = <b>${data.K.toFixed(4)}</b> (з урахуванням п. 5.10 для міст-мільйонників/Києва)<br><br>
+            <em>Примітки:</em> ${data.notes || "немає"}
         `;
     } else if (docType === "localDetailedPlan") {
         content = `
             <strong>Розрахунок Детального плану території (ДПТ)</strong><br>
             Формула (п. 2.2): <code>C = C_містобуд + C_землевпоряд</code><br><br>
-            <strong>Містобудівна складова (Таблиця 5-4):</strong><br>
-            • <code>C_містобуд = C_базова_містобуд × К_містобуд × Кзаг × Кдир</code><br>
-            • <code>К_містобуд</code> включає: масштабний коефіцієнт (п. 5.17: 1:1000 - 1.25, 1:500 - 1.5) та коефіцієнт типу території (п. 5.18: центр міста, історичний ареал тощо - 1.1)<br><br>
-            <strong>Землевпорядна складова (Таблиця 6-5):</strong><br>
-            • <code>C_землевпоряд = C_базова_землевп × К_землевпоряд × Кзаг × Кдир</code>
+
+            <strong>1. МІСТОБУДІВНА СКЛАДОВА (Таблиця 5-4):</strong><br>
+            <code>C_містобуд = C_базова_містобуд × К_містобуд × Кзаг × Кдир</code><br>
+            • <code>C_базова_містобуд</code> (від площі ДПТ ${data.area} га): <b>${data.baseMist.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</b> грн<br>
+            <code>C_містобуд = ${data.baseMist.toLocaleString(undefined, {maximumFractionDigits: 2})} × ${data.K_mist.toFixed(4)} × ${data.globalKzag.toFixed(2)} × ${data.globalKdir.toFixed(2)} = <b>${data.mistCost.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</b> грн</code><br><br>
+
+            <strong>2. ЗЕМЛЕВПОРЯДНА СКЛАДОВА (Таблиця 6-5):</strong><br>
+            <code>C_землевпоряд = C_базова_землевп × К_землевпоряд × Кзаг_зем × Кдир</code><br>
+            • <code>C_базова_землевп</code> (від площі ДПТ ${data.area} га): <b>${data.baseLand.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</b> грн<br>
+            <code>C_землевпоряд = ${data.baseLand.toLocaleString(undefined, {maximumFractionDigits: 2})} × ${data.K_land.toFixed(4)} × ${data.kzagLand.toFixed(2)} × ${data.globalKdir.toFixed(2)} = <b>${data.landCost.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</b> грн</code><br><br>
+
+            <strong>ЗАГАЛЬНА ВАРТІСТЬ:</strong><br>
+            <code>C = C_містобуд + C_землевпоряд</code><br>
+            <code>C = ${data.mistCost.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})} + ${data.landCost.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})} = <b>${data.finalDocCost.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</b> грн</code>
+        `;
+    }
+
+    if (data.needsExpertise) {
+        const extMath = getExpertiseMathHTML(data.finalDocCost || data.mistCost + data.landCost, data.expPercent);
+        content += `
+            <br><hr style="border: 0; border-top: 1px solid var(--line); margin: 12px 0;">
+            <strong>РОЗРАХУНОК ВАРТОСТІ ЕКСПЕРТИЗИ (Таблиця 2-2):</strong><br>
+            • ${extMath}<br>
+            • Розрахунок вартості: <code>C_експертизи = C_документації × Відсоток</code><br>
+            <code>C_експертизи = ${(data.finalDocCost || data.mistCost + data.landCost).toLocaleString(undefined, {maximumFractionDigits: 2})} × ${data.expPercent.toFixed(2)}% = <b>${data.expCost.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</b> грн</code>
+        `;
+    } else {
+        content += `
+            <br><hr style="border: 0; border-top: 1px solid var(--line); margin: 12px 0;">
+            <strong>ЕКСПЕРТИЗА ПРОЄКТНОЇ ДОКУМЕНТАЦІЇ:</strong><br>
+            Згідно з налаштуваннями калькулятора або чинним законодавством, експертиза для этого об'єкта <b>не проводиться</b>.
+        `;
+    }
+
+    if (data.useVat) {
+        const vatBase = (data.finalDocCost || data.mistCost + data.landCost) + (data.needsExpertise ? data.expCost : 0);
+        content += `
+            <br><hr style="border: 0; border-top: 1px solid var(--line); margin: 12px 0;">
+            <strong>РОЗРАХУНОК ПДВ (20%):</strong><br>
+            <code>ПДВ = (Вартість розроблення + Вартість експертизи) × 20%</code><br>
+            <code>ПДВ = ${vatBase.toLocaleString(undefined, {maximumFractionDigits: 2})} × 20% = <b>${data.vatSum.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</b> грн</code><br><br>
+            <strong>ЗАГАЛЬНА СУМА З ПДВ:</strong><br>
+            <code>Всього = ${vatBase.toLocaleString(undefined, {maximumFractionDigits: 2})} + ${data.vatSum.toLocaleString(undefined, {maximumFractionDigits: 2})} = <b>${data.totalWithVat.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</b> грн</code>
         `;
     }
 
     formulaBox.innerHTML = linkifyReferences(content);
 }
+
 
 // --- DYNAMIC CALCULATOR EXECUTOR ---
 
@@ -1087,9 +1181,24 @@ function calc() {
 
     const docType = activeTab.getAttribute("data-target");
 
+    // Show/hide Kzag land row and update label text based on active docType
+    const kzagLandRow = document.getElementById("kzagLandRow");
+    const kzagLabel = document.getElementById("kzagLabel");
+    if (kzagLandRow && kzagLabel) {
+        const tooltipHTML = ` <span class="tooltip-trigger" data-tooltip="Наведений в пункті 2 (проєктно-планувальні роботи) таблиці 3 додатку 7 Настанови з визначення вартості проєктних, науково-проєктних, вишукувальних робіт та експертизи проєктної документації на будівництво.">i</span>`;
+        if (docType === "localComplexPlan" || docType === "localDetailedPlan") {
+            kzagLandRow.style.display = "";
+            kzagLabel.innerHTML = `Коефіцієнт Кзаг<br><span style="color: var(--real-text);">(містобудівна частина)</span>:${tooltipHTML}`;
+        } else {
+            kzagLandRow.style.display = "none";
+            kzagLabel.innerHTML = `Коефіцієнт Кзаг:${tooltipHTML}`;
+        }
+    }
+
     // Clear previous field warning icons
     document.querySelectorAll(".field-warning-icon").forEach(el => el.innerHTML = "");
     let warningFieldId = "";
+    let formulaData = {};
 
     const output = document.getElementById("output");
     const outputBottom = document.getElementById("outputBottom");
@@ -1098,6 +1207,7 @@ function calc() {
     const resultMainBottom = document.getElementById("resultMainBottom");
 
     const globalKzag = getInputValue("kzag", 1.0);
+    const kzagLand = getInputValue("kzag_land", 1.0);
     const globalKdir = getInputValue("kdir", 1.0);
     const useVat = document.getElementById("useVat") ? document.getElementById("useVat").checked : false;
 
@@ -1148,7 +1258,7 @@ function calc() {
         activeA = currentRange.a;
         activeB = currentRange.b;
 
-        updateFormulaBox("stateParts", p, activeA, activeB, K, globalKzag, globalKdir, res.note);
+        formulaData = { p, a: activeA, b: activeB, K, Kzag: globalKzag, Kdir: globalKdir, notes: res.note, finalDocCost };
 
         html = `
             <div class="result-sub-row">
@@ -1207,7 +1317,7 @@ function calc() {
         activeA = currentRange.a;
         activeB = currentRange.b;
 
-        updateFormulaBox("regionalRegion", p, activeA, activeB, K, globalKzag, globalKdir, res.note);
+        formulaData = { p, a: activeA, b: activeB, K, Kzag: globalKzag, Kdir: globalKdir, notes: res.note, finalDocCost };
 
         html = `
             <div class="result-sub-row">
@@ -1264,7 +1374,7 @@ function calc() {
         activeA = currentRange.a;
         activeB = currentRange.b;
 
-        updateFormulaBox("regionalDistrict", p, activeA, activeB, K, globalKzag, globalKdir, res.note);
+        formulaData = { p, a: activeA, b: activeB, K, Kzag: globalKzag, Kdir: globalKdir, notes: res.note, finalDocCost };
 
         html = `
             <div class="result-sub-row">
@@ -1331,6 +1441,7 @@ function calc() {
                 docTypeName: activeTab.textContent,
                 projectName: document.getElementById("projectName")?.value || "",
                 globalKzag: globalKzag,
+                kzagLand: kzagLand,
                 globalKdir: globalKdir,
                 useVat: useVat,
                 mistCost: 0,
@@ -1416,11 +1527,17 @@ function calc() {
 
         const landCoefs = getComplicatingFactors("cp_land_coefs");
         const K_land = combineCoefficients(landCoefs);
-        landCost = (z1 + z2) * K_land * globalKzag * globalKdir;
+        landCost = (z1 + z2) * K_land * kzagLand * globalKdir;
 
         finalDocCost = mistCost + landCost;
 
-        updateFormulaBox("localComplexPlan");
+        formulaData = {
+            areaComplex, m1, popCenter, m2, popOther, m3,
+            K_mist, globalKzag, globalKdir, mistCost,
+            popComplex, z1, z1Base: resLandPop.basePrice, K3, K4,
+            areaLandComplex, z2, K_land, kzagLand, landCost,
+            finalDocCost
+        };
 
         html = `
             <div class="result-sub-row" style="font-weight:600; color:var(--real-text);">
@@ -1481,7 +1598,7 @@ function calc() {
         activeA = currentRange.a;
         activeB = currentRange.b;
 
-        updateFormulaBox("localGeneralPlan", p, activeA, activeB, K, globalKzag, globalKdir, res.note);
+        formulaData = { p, a: activeA, b: activeB, K, Kzag: globalKzag, Kdir: globalKdir, notes: res.note, finalDocCost };
 
         html = `
             <div class="result-sub-row">
@@ -1550,11 +1667,14 @@ function calc() {
             { value: f_zones, mustMultiply: false },
             ...landGenCoefs
         ]);
-        landCost = baseLand * K_land * globalKzag * globalKdir;
+        landCost = baseLand * K_land * kzagLand * globalKdir;
 
         finalDocCost = mistCost + landCost;
 
-        updateFormulaBox("localDetailedPlan");
+        formulaData = {
+            area, baseMist, K_mist, globalKzag, globalKdir, mistCost,
+            baseLand, K_land, kzagLand, landCost, finalDocCost
+        };
 
         html = `
             <div class="result-sub-row" style="font-weight:600; color:var(--real-text);">
@@ -1618,6 +1738,15 @@ function calc() {
         vatSum = (finalDocCost + exp.cost) * 0.20;
         totalWithVat = finalDocCost + exp.cost + vatSum;
     }
+ 
+    formulaData.needsExpertise = needsExpertise;
+    formulaData.expCost = exp.cost;
+    formulaData.expPercent = exp.percent;
+    formulaData.useVat = useVat;
+    formulaData.vatSum = vatSum;
+    formulaData.totalWithVat = totalWithVat;
+ 
+    updateFormulaBox(docType, formulaData);
 
     // Detailed results rendering
     if (needsExpertise) {
@@ -1693,6 +1822,7 @@ function calc() {
         docTypeName: activeTab.textContent,
         projectName: document.getElementById("projectName")?.value || "",
         globalKzag: globalKzag,
+        kzagLand: kzagLand,
         globalKdir: globalKdir,
         useVat: useVat,
         mistCost: mistCost || finalDocCost,
@@ -1834,7 +1964,10 @@ function exportToExcel() {
 
     // Глобальні параметри
     data.push(["Глобальні параметри", ""]);
-    data.push(["Коефіцієнт Кзаг (Додаток 7):", calcResult.globalKzag]);
+    data.push(["Коефіцієнт Кзаг (містобудівний):", calcResult.globalKzag]);
+    if (calcResult.docType === "localComplexPlan" || calcResult.docType === "localDetailedPlan") {
+        data.push(["Коефіцієнт Кзаг (землевпорядний):", calcResult.kzagLand]);
+    }
     data.push(["Поправочний коефіцієнт Кдир:", calcResult.globalKdir]);
     data.push(["Нарахування ПДВ (20%):", calcResult.useVat ? "Так" : "Ні"]);
     data.push(["", ""]);
@@ -2000,9 +2133,15 @@ function generatePrintReport() {
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Коефіцієнт Кзаг (Додаток 7, п. 2)</td>
+                        <td>Коефіцієнт Кзаг містобудівний (Додаток 7, п. 2)</td>
                         <td style="text-align: right;">${calcResult.globalKzag}</td>
                     </tr>
+                    ${(calcResult.docType === "localComplexPlan" || calcResult.docType === "localDetailedPlan") ? `
+                    <tr>
+                        <td>Коефіцієнт Кзаг землевпорядний (Додаток 7, п. 4)</td>
+                        <td style="text-align: right;">${calcResult.kzagLand}</td>
+                    </tr>
+                    ` : ""}
                     <tr>
                         <td>Поправочний коефіцієнт Кдир</td>
                         <td style="text-align: right;">${calcResult.globalKdir}</td>
@@ -2412,13 +2551,19 @@ let autocompleteData = {
     loading: false,
     searchIndex: []
 };
+let loadingPromise = null;
 
 async function fetchAutocompleteData() {
-    if (autocompleteData.loaded || autocompleteData.loading) return;
+    if (autocompleteData.loaded) return;
+    if (autocompleteData.loading) {
+        await loadingPromise;
+        return;
+    }
 
     autocompleteData.loading = true;
-    const spinner = document.getElementById("adminSearchSpinner");
-    if (spinner) spinner.style.display = "block";
+    loadingPromise = (async () => {
+        const spinner = document.getElementById("adminSearchSpinner");
+        if (spinner) spinner.style.display = "block";
 
     let areas = [];
     let regions = [];
@@ -2510,13 +2655,19 @@ async function fetchAutocompleteData() {
             area.rural_villages_count = communitiesRuralMap[area.id] || 0;
             area.urban_villages_count = communitiesUrbanMap[area.id] || 0;
 
+            const isKyivCity = area.title === "Київ" || area.katottg === "UA80000000000093317";
             index.push({
-                type: "area",
+                type: isKyivCity ? "wikidata_city" : "area",
                 id: area.id,
-                title: area.title,
-                subtitle: "Область",
+                title: isKyivCity ? "Київ" : area.title,
+                subtitle: isKyivCity ? "Населений пункт" : "Область",
                 searchString: area.title.toLowerCase(),
-                rawData: area
+                rawData: isKyivCity ? {
+                    ...area,
+                    square: 839.0,
+                    population: 2950000,
+                    type: "місто"
+                } : area
             });
         });
 
@@ -2592,7 +2743,8 @@ async function fetchAutocompleteData() {
                         title: name,
                         population: parseFloat(sett.population) || 0,
                         square: parseFloat(sett.square) || 0,
-                        katottg: sett.katottg
+                        katottg: sett.katottg,
+                        type: sett.type
                     }
                 });
             });
@@ -2605,8 +2757,13 @@ async function fetchAutocompleteData() {
 
     autocompleteData.loading = false;
     if (spinner) spinner.style.display = "none";
+    })();
+    await loadingPromise;
 }
 
+
+let currentSuggestions = [];
+let activeSuggestionIndex = -1;
 
 function initAutocomplete() {
     const input = document.getElementById("adminSearch");
@@ -2618,9 +2775,25 @@ function initAutocomplete() {
 
     if (!input || !suggestionsBox) return;
 
-    // Load data on focus
-    input.addEventListener("focus", () => {
-        fetchAutocompleteData();
+    const triggerSearch = () => {
+        const query = input.value.trim().toLowerCase();
+        
+        const matches = autocompleteData.searchIndex.filter(item => {
+            if (query.length > 0) {
+                if (!item.searchString.includes(query)) return false;
+            }
+            return true;
+        });
+
+        // Limit to 15 suggestions
+        const limited = matches.slice(0, 15);
+        renderSuggestions(limited);
+    };
+
+    // Load data on focus and show suggestions
+    input.addEventListener("focus", async () => {
+        await fetchAutocompleteData();
+        triggerSearch();
     });
 
     // Clear button functionality
@@ -2642,32 +2815,53 @@ function initAutocomplete() {
 
     // Autocomplete search logic
     input.addEventListener("input", () => {
-        const query = input.value.trim().toLowerCase();
-        if (query.length < 2) {
-            suggestionsBox.style.display = "none";
-            return;
-        }
-
-        // Filter matches based on active tab type
-        const activeTabBtn = document.querySelector(".tab-btn.active");
-        const activeTarget = activeTabBtn ? activeTabBtn.getAttribute("data-target") : null;
-
-        let targetType = null;
-        if (activeTarget === "regionalRegion") targetType = "area";
-        else if (activeTarget === "regionalDistrict") targetType = "region";
-        else if (activeTarget === "localComplexPlan") targetType = "community";
-        else if (activeTarget === "localGeneralPlan") targetType = "wikidata_city";
-
-        const matches = autocompleteData.searchIndex.filter(item => {
-            if (!item.searchString.includes(query)) return false;
-            if (targetType && item.type !== targetType) return false;
-            return true;
-        });
-
-        // Limit to 15 suggestions
-        const limited = matches.slice(0, 15);
-        renderSuggestions(limited);
+        triggerSearch();
     });
+
+    // Keyboard navigation in suggestions list
+    input.addEventListener("keydown", (e) => {
+        if (suggestionsBox.style.display === "none") return;
+
+        const itemsElements = suggestionsBox.querySelectorAll(".suggestion-item");
+        if (itemsElements.length === 0) return;
+
+        if (e.key === "ArrowDown") {
+            e.preventDefault();
+            activeSuggestionIndex++;
+            if (activeSuggestionIndex >= itemsElements.length) {
+                activeSuggestionIndex = 0;
+            }
+            updateActiveSuggestion(itemsElements);
+        } else if (e.key === "ArrowUp") {
+            e.preventDefault();
+            activeSuggestionIndex--;
+            if (activeSuggestionIndex < 0) {
+                activeSuggestionIndex = itemsElements.length - 1;
+            }
+            updateActiveSuggestion(itemsElements);
+        } else if (e.key === "Enter") {
+            if (activeSuggestionIndex >= 0 && activeSuggestionIndex < currentSuggestions.length) {
+                e.preventDefault();
+                e.stopPropagation();
+                const selected = currentSuggestions[activeSuggestionIndex];
+                selectSuggestion(selected);
+            }
+        } else if (e.key === "Escape") {
+            e.preventDefault();
+            suggestionsBox.style.display = "none";
+        }
+    });
+
+    function updateActiveSuggestion(elements) {
+        elements.forEach((el, idx) => {
+            if (idx === activeSuggestionIndex) {
+                el.classList.add("keyboard-active");
+                el.scrollIntoView({ block: "nearest" });
+            } else {
+                el.classList.remove("keyboard-active");
+            }
+        });
+    }
 
     // Close suggestions dropdown when clicking outside
     document.addEventListener("click", (e) => {
@@ -2694,6 +2888,30 @@ function initAutocomplete() {
             modal.style.display = "none";
         });
     }
+
+    // Handle Enter, Escape, and Left/Right keys for the confirmation modal
+    document.addEventListener("keydown", (e) => {
+        if (modal && modal.style.display === "flex") {
+            if (e.key === "Enter") {
+                e.preventDefault();
+                if (document.activeElement === cancelBtn) {
+                    cancelBtn.click();
+                } else {
+                    applyBtn.click();
+                }
+            } else if (e.key === "Escape") {
+                e.preventDefault();
+                cancelBtn.click();
+            } else if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
+                e.preventDefault();
+                if (document.activeElement === applyBtn) {
+                    cancelBtn.focus();
+                } else {
+                    applyBtn.focus();
+                }
+            }
+        }
+    });
 }
 
 function updateAutocompletePosition() {
@@ -2744,6 +2962,10 @@ function renderSuggestions(items) {
     const suggestionsBox = document.getElementById("adminSuggestions");
     if (!suggestionsBox) return;
 
+    currentSuggestions = items;
+    activeSuggestionIndex = -1;
+    suggestionsBox.scrollTop = 0;
+
     if (items.length === 0) {
         suggestionsBox.innerHTML = `
             <div style="padding: 12px 14px; font-size: 12.5px; color: var(--muted); text-align: center;">
@@ -2768,8 +2990,20 @@ function renderSuggestions(items) {
             tagClass = "tag-community";
             tagName = "Громада";
         } else if (item.type === "wikidata_city") {
-            tagClass = "tag-community";
-            tagName = "Населений пункт";
+            const rawType = (item.rawData && item.rawData.type) ? item.rawData.type.toLowerCase() : "місто";
+            if (rawType.includes("селище") || rawType === "смт") {
+                tagClass = "tag-settlement";
+                tagName = "Селище";
+            } else if (rawType.includes("село")) {
+                tagClass = "tag-village";
+                tagName = "Село";
+            } else if (rawType.includes("район в місті")) {
+                tagClass = "tag-city-district";
+                tagName = "Район у місті";
+            } else {
+                tagClass = "tag-city";
+                tagName = "Місто";
+            }
         }
 
         html += `
@@ -2791,15 +3025,21 @@ function renderSuggestions(items) {
             const idx = parseInt(el.getAttribute("data-idx"));
             const selected = items[idx];
             if (selected) {
-                window.pendingAdminUnit = selected;
-                suggestionsBox.style.display = "none";
-                document.getElementById("adminSearch").value = selected.title;
-                const clearBtn = document.getElementById("adminSearchClearBtn");
-                if (clearBtn) clearBtn.style.display = "flex";
-                prepareAndShowConfirmation(selected);
+                selectSuggestion(selected);
             }
         });
     });
+}
+
+function selectSuggestion(selected) {
+    const suggestionsBox = document.getElementById("adminSuggestions");
+    if (suggestionsBox) suggestionsBox.style.display = "none";
+    const input = document.getElementById("adminSearch");
+    if (input) input.value = selected.title;
+    const clearBtn = document.getElementById("adminSearchClearBtn");
+    if (clearBtn) clearBtn.style.display = "flex";
+    window.pendingAdminUnit = selected;
+    prepareAndShowConfirmation(selected);
 }
 
 function prepareAndShowConfirmation(item) {
@@ -2884,6 +3124,10 @@ function showConfirmationPopup(item, details) {
     body.innerHTML = html;
 
     modal.style.display = "flex";
+    const applyBtn = document.getElementById("adminModalApplyBtn");
+    if (applyBtn) {
+        applyBtn.focus();
+    }
 }
 
 function applyAdminUnit(item) {
@@ -3130,7 +3374,7 @@ function applyAdminUnit(item) {
         const cityKInput = document.getElementById("gp_city_k");
         if (cityKInput) {
             let sliderIdx = 0;
-            if (item.title === "Київ") {
+            if (item.title.includes("Київ") || item.rawData?.katottg === "UA80000000000093317") {
                 sliderIdx = 2; // м. Київ та приміська зона
             } else if (item.rawData.population >= 1000000) {
                 sliderIdx = 1; // Місто-мільйонник
