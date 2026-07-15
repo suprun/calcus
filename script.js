@@ -798,7 +798,7 @@ function initEventListeners() {
             projectNameClearBtn.style.display = projectNameInput.value.length > 0 ? "flex" : "none";
         };
         projectNameInput.addEventListener("input", updateProjectNameClearBtnVisibility);
-        
+
         projectNameClearBtn.addEventListener("click", () => {
             projectNameInput.value = "";
             projectNameClearBtn.style.display = "none";
@@ -932,7 +932,7 @@ function getExpertiseMathHTML(finalCost, expPercent) {
     const costThousand = finalCost / 1000.0;
     let mathText = "";
     if (costThousand <= 100.0) {
-        mathText = `оскільки вартість розроблення ${finalCost.toLocaleString(undefined, {maximumFractionDigits: 2})} грн (<b>${costThousand.toFixed(2)}</b> тис. грн) є меншою або дорівнює 100 тис. грн, відсоток експертизи становить фіксовані <b>10.0%</b>.`;
+        mathText = `оскільки вартість розроблення ${finalCost.toLocaleString(undefined, { maximumFractionDigits: 2 })} грн (<b>${costThousand.toFixed(2)}</b> тис. грн) є меншою або дорівнює 100 тис. грн, відсоток експертизи становить фіксовані <b>10.0%</b>.`;
     } else if (costThousand <= 500.0) {
         const ratio = (costThousand - 100.1) / (500.0 - 100.1);
         mathText = `інтервал від 100.1 до 500.0 тис. грн (плавне зменшення від 9% до 8%):<br>
@@ -964,7 +964,7 @@ function getExpertiseMathHTML(finalCost, expPercent) {
         <code>Коеф. інтерполяції = (${costThousand.toFixed(2)} - 7500.1) / (10000.0 - 7500.1) = ${ratio.toFixed(4)}</code><br>
         <code>Відсоток = 4.0 - ${ratio.toFixed(4)} × (4.0 - 3.0) = <b>${expPercent.toFixed(2)}%</b></code>`;
     } else {
-        mathText = `оскільки вартість розроблення ${finalCost.toLocaleString(undefined, {maximumFractionDigits: 2})} грн (<b>${costThousand.toFixed(2)}</b> тис. грн) є більшою за 10000 тис. грн, відсоток експертизи становить фіксовані <b>3.0%</b>.`;
+        mathText = `оскільки вартість розроблення ${finalCost.toLocaleString(undefined, { maximumFractionDigits: 2 })} грн (<b>${costThousand.toFixed(2)}</b> тис. грн) є більшою за 10000 тис. грн, відсоток експертизи становить фіксовані <b>3.0%</b>.`;
     }
     return mathText;
 }
@@ -1065,7 +1065,7 @@ function updateFormulaBox(docType, data) {
             Формула (п. 2.3): <code>C = (A + B × P) × Кзаг × К × Кдир</code><br><br>
             <strong>Математичний розрахунок за введеними даними:</strong><br>
             <code>C = (${data.a.toLocaleString()} + ${data.b.toLocaleString()} × ${data.p}) × ${data.Kzag} × ${data.K.toFixed(4)} × ${data.Kdir}</code><br>
-            <code>C = ${baseCalc.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})} × ${data.Kzag} × ${data.K.toFixed(4)} × ${data.Kdir} = <b>${finalCalc.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</b> грн</code><br><br>
+            <code>C = ${baseCalc.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} × ${data.Kzag} × ${data.K.toFixed(4)} × ${data.Kdir} = <b>${finalCalc.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</b> грн</code><br><br>
             <strong>Поточні значення змінних:</strong><br>
             • <code>P</code> (площа) = <b>${data.p}</b> тис. км²<br>
             • <code>A</code> = <b>${data.a.toLocaleString()}</b> грн, <code>B</code> = <b>${data.b.toLocaleString()}</b> грн (з ${table})<br>
@@ -1081,26 +1081,26 @@ function updateFormulaBox(docType, data) {
 
             <strong>1. МІСТОБУДІВНА ЧАСТИНА (п. 2.9):</strong><br>
             <code>C_містобуд = (С_площі + С_адмінцентру + С_інших_нп) × К_містобуд × Кзаг × Кдир</code><br>
-            • <code>С_площі</code> (від площі громади ${data.areaComplex} тис. км²): <b>${data.m1.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</b> грн<br>
-            • <code>С_адмінцентру</code> (від населення адмінцентру ${data.popCenter} тис. осіб): <b>${data.m2.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</b> грн<br>
-            • <code>С_інших_нп</code> (від населення інших нп ${data.popOther.toFixed(1)} тис. осіб): <b>${data.m3.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</b> грн<br>
-            <code>C_містобуд = (${data.m1.toLocaleString(undefined, {maximumFractionDigits: 2})} + ${data.m2.toLocaleString(undefined, {maximumFractionDigits: 2})} + ${data.m3.toLocaleString(undefined, {maximumFractionDigits: 2})}) × ${data.K_mist.toFixed(4)} × ${data.globalKzag.toFixed(2)} × ${data.globalKdir.toFixed(2)}</code><br>
-            <code>C_містобуд = ${(data.m1 + data.m2 + data.m3).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})} × ${data.K_mist.toFixed(4)} × ${data.globalKzag.toFixed(2)} × ${data.globalKdir.toFixed(2)} = <b>${data.mistCost.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</b> грн</code><br><br>
+            • <code>С_площі</code> (від площі громади ${data.areaComplex} тис. км²): <b>${data.m1.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</b> грн<br>
+            • <code>С_адмінцентру</code> (від населення адмінцентру ${data.popCenter} тис. осіб): <b>${data.m2.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</b> грн<br>
+            • <code>С_інших_нп</code> (від населення інших нп ${data.popOther.toFixed(1)} тис. осіб): <b>${data.m3.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</b> грн<br>
+            <code>C_містобуд = (${data.m1.toLocaleString(undefined, { maximumFractionDigits: 2 })} + ${data.m2.toLocaleString(undefined, { maximumFractionDigits: 2 })} + ${data.m3.toLocaleString(undefined, { maximumFractionDigits: 2 })}) × ${data.K_mist.toFixed(4)} × ${data.globalKzag.toFixed(2)} × ${data.globalKdir.toFixed(2)}</code><br>
+            <code>C_містобуд = ${(data.m1 + data.m2 + data.m3).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} × ${data.K_mist.toFixed(4)} × ${data.globalKzag.toFixed(2)} × ${data.globalKdir.toFixed(2)} = <b>${data.mistCost.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</b> грн</code><br><br>
 
             <strong>2. ЗЕМЛЕВПОРЯДНА ЧАСТИНА (п. 6.1):</strong><br>
             <code>C_землевпоряд = (С_населення + С_площі_зем) × К_землевпоряд × Кзаг_зем × Кдир</code><br>
             • <code>С_населення</code> (населення громади ${data.popComplex} тис. осіб, К3=${data.K3}, К4=${data.K4}):<br>
               <code>С_населення = BasePrice × 1000 × K3 × K4</code><br>
-              <code>С_населення = ${data.z1Base.toLocaleString()} × 1000 × ${data.K3} × ${data.K4} = <b>${data.z1.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</b> грн</code><br>
+              <code>С_населення = ${data.z1Base.toLocaleString()} × 1000 × ${data.K3} × ${data.K4} = <b>${data.z1.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</b> грн</code><br>
             • <code>С_площі_зем</code> (площа громади ${data.areaLandComplex.toFixed(1)} км²):<br>
               <code>С_площі_зем = BasePrice × 1000</code><br>
-              <code>С_площі_зем = ${data.z2.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})} грн</code><br>
-            <code>C_землевпоряд = (${data.z1.toLocaleString(undefined, {maximumFractionDigits: 2})} + ${data.z2.toLocaleString(undefined, {maximumFractionDigits: 2})}) × ${data.K_land.toFixed(4)} × ${data.kzagLand.toFixed(2)} × ${data.globalKdir.toFixed(2)}</code><br>
-            <code>C_землевпоряд = ${(data.z1 + data.z2).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})} × ${data.K_land.toFixed(4)} × ${data.kzagLand.toFixed(2)} × ${data.globalKdir.toFixed(2)} = <b>${data.landCost.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</b> грн</code><br><br>
+              <code>С_площі_зем = ${data.z2.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} грн</code><br>
+            <code>C_землевпоряд = (${data.z1.toLocaleString(undefined, { maximumFractionDigits: 2 })} + ${data.z2.toLocaleString(undefined, { maximumFractionDigits: 2 })}) × ${data.K_land.toFixed(4)} × ${data.kzagLand.toFixed(2)} × ${data.globalKdir.toFixed(2)}</code><br>
+            <code>C_землевпоряд = ${(data.z1 + data.z2).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} × ${data.K_land.toFixed(4)} × ${data.kzagLand.toFixed(2)} × ${data.globalKdir.toFixed(2)} = <b>${data.landCost.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</b> грн</code><br><br>
 
             <strong>ЗАГАЛЬНА ВАРТІСТЬ:</strong><br>
             <code>C = C_містобуд + C_землевпоряд</code><br>
-            <code>C = ${data.mistCost.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})} + ${data.landCost.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})} = <b>${data.finalDocCost.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</b> грн</code>
+            <code>C = ${data.mistCost.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} + ${data.landCost.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} = <b>${data.finalDocCost.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</b> грн</code>
         `;
     } else if (docType === "localGeneralPlan") {
         const baseCalc = data.a + data.b * data.p;
@@ -1110,7 +1110,7 @@ function updateFormulaBox(docType, data) {
             Формула (п. 2.3): <code>C = (A + B × P) × Кзаг × К × Кдир</code><br><br>
             <strong>Математичний розрахунок за введеними даними:</strong><br>
             <code>C = (${data.a.toLocaleString()} + ${data.b.toLocaleString()} × ${data.p}) × ${data.Kzag} × ${data.K.toFixed(4)} × ${data.Kdir}</code><br>
-            <code>C = ${baseCalc.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})} × ${data.Kzag} × ${data.K.toFixed(4)} × ${data.Kdir} = <b>${finalCalc.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</b> грн</code><br><br>
+            <code>C = ${baseCalc.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} × ${data.Kzag} × ${data.K.toFixed(4)} × ${data.Kdir} = <b>${finalCalc.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</b> грн</code><br><br>
             <strong>Поточні значення змінних:</strong><br>
             • <code>P</code> (населення) = <b>${data.p}</b> тис. осіб<br>
             • <code>A</code> = <b>${data.a.toLocaleString()}</b> грн, <code>B</code> = <b>${data.b.toLocaleString()}</b> грн (з Таблиці 5-3)<br>
@@ -1126,17 +1126,17 @@ function updateFormulaBox(docType, data) {
 
             <strong>1. МІСТОБУДІВНА СКЛАДОВА (Таблиця 5-4):</strong><br>
             <code>C_містобуд = C_базова_містобуд × К_містобуд × Кзаг × Кдир</code><br>
-            • <code>C_базова_містобуд</code> (від площі ДПТ ${data.area} га): <b>${data.baseMist.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</b> грн<br>
-            <code>C_містобуд = ${data.baseMist.toLocaleString(undefined, {maximumFractionDigits: 2})} × ${data.K_mist.toFixed(4)} × ${data.globalKzag.toFixed(2)} × ${data.globalKdir.toFixed(2)} = <b>${data.mistCost.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</b> грн</code><br><br>
+            • <code>C_базова_містобуд</code> (від площі ДПТ ${data.area} га): <b>${data.baseMist.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</b> грн<br>
+            <code>C_містобуд = ${data.baseMist.toLocaleString(undefined, { maximumFractionDigits: 2 })} × ${data.K_mist.toFixed(4)} × ${data.globalKzag.toFixed(2)} × ${data.globalKdir.toFixed(2)} = <b>${data.mistCost.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</b> грн</code><br><br>
 
             <strong>2. ЗЕМЛЕВПОРЯДНА СКЛАДОВА (Таблиця 6-5):</strong><br>
             <code>C_землевпоряд = C_базова_землевп × К_землевпоряд × Кзаг_зем × Кдир</code><br>
-            • <code>C_базова_землевп</code> (від площі ДПТ ${data.area} га): <b>${data.baseLand.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</b> грн<br>
-            <code>C_землевпоряд = ${data.baseLand.toLocaleString(undefined, {maximumFractionDigits: 2})} × ${data.K_land.toFixed(4)} × ${data.kzagLand.toFixed(2)} × ${data.globalKdir.toFixed(2)} = <b>${data.landCost.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</b> грн</code><br><br>
+            • <code>C_базова_землевп</code> (від площі ДПТ ${data.area} га): <b>${data.baseLand.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</b> грн<br>
+            <code>C_землевпоряд = ${data.baseLand.toLocaleString(undefined, { maximumFractionDigits: 2 })} × ${data.K_land.toFixed(4)} × ${data.kzagLand.toFixed(2)} × ${data.globalKdir.toFixed(2)} = <b>${data.landCost.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</b> грн</code><br><br>
 
             <strong>ЗАГАЛЬНА ВАРТІСТЬ:</strong><br>
             <code>C = C_містобуд + C_землевпоряд</code><br>
-            <code>C = ${data.mistCost.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})} + ${data.landCost.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})} = <b>${data.finalDocCost.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</b> грн</code>
+            <code>C = ${data.mistCost.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} + ${data.landCost.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} = <b>${data.finalDocCost.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</b> грн</code>
         `;
     }
 
@@ -1147,7 +1147,7 @@ function updateFormulaBox(docType, data) {
             <strong>РОЗРАХУНОК ВАРТОСТІ ЕКСПЕРТИЗИ (Таблиця 2-2):</strong><br>
             • ${extMath}<br>
             • Розрахунок вартості: <code>C_експертизи = C_документації × Відсоток</code><br>
-            <code>C_експертизи = ${(data.finalDocCost || data.mistCost + data.landCost).toLocaleString(undefined, {maximumFractionDigits: 2})} × ${data.expPercent.toFixed(2)}% = <b>${data.expCost.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</b> грн</code>
+            <code>C_експертизи = ${(data.finalDocCost || data.mistCost + data.landCost).toLocaleString(undefined, { maximumFractionDigits: 2 })} × ${data.expPercent.toFixed(2)}% = <b>${data.expCost.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</b> грн</code>
         `;
     } else {
         content += `
@@ -1163,9 +1163,9 @@ function updateFormulaBox(docType, data) {
             <br><hr style="border: 0; border-top: 1px solid var(--line); margin: 12px 0;">
             <strong>РОЗРАХУНОК ПДВ (20%):</strong><br>
             <code>ПДВ = (Вартість розроблення + Вартість експертизи) × 20%</code><br>
-            <code>ПДВ = ${vatBase.toLocaleString(undefined, {maximumFractionDigits: 2})} × 20% = <b>${data.vatSum.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</b> грн</code><br><br>
+            <code>ПДВ = ${vatBase.toLocaleString(undefined, { maximumFractionDigits: 2 })} × 20% = <b>${data.vatSum.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</b> грн</code><br><br>
             <strong>ЗАГАЛЬНА СУМА З ПДВ:</strong><br>
-            <code>Всього = ${vatBase.toLocaleString(undefined, {maximumFractionDigits: 2})} + ${data.vatSum.toLocaleString(undefined, {maximumFractionDigits: 2})} = <b>${data.totalWithVat.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</b> грн</code>
+            <code>Всього = ${vatBase.toLocaleString(undefined, { maximumFractionDigits: 2 })} + ${data.vatSum.toLocaleString(undefined, { maximumFractionDigits: 2 })} = <b>${data.totalWithVat.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</b> грн</code>
         `;
     }
 
@@ -1738,14 +1738,14 @@ function calc() {
         vatSum = (finalDocCost + exp.cost) * 0.20;
         totalWithVat = finalDocCost + exp.cost + vatSum;
     }
- 
+
     formulaData.needsExpertise = needsExpertise;
     formulaData.expCost = exp.cost;
     formulaData.expPercent = exp.percent;
     formulaData.useVat = useVat;
     formulaData.vatSum = vatSum;
     formulaData.totalWithVat = totalWithVat;
- 
+
     updateFormulaBox(docType, formulaData);
 
     // Detailed results rendering
@@ -2565,198 +2565,198 @@ async function fetchAutocompleteData() {
         const spinner = document.getElementById("adminSearchSpinner");
         if (spinner) spinner.style.display = "block";
 
-    let areas = [];
-    let regions = [];
-    let communities = [];
-    let wikidataCities = [];
-    let loadedSuccessfully = false;
+        let areas = [];
+        let regions = [];
+        let communities = [];
+        let wikidataCities = [];
+        let loadedSuccessfully = false;
 
-    try {
-        console.log("Loading admin units from local admin_units.json database...");
-        const resLocal = await fetch("admin_units.json");
-        if (!resLocal.ok) throw new Error(`HTTP ${resLocal.status} on local JSON`);
-        const localData = await resLocal.json();
+        try {
+            console.log("Loading admin units from local admin_units.json database...");
+            const resLocal = await fetch("admin_units.json");
+            if (!resLocal.ok) throw new Error(`HTTP ${resLocal.status} on local JSON`);
+            const localData = await resLocal.json();
 
-        areas = localData.areas || [];
-        regions = localData.regions || [];
-        communities = localData.communities || [];
+            areas = localData.areas || [];
+            regions = localData.regions || [];
+            communities = localData.communities || [];
 
-        loadedSuccessfully = true;
-        console.log("Admin units database loaded successfully.");
-    } catch (localErr) {
-        console.error("Failed to load local admin units database: ", localErr);
-        showToast("Помилка завантаження даних для автозаповнення");
-    }
+            loadedSuccessfully = true;
+            console.log("Admin units database loaded successfully.");
+        } catch (localErr) {
+            console.error("Failed to load local admin units database: ", localErr);
+            showToast("Помилка завантаження даних для автозаповнення");
+        }
 
-    if (loadedSuccessfully) {
-        // Count actual communities and sum properties per area and region
-        const communitiesCountMap = {};
-        const communitiesSquareMap = {};
-        const communitiesPopulationMap = {};
-        const communitiesRuralMap = {};
-        const communitiesUrbanMap = {};
+        if (loadedSuccessfully) {
+            // Count actual communities and sum properties per area and region
+            const communitiesCountMap = {};
+            const communitiesSquareMap = {};
+            const communitiesPopulationMap = {};
+            const communitiesRuralMap = {};
+            const communitiesUrbanMap = {};
 
-        const regionSquareMap = {};
-        const regionPopulationMap = {};
-        const regionRuralMap = {};
-        const regionUrbanMap = {};
+            const regionSquareMap = {};
+            const regionPopulationMap = {};
+            const regionRuralMap = {};
+            const regionUrbanMap = {};
 
-        communities.forEach(comm => {
-            const ruralVal = parseInt(comm.rural_villages_count) || 0;
-            const urbanVal = parseInt(comm.urban_villages_count) || 0;
+            communities.forEach(comm => {
+                const ruralVal = parseInt(comm.rural_villages_count) || 0;
+                const urbanVal = parseInt(comm.urban_villages_count) || 0;
 
-            // For Areas
-            if (comm.area_id) {
-                communitiesCountMap[comm.area_id] = (communitiesCountMap[comm.area_id] || 0) + 1;
+                // For Areas
+                if (comm.area_id) {
+                    communitiesCountMap[comm.area_id] = (communitiesCountMap[comm.area_id] || 0) + 1;
 
-                const sq = parseFloat(comm.square) || 0;
-                communitiesSquareMap[comm.area_id] = (communitiesSquareMap[comm.area_id] || 0) + sq;
+                    const sq = parseFloat(comm.square) || 0;
+                    communitiesSquareMap[comm.area_id] = (communitiesSquareMap[comm.area_id] || 0) + sq;
 
-                const pop = parseFloat(comm.population) || 0;
-                communitiesPopulationMap[comm.area_id] = (communitiesPopulationMap[comm.area_id] || 0) + pop;
+                    const pop = parseFloat(comm.population) || 0;
+                    communitiesPopulationMap[comm.area_id] = (communitiesPopulationMap[comm.area_id] || 0) + pop;
 
-                communitiesRuralMap[comm.area_id] = (communitiesRuralMap[comm.area_id] || 0) + ruralVal;
-                communitiesUrbanMap[comm.area_id] = (communitiesUrbanMap[comm.area_id] || 0) + urbanVal;
-            }
+                    communitiesRuralMap[comm.area_id] = (communitiesRuralMap[comm.area_id] || 0) + ruralVal;
+                    communitiesUrbanMap[comm.area_id] = (communitiesUrbanMap[comm.area_id] || 0) + urbanVal;
+                }
 
-            // For Regions (Districts)
-            if (comm.region_id) {
-                const sq = parseFloat(comm.square) || 0;
-                regionSquareMap[comm.region_id] = (regionSquareMap[comm.region_id] || 0) + sq;
+                // For Regions (Districts)
+                if (comm.region_id) {
+                    const sq = parseFloat(comm.square) || 0;
+                    regionSquareMap[comm.region_id] = (regionSquareMap[comm.region_id] || 0) + sq;
 
-                const pop = parseFloat(comm.population) || 0;
-                regionPopulationMap[comm.region_id] = (regionPopulationMap[comm.region_id] || 0) + pop;
+                    const pop = parseFloat(comm.population) || 0;
+                    regionPopulationMap[comm.region_id] = (regionPopulationMap[comm.region_id] || 0) + pop;
 
-                regionRuralMap[comm.region_id] = (regionRuralMap[comm.region_id] || 0) + ruralVal;
-                regionUrbanMap[comm.region_id] = (regionUrbanMap[comm.region_id] || 0) + urbanVal;
-            }
-        });
-
-        // Build map of areas for quick lookup by ID
-        const areasMap = {};
-        areas.forEach(a => { areasMap[a.id] = a.title; });
-
-        // Build combined search index
-        const index = [];
-
-        areas.forEach(area => {
-            // Fallback for area stats if database contains placeholder values (e.g. city Kyiv with square=1, population=1)
-            if (!area.square || area.square <= 1.0) {
-                area.square = communitiesSquareMap[area.id] || area.square || 0;
-            }
-            if (!area.population || area.population <= 1) {
-                area.population = communitiesPopulationMap[area.id] || area.population || 0;
-            }
-
-            // Store dynamic community count
-            area.actual_community_count = communitiesCountMap[area.id] || 0;
-
-            // Store dynamic village counts
-            area.rural_villages_count = communitiesRuralMap[area.id] || 0;
-            area.urban_villages_count = communitiesUrbanMap[area.id] || 0;
-
-            const isKyivCity = area.title === "Київ" || area.katottg === "UA80000000000093317";
-            index.push({
-                type: isKyivCity ? "wikidata_city" : "area",
-                id: area.id,
-                title: isKyivCity ? "Київ" : area.title,
-                subtitle: isKyivCity ? "Населений пункт" : "Область",
-                searchString: area.title.toLowerCase(),
-                rawData: isKyivCity ? {
-                    ...area,
-                    square: 839.0,
-                    population: 2950000,
-                    type: "місто"
-                } : area
+                    regionRuralMap[comm.region_id] = (regionRuralMap[comm.region_id] || 0) + ruralVal;
+                    regionUrbanMap[comm.region_id] = (regionUrbanMap[comm.region_id] || 0) + urbanVal;
+                }
             });
-        });
 
-        regions.forEach(region => {
-            // Fallback for region square if it is null/0
-            const rawSquare = parseFloat(region.square);
-            if (isNaN(rawSquare) || rawSquare <= 0) {
-                region.square = regionSquareMap[region.id] || 0;
-            }
+            // Build map of areas for quick lookup by ID
+            const areasMap = {};
+            areas.forEach(a => { areasMap[a.id] = a.title; });
 
-            // Fallback for region population if it is null/0
-            const rawPop = parseFloat(region.population);
-            if (isNaN(rawPop) || rawPop <= 0) {
-                region.population = regionPopulationMap[region.id] || 0;
-            }
+            // Build combined search index
+            const index = [];
 
-            // Store dynamic village counts
-            region.rural_villages_count = regionRuralMap[region.id] || 0;
-            region.urban_villages_count = regionUrbanMap[region.id] || 0;
+            areas.forEach(area => {
+                // Fallback for area stats if database contains placeholder values (e.g. city Kyiv with square=1, population=1)
+                if (!area.square || area.square <= 1.0) {
+                    area.square = communitiesSquareMap[area.id] || area.square || 0;
+                }
+                if (!area.population || area.population <= 1) {
+                    area.population = communitiesPopulationMap[area.id] || area.population || 0;
+                }
 
-            const areaName = areasMap[region.area_id] || "";
-            index.push({
-                type: "region",
-                id: region.id,
-                title: region.title,
-                subtitle: areaName ? `${areaName} область` : "Район",
-                searchString: `${region.title} ${areaName}`.toLowerCase(),
-                rawData: region
+                // Store dynamic community count
+                area.actual_community_count = communitiesCountMap[area.id] || 0;
+
+                // Store dynamic village counts
+                area.rural_villages_count = communitiesRuralMap[area.id] || 0;
+                area.urban_villages_count = communitiesUrbanMap[area.id] || 0;
+
+                const isKyivCity = area.title === "Київ" || area.katottg === "UA80000000000093317";
+                index.push({
+                    type: isKyivCity ? "wikidata_city" : "area",
+                    id: area.id,
+                    title: isKyivCity ? "Київ" : area.title,
+                    subtitle: isKyivCity ? "Населений пункт" : "Область",
+                    searchString: area.title.toLowerCase(),
+                    rawData: isKyivCity ? {
+                        ...area,
+                        square: 839.0,
+                        population: 2950000,
+                        type: "місто"
+                    } : area
+                });
             });
-        });
 
-        communities.forEach(comm => {
-            const subtitleParts = [];
-            if (comm.region_name) subtitleParts.push(`${comm.region_name} район`);
-            if (comm.area_name) subtitleParts.push(`${comm.area_name} область`);
+            regions.forEach(region => {
+                // Fallback for region square if it is null/0
+                const rawSquare = parseFloat(region.square);
+                if (isNaN(rawSquare) || rawSquare <= 0) {
+                    region.square = regionSquareMap[region.id] || 0;
+                }
 
-            index.push({
-                type: "community",
-                id: comm.id,
-                title: comm.title,
-                subtitle: subtitleParts.join(", "),
-                searchString: `${comm.title} ${comm.region_name || ''} ${comm.area_name || ''}`.toLowerCase(),
-                rawData: comm
+                // Fallback for region population if it is null/0
+                const rawPop = parseFloat(region.population);
+                if (isNaN(rawPop) || rawPop <= 0) {
+                    region.population = regionPopulationMap[region.id] || 0;
+                }
+
+                // Store dynamic village counts
+                region.rural_villages_count = regionRuralMap[region.id] || 0;
+                region.urban_villages_count = regionUrbanMap[region.id] || 0;
+
+                const areaName = areasMap[region.area_id] || "";
+                index.push({
+                    type: "region",
+                    id: region.id,
+                    title: region.title,
+                    subtitle: areaName ? `${areaName} область` : "Район",
+                    searchString: `${region.title} ${areaName}`.toLowerCase(),
+                    rawData: region
+                });
             });
-        });
 
-        // Add settlements from admin_units.json as wikidata_city
-        const seenCities = new Set();
-        communities.forEach(comm => {
-            const setts = comm.settlements || [];
-            setts.forEach(sett => {
-                const name = sett.title;
-                if (!name) return;
-
-                // Create a unique key for duplicate check to allow same settlement name in different communities
-                const uniqueKey = `${name.toLowerCase()}_${comm.title.toLowerCase()}`;
-                if (seenCities.has(uniqueKey)) return;
-                seenCities.add(uniqueKey);
-
+            communities.forEach(comm => {
                 const subtitleParts = [];
-                if (sett.type) subtitleParts.push(sett.type);
-                subtitleParts.push(comm.title);
                 if (comm.region_name) subtitleParts.push(`${comm.region_name} район`);
                 if (comm.area_name) subtitleParts.push(`${comm.area_name} область`);
 
                 index.push({
-                    type: "wikidata_city",
-                    id: sett.katottg || name,
-                    title: name,
+                    type: "community",
+                    id: comm.id,
+                    title: comm.title,
                     subtitle: subtitleParts.join(", "),
-                    searchString: `${name} ${sett.type || ''} ${comm.title} ${comm.region_name || ''} ${comm.area_name || ''}`.toLowerCase(),
-                    rawData: {
-                        title: name,
-                        population: parseFloat(sett.population) || 0,
-                        square: parseFloat(sett.square) || 0,
-                        katottg: sett.katottg,
-                        type: sett.type
-                    }
+                    searchString: `${comm.title} ${comm.region_name || ''} ${comm.area_name || ''}`.toLowerCase(),
+                    rawData: comm
                 });
             });
-        });
 
-        autocompleteData.searchIndex = index;
-        autocompleteData.loaded = true;
-        console.log(`Autocomplete index loaded successfully with ${index.length} items.`);
-    }
+            // Add settlements from admin_units.json as wikidata_city
+            const seenCities = new Set();
+            communities.forEach(comm => {
+                const setts = comm.settlements || [];
+                setts.forEach(sett => {
+                    const name = sett.title;
+                    if (!name) return;
 
-    autocompleteData.loading = false;
-    if (spinner) spinner.style.display = "none";
+                    // Create a unique key for duplicate check to allow same settlement name in different communities
+                    const uniqueKey = `${name.toLowerCase()}_${comm.title.toLowerCase()}`;
+                    if (seenCities.has(uniqueKey)) return;
+                    seenCities.add(uniqueKey);
+
+                    const subtitleParts = [];
+                    if (sett.type) subtitleParts.push(sett.type);
+                    subtitleParts.push(comm.title);
+                    if (comm.region_name) subtitleParts.push(`${comm.region_name} район`);
+                    if (comm.area_name) subtitleParts.push(`${comm.area_name} область`);
+
+                    index.push({
+                        type: "wikidata_city",
+                        id: sett.katottg || name,
+                        title: name,
+                        subtitle: subtitleParts.join(", "),
+                        searchString: `${name} ${sett.type || ''} ${comm.title} ${comm.region_name || ''} ${comm.area_name || ''}`.toLowerCase(),
+                        rawData: {
+                            title: name,
+                            population: parseFloat(sett.population) || 0,
+                            square: parseFloat(sett.square) || 0,
+                            katottg: sett.katottg,
+                            type: sett.type
+                        }
+                    });
+                });
+            });
+
+            autocompleteData.searchIndex = index;
+            autocompleteData.loaded = true;
+            console.log(`Autocomplete index loaded successfully with ${index.length} items.`);
+        }
+
+        autocompleteData.loading = false;
+        if (spinner) spinner.style.display = "none";
     })();
     await loadingPromise;
 }
@@ -2777,7 +2777,7 @@ function initAutocomplete() {
 
     const triggerSearch = () => {
         const query = input.value.trim().toLowerCase();
-        
+
         const matches = autocompleteData.searchIndex.filter(item => {
             if (query.length > 0) {
                 if (!item.searchString.includes(query)) return false;
@@ -3083,7 +3083,7 @@ function prepareAndShowConfirmation(item) {
         const urbanCount = parseInt(item.rawData.urban_villages_count) || 0;
 
         details["Вид документації"] = "Комплексний план просторового розвитку громади";
-        details["Площа громади"] = areaVal > 0 ? `${areaVal.toFixed(3)} тис. км² (${item.rawData.square.toFixed(1)} км²)` : "Дані відсутні";
+        details["Площа громади"] = areaVal > 0 ? `${areaVal.toFixed(3)} тис. м² (${item.rawData.square.toFixed(1)} км²)` : "Дані відсутні";
         details["Загальне населення громади"] = item.rawData.population ? `${item.rawData.population.toLocaleString()} осіб` : "Дані відсутні";
 
         if (item.rawData.center) {
