@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="uk" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="Незалежні розрахунки площ, місткості, потреби, відстаней і параметрів автостоянок та гаражів.">
+  <title>Калькулятор автостоянок і гаражів</title>
+  <link rel="icon" type="image/svg+xml" href="assets/shared/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/shared/styles.css">
+  <link rel="stylesheet" href="assets/parking_calc/styles.css">
+</head>
+<body class="parking-page">
+  <div class="app">
+    <a class="home-link" href="index.html">← На головну</a>
+    <header class="top">
+      <span class="title-side-icon" aria-hidden="true"><img class="icon icon-image" src="assets/parking_calc/icons/parking.svg" alt=""></span>
+      <div class="title-block">
+        <h1>Калькулятор автостоянок і гаражів</h1>
+        <p class="sub">Оберіть задачу — введіть дані — отримайте результат</p>
+      </div>
+      <button class="btn icon" id="themeBtn" type="button" title="Змінити тему" aria-label="Змінити тему"><img class="icon icon-image" src="assets/shared/icons/theme.svg" alt=""></button>
+    </header>
+    <div class="workspace-bar no-print">
+      <span class="hint">Нормативна база станом на 07.11.2026</span>
+      <button class="btn" id="openReport" type="button">Звіт (0)</button>
+    </div>
+    <main>
+      <section class="panel task-menu no-print" id="taskMenu" aria-labelledby="menuTitle">
+        <h2 id="menuTitle" tabindex="-1">Що потрібно розрахувати?</h2>
+        <p class="hint">Кожна задача має власні дані. У звіт потрапляє лише те, що ви додасте.</p>
+        <div class="task-list" id="taskList"></div>
+      </section>
+      <section class="panel task-workspace no-print" id="taskWorkspace" hidden aria-labelledby="taskTitle">
+        <button class="text-button" id="backTasks" type="button">← Змінити задачу</button>
+        <h2 id="taskTitle" tabindex="-1"></h2>
+        <p class="hint" id="taskDescription"></p>
+        <p class="notice" id="inputOrigin" hidden></p>
+        <form id="taskForm" novalidate>
+          <fieldset id="taskFields"><legend>Вихідні дані</legend></fieldset>
+          <div id="draftActions"></div>
+        </form>
+        <section class="result-section" aria-labelledby="resultTitle">
+          <h3 id="resultTitle">Результат</h3>
+          <div id="taskResult" aria-live="polite"></div>
+          <div id="resultActions" class="actions"></div>
+        </section>
+      </section>
+      <section class="panel report-workspace" id="reportWorkspace" hidden aria-labelledby="reportTitle">
+        <button class="text-button no-print" id="backFromReport" type="button">← До калькулятора</button>
+        <h2 id="reportTitle" tabindex="-1">Вибрані розрахунки</h2>
+        <p class="hint no-print">Це збережені знімки. Зміни у формах їх не оновлюють. Після перезавантаження сторінки звіт очищується.</p>
+        <div class="actions no-print">
+          <button class="btn" id="copyReport" type="button" disabled>Копіювати звіт</button>
+          <button class="btn" id="downloadCsv" type="button" disabled>Завантажити CSV</button>
+          <button class="btn" id="printReport" type="button" disabled>Друк / PDF</button>
+          <button class="text-button" id="clearReport" type="button" disabled>Очистити звіт</button>
+        </div>
+        <div id="reportList"></div>
+        <p class="notice">Це перевірка за реалізованими правилами, а не повна оцінка відповідності проєкту. Невизначені умови потребують окремого обґрунтування.</p>
+      </section>
+    </main>
+    <p class="footer-note no-print">Основні розрахунки працюють без сервера. Джерела й застосовані умови наведені біля результату.</p>
+    <p class="action-status no-print" id="actionStatus" role="status" aria-live="polite"></p>
+    <noscript><p class="notice">Для роботи калькулятора увімкніть JavaScript.</p></noscript>
+  </div>
+  <script src="assets/shared/theme.js"></script>
+  <script src="assets/parking_calc/norms.js"></script>
+  <script src="assets/parking_calc/calculations.js"></script>
+  <script src="assets/parking_calc/tasks.js"></script>
+  <script src="assets/parking_calc/script.js"></script>
+</body>
+</html>

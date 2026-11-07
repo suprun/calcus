@@ -1,0 +1,105 @@
+/* Verified source tables; applicability and exceptions are evaluated by calculations.js. */
+(() => {
+  'use strict';
+
+  globalThis.ParkingNorms = Object.freeze({
+    checkedOn: '07.11.2026',
+    sources: {
+      parking: {
+        title: 'ДБН В.2.3-15:2007, зміни №1–3',
+        url: 'https://e-construction.gov.ua/laws_detail/3875034753086261244?doc_type=2',
+      },
+      planning: {
+        title: 'ДБН Б.2.2-12:2019, Зміна №1',
+        url: 'https://e-construction.gov.ua/files-token/3232572f11e62f0e41180b5334aa6961',
+      },
+      sanitary: {
+        title: 'ДСП №173, додаток 10; зміни наказом МОЗ №40 від 13.01.2026',
+        url: 'https://zakon.rada.gov.ua/laws/show/z0379-96#Text',
+      },
+      sanitaryChange: {
+        title: 'Наказ МОЗ №40 від 13.01.2026',
+        url: 'https://moz.gov.ua/uk/decrees/nakaz-moz-ukrayini-vid-13-01-2026-40-pro-zatverdzhennya-zmin-do-derzhavnih-sanitarnih-pravil-planuvannya-ta-zabudovi-naselenih-punktiv',
+      },
+      inclusive: {
+        title: 'ДБН В.2.2-40:2018, зміни №1–4',
+        url: 'https://e-construction.gov.ua/laws_detail/3996966597297178566?doc_type=2',
+      },
+    },
+    floors: [
+      { id: '1', label: '1', build: 25, site: 30 },
+      { id: '2', label: '2', build: 15, site: 20 },
+      { id: '3', label: '3', build: 10, site: 14 },
+      { id: '4', label: '4', build: 8, site: 12 },
+      { id: '5', label: '5', build: 6, site: 10 },
+      { id: '6', label: '6', build: 5, site: 8 },
+      { id: '7-9', label: '7–9', build: 4, site: 6 },
+    ],
+    housing: {
+      central: { label: 'Житло: центральна зона', rate: 1 },
+      middle: { label: 'Житло: серединна зона', rate: 0.8 },
+      peripheral: { label: 'Житло: периферійна зона', rate: 0.5 },
+      supported: { label: 'Доступне житло за державної підтримки', rate: 0.4 },
+      social: { label: 'Житловий фонд соціального призначення', rate: 0.15 },
+    },
+    demand: [
+      { id: 'national', label: 'Установи державного / загальноміського значення', unit: 'працюючих', range: [15, 20] },
+      { id: 'district', label: 'Районні установи управління', unit: 'працюючих', range: [10, 15] },
+      { id: 'business', label: 'Ділові центри понад 100 м², будинки соцзабезпечення', unit: 'працюючих та одночасних відвідувачів', range: [5, 10] },
+      { id: 'universityStaff', label: 'Вища / професійна освіта: персонал', unit: 'викладачів та співробітників', range: [10, 15] },
+      { id: 'universityStudents', label: 'Вища / професійна освіта: студенти', unit: 'студентів', range: [3, 5] },
+      { id: 'school', label: 'Школи й заклади дошкільної освіти: персонал', unit: 'викладачів та співробітників', range: [5, 10] },
+      { id: 'shopSmall', label: 'Магазини: торгові зали 100–500 м²', unit: 'м² торгової площі', range: [1, 2], area: [100, 500] },
+      { id: 'shopMedium', label: 'Магазини: торгові зали 500–2000 м²', unit: 'м² торгової площі', range: [2, 3], area: [500, 2000] },
+      { id: 'shopLarge', label: 'Магазини: торгові зали 2000–5000 м²', unit: 'м² торгової площі', range: [3, 5], area: [2000, 5000] },
+      { id: 'shopHuge', label: 'Магазини: торгові зали понад 5000 м²', unit: 'м² торгової площі', range: [5, 8], area: [5000, null], exclusiveMin: true },
+      { id: 'showroom', label: 'Спеціалізовані магазини з виставковими залами', unit: 'місць у залі', range: [1, 2] },
+      { id: 'market', label: 'Ринки', unit: 'місць у залі (одиниця табл. 10.7)', range: [20, 25] },
+      { id: 'restaurant', label: 'Ресторани й кафе', unit: 'місць у залі', range: [8, 10] },
+      { id: 'culture', label: 'Театри, цирки, кіно, бібліотеки, музеї', unit: 'місць у залах та одночасних відвідувачів', range: [15, 20] },
+      { id: 'entertainment', label: 'Розважальні та виставкові центри', unit: 'одночасних відвідувачів', range: [15, 20] },
+      { id: 'religious', label: 'Культові споруди', unit: 'відвідувачів', range: [6, 10] },
+      { id: 'park', label: 'Парки культури та відпочинку', unit: 'відвідувачів', range: [6, 10] },
+      { id: 'hotelHigh', label: 'Готелі 4–5 зірок', unit: 'номерів', range: [15, 20] },
+      { id: 'hotelLow', label: 'Готелі 1–3 зірок', unit: 'номерів', range: [10, 15] },
+      { id: 'motel', label: 'Мотелі', unit: 'номерів', range: [100, 100] },
+      { id: 'services', label: 'Побутове обслуговування, хімчистки, лазні', unit: 'працюючих та одночасних відвідувачів', range: [5, 8] },
+      { id: 'sport', label: 'Спортивні споруди, стадіони, зали, басейни', unit: 'відвідувачів та обслуговуючого персоналу', range: [6, 10] },
+      { id: 'terminal', label: 'Вокзали всіх видів транспорту', unit: 'пасажирів у годину пік та персоналу', range: [15, 20] },
+      { id: 'industrial', label: 'Промислові підприємства', unit: 'працюючих у двох суміжних змінах', range: [7, 10], industrial: true },
+      { id: 'utilities', label: 'Підприємства комунального господарства', unit: 'працюючих', range: [7, 10], industrial: true },
+      { id: 'warehouse', label: 'Склади й складські комплекси', unit: 'працюючих', range: [5, 8], industrial: true },
+      { id: 'fleet', label: 'Власний транспорт підприємства: постійне зберігання', unit: 'транспортних засобів', range: [1, 1], industrial: true, denominator: 1 },
+    ],
+    sanitary: [
+      { id: 'housing', label: 'Житлові будинки', values: [10, 15, 25, 35, 50], stars: [0] },
+      { id: 'ends', label: 'Торці житлових будинків без вікон', values: [10, 10, 15, 25, 35], stars: [0, 1] },
+      { id: 'public', label: 'Громадські будівлі, крім освіти й стаціонарів', values: [10, 10, 15, 25, 25], stars: [0, 1], dbnStars: [0] },
+      { id: 'school', label: 'Школи й заклади дошкільної освіти', values: [15, 25, 25, 50, null], stars: [] },
+      { id: 'hospital', label: 'Лікувальні заклади зі стаціонаром', values: [25, 50, null, null, null], stars: [] },
+    ],
+    clearances: [
+      { label: 'Від торця автомобіля до стіни', symbol: 'а', storage: 0.5, service: 1.2 },
+      { label: 'Від торця до стаціонарного устаткування', symbol: 'в', storage: null, service: 1 },
+      { label: 'Від поздовжнього боку до стіни', symbol: 'б', storage: 0.5, service: 1.2 },
+      { label: 'Між поздовжніми боками автомобілів', symbol: 'д', storage: 0.6, service: 1.6 },
+      { label: 'Між автомобілем і колоною', symbol: 'г', storage: 0.3, service: 0.7 },
+      { label: 'Від торця автомобіля до воріт', symbol: 'е', storage: 0.5, service: 1.5 },
+      { label: 'Між автомобілями один за одним', symbol: '—', storage: 0.4, service: 1.2 },
+    ],
+    vehicleClasses: [
+      { id: 'tiny', label: 'Легкові: особливо малий клас', aisles: [2.7, 4.5, 6.1, 3.5, 4, 5.3] },
+      { id: 'small', label: 'Легкові: малий клас', aisles: [2.9, 4.8, 6.4, 3.6, 4.1, 5.5] },
+      { id: 'medium', label: 'Легкові: середній клас', aisles: [3.7, 5.4, 7.7, 4.7, 4.8, 6.1] },
+      { id: 'minibus', label: 'Мікроавтобуси: особливо малий клас', aisles: [3.8, 5.8, 7.8, 4.8, 5.2, 6.5] },
+    ],
+    aisleModes: [
+      { id: 'front45', label: 'Переднім ходом, 45°, без додаткового маневру' },
+      { id: 'front60', label: 'Переднім ходом, 60°, без додаткового маневру' },
+      { id: 'front90', label: 'Переднім ходом, 90°, з маневром' },
+      { id: 'rear45', label: 'Заднім ходом, 45°, без додаткового маневру' },
+      { id: 'rear60', label: 'Заднім ходом, 60°, без додаткового маневру' },
+      { id: 'rear90', label: 'Заднім ходом, 90°, без додаткового маневру' },
+    ],
+  });
+})();

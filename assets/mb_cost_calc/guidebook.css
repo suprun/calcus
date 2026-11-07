@@ -1,0 +1,131 @@
+:host {
+                                display: block;
+                                font-family: Inter, system-ui, -apple-system, sans-serif;
+                                color: var(--text);
+                                color-scheme: var(--color-scheme, light) !important;
+                            }
+
+                            .katex-mathml {
+                                display: none !important;
+                            }
+
+                            .markdown-body {
+                                padding: 18px;
+                                font-size: 14px;
+                                line-height: 1.5;
+                                background-color: var(--panel) !important;
+                                color: var(--text) !important;
+                                color-scheme: var(--color-scheme, light) !important;
+                                --color-fg-default: var(--text) !important;
+                                --color-canvas-default: var(--panel) !important;
+                                --color-canvas-subtle: var(--panel-soft) !important;
+                                --color-border-default: var(--line) !important;
+                                --color-border-muted: var(--line) !important;
+                                --color-fg-muted: var(--muted) !important;
+                                --color-accent-fg: var(--real-text) !important;
+                            }
+
+                            h1,
+                            h2,
+                            h3,
+                            h4 {
+                                color: var(--text);
+                                border-bottom: 1px solid var(--line);
+                                padding-bottom: 6px;
+                                margin-top: 24px;
+                                margin-bottom: 12px;
+                            }
+
+                            h1 {
+                                font-size: 1.6em;
+                            }
+
+                            h2 {
+                                font-size: 1.35em;
+                            }
+
+                            h3 {
+                                font-size: 1.15em;
+                            }
+
+                            table {
+                                display: block;
+                                width: 100%;
+                                overflow-x: auto;
+                                border-collapse: collapse;
+                                margin-top: 12px;
+                                margin-bottom: 16px;
+                                font-size: 12.5px;
+                                -webkit-overflow-scrolling: touch;
+                                color-scheme: var(--color-scheme, light) !important;
+                            }
+
+                            table,
+                            tr,
+                            td {
+                                background-color: transparent !important;
+                                color: var(--text) !important;
+                            }
+
+                            tr:nth-child(2n) {
+                                background-color: var(--panel-soft) !important;
+                            }
+
+                            th,
+                            td {
+                                border: 1px solid var(--line-strong) !important;
+                                padding: 8px 10px;
+                                text-align: left;
+                                color: var(--text) !important;
+                            }
+
+                            th {
+                                background-color: var(--hover) !important;
+                                font-weight: 600;
+                            }
+
+                            blockquote {
+                                margin: 12px 0;
+                                padding: 8px 16px;
+                                background-color: var(--panel-soft) !important;
+                                border-left: 4px solid var(--line-strong) !important;
+                                color: var(--muted) !important;
+                            }
+
+                            code,
+                            pre {
+                                background-color: var(--panel-soft) !important;
+                                color: var(--text) !important;
+                            }
+
+                            .katex-display {
+                                overflow-x: auto;
+                                overflow-y: hidden;
+                                padding: 8px 0;
+                            }
+
+                            a {
+                                color: var(--real-text);
+                                text-decoration: none;
+                            }
+
+                            a:hover {
+                                text-decoration: underline;
+                            }
+
+                            @keyframes highlight-flash {
+                                0% {
+                                    background-color: rgba(253, 224, 71, 0.45);
+                                    box-shadow: 0 0 10px rgba(253, 224, 71, 0.55);
+                                }
+
+                                100% {
+                                    background-color: transparent;
+                                    box-shadow: none;
+                                }
+                            }
+
+                            .highlight-target {
+                                animation: highlight-flash 2.2s ease-out forwards;
+                                border-radius: 4px;
+                            }

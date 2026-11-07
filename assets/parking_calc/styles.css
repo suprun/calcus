@@ -1,0 +1,98 @@
+.parking-page { min-height: 100vh; }
+.parking-page .app { width: min(760px, calc(100% - 16px)); }
+.parking-page .top { grid-template-columns: var(--icon-col) minmax(0, 1fr) auto; padding-right: 12px; }
+.parking-page [hidden] { display: none !important; }
+.parking-page h2 { margin: 0 0 8px; font-size: 20px; line-height: 1.3; letter-spacing: -.025em; }
+.parking-page h3 { margin: 0 0 12px; font-size: 14px; }
+.parking-page button, .parking-page input, .parking-page select { font: inherit; }
+.parking-page .btn { padding: 0 12px; font-size: 12px; }
+.parking-page .btn.icon { padding: 0; }
+.parking-page .workspace-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 16px 0 12px; padding: 0 12px; }
+.parking-page .hint { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.55; }
+.parking-page .task-menu, .parking-page .task-workspace, .parking-page .report-workspace { padding: 24px; }
+.parking-page .task-list { display: grid; gap: 0; margin-top: 18px; }
+.parking-page .task-choice { width: 100%; padding: 16px 0; display: grid; grid-template-columns: minmax(0, 1fr) 24px; gap: 12px; text-align: left; color: var(--text); background: transparent; border: 0; border-top: 1px solid var(--line); cursor: pointer; }
+.parking-page .task-choice strong { display: block; margin-bottom: 4px; font-size: 14px; font-weight: 650; }
+.parking-page .task-choice .task-arrow { align-self: center; color: var(--muted); }
+.parking-page .task-choice:hover strong { color: var(--real-text); text-decoration: underline; text-underline-offset: 3px; }
+.parking-page .text-button { display: inline-block; padding: 4px 0; border: 0; background: transparent; color: var(--muted); font-size: 12px; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.parking-page #backTasks, .parking-page #backFromReport { margin-bottom: 18px; }
+.parking-page fieldset { margin: 0; padding: 0; border: 0; min-width: 0; }
+.parking-page legend { padding: 0; margin-bottom: 16px; font-size: 14px; font-weight: 650; }
+.parking-page #taskForm { margin-top: 24px; }
+.parking-page .field { margin-bottom: 16px; min-width: 0; }
+.parking-page .field > label { display: block; margin-bottom: 6px; font-size: 13px; font-weight: 550; }
+.parking-page .control { width: 100%; min-width: 0; font-size: 13px; }
+.parking-page .field .hint { margin-top: 6px; }
+.parking-page .field .check { display: inline-flex; gap: 8px; align-items: flex-start; cursor: pointer; line-height: 1.5; }
+.parking-page .check input { margin: 3px 0 0; accent-color: var(--inverse); flex: 0 0 auto; }
+.parking-page .floor-options { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 12px; }
+.parking-page .floor-options .check { padding: 6px 10px; border: 1px solid var(--line); border-radius: var(--radius-sm); }
+.parking-page .disclosure { border-top: 1px solid var(--line); padding-top: 12px; margin: 12px 0; }
+.parking-page .disclosure > summary { color: var(--muted); font-size: 12px; cursor: pointer; line-height: 1.5; }
+.parking-page .disclosure[open] > summary { margin-bottom: 16px; color: var(--text); }
+.parking-page .neighbor, .parking-page .component { padding: 14px; margin: 12px 0; border: 1px solid var(--line); border-radius: var(--radius-sm); }
+.parking-page .neighbor .field:last-child { margin-bottom: 0; }
+.parking-page .component strong { display: block; font-size: 13px; }
+.parking-page .actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+.parking-page .notice { padding: 10px 12px; margin: 12px 0; border: 1px solid var(--drawing-line); border-radius: var(--radius-sm); background: var(--drawing-bg); color: var(--drawing-text); font-size: 12px; line-height: 1.55; }
+.parking-page .notice.error { color: var(--danger); border-color: var(--danger); background: var(--panel-soft); }
+.parking-page .result-section { margin-top: 24px; padding-top: 22px; border-top: 1px solid var(--line); }
+.parking-page .result-context { margin: 0 0 18px; color: var(--muted); font-size: 12px; line-height: 1.6; }
+.parking-page .result-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-bottom: 18px; }
+.parking-page .result-grid.single-result { grid-template-columns: minmax(0, 1fr); }
+.parking-page .result-grid.three-results .key-result:first-child { grid-column: 1 / -1; }
+.parking-page .key-result { border-radius: var(--radius-sm); background: var(--panel-soft); padding: 16px; min-width: 0; }
+.parking-page .key-result:first-child { background: var(--real-bg); color: var(--real-text); }
+.parking-page .key-result .metric-label { display: block; font-size: 12px; margin-bottom: 8px; line-height: 1.45; }
+.parking-page .metric-value { display: block; font-size: 28px; line-height: 1.15; font-weight: 700; letter-spacing: -.035em; overflow-wrap: anywhere; }
+.parking-page .metric-value.text-value { font-size: 16px; letter-spacing: 0; line-height: 1.5; }
+.parking-page .metric-unit { font-size: 13px; font-weight: 500; letter-spacing: 0; margin-left: 5px; }
+.parking-page .metric-list { margin: 12px 0; }
+.parking-page .metric-line { padding: 10px 0; border-bottom: 1px solid var(--line); }
+.parking-page .metric-line dt { color: var(--muted); font-size: 12px; margin-bottom: 4px; }
+.parking-page .metric-line dd { margin: 0; font-size: 14px; line-height: 1.5; }
+.parking-page .status { display: block; margin-top: 8px; font-size: 11px; line-height: 1.5; }
+.parking-page .status-fail { color: var(--danger); font-weight: 650; }
+.parking-page .status-review, .parking-page .status-individual, .parking-page .status-approval, .parking-page .status-electric { color: var(--drawing-text); }
+.parking-page .status-pass { color: var(--real-text); font-weight: 650; }
+.parking-page .notes { padding-left: 18px; font-size: 12px; line-height: 1.6; color: var(--muted); }
+.parking-page .notes li + li { margin-top: 7px; }
+.parking-page .source-list { padding-left: 18px; font-size: 12px; line-height: 1.6; }
+.parking-page .source-list a { color: var(--real-text); overflow-wrap: anywhere; }
+.parking-page .table-scroll { overflow-x: auto; margin: 14px 0; border: 1px solid var(--line); border-radius: var(--radius-sm); }
+.parking-page table { border-collapse: collapse; width: 100%; min-width: 580px; font-size: 12px; line-height: 1.5; }
+.parking-page th, .parking-page td { padding: 10px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+.parking-page th { background: var(--panel-soft); font-weight: 600; }
+.parking-page tr:last-child td { border-bottom: 0; }
+.parking-page .report-item { padding: 24px 0; border-top: 1px solid var(--line); margin-top: 18px; }
+.parking-page .report-item h3 { font-size: 16px; line-height: 1.4; }
+.parking-page .action-status { padding: 0 12px; min-height: 20px; font-size: 12px; color: var(--muted); }
+.parking-page button:disabled, .parking-page input:disabled, .parking-page select:disabled { opacity: .5; cursor: default; }
+.parking-page button:focus-visible, .parking-page summary:focus-visible, .parking-page a:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
+@media (max-width: 540px) {
+  .parking-page .task-menu, .parking-page .task-workspace, .parking-page .report-workspace { padding: 18px 14px; }
+  .parking-page .result-grid { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .parking-page h1 { font-size: 18px; }
+  .parking-page .btn { white-space: normal; line-height: 1.4; min-height: 38px; height: auto; padding-top: 8px; padding-bottom: 8px; }
+  .parking-page .workspace-bar { padding: 0 4px; }
+}
+@media print {
+  .parking-page { --bg: #fff; --panel: #fff; --panel-soft: #f5f5f5; --text: #000; --muted: #333; --line: #aaa; --real-bg: #fff; --real-text: #000; --drawing-bg: #fff; --drawing-text: #000; --danger: #000; background: #fff; color: #000; font-size: 11px; }
+  .parking-page .app { width: 100%; padding: 0; }
+  .parking-page .no-print, .parking-page .top, .parking-page .home-link, .parking-page noscript { display: none !important; }
+  .parking-page #reportWorkspace[hidden] { display: block !important; }
+  .parking-page .report-workspace { padding: 0; border: 0; }
+  .parking-page .report-item { margin-top: 10px; padding: 12px 0; }
+  .parking-page .result-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .parking-page .key-result, .parking-page .metric-line { break-inside: avoid; }
+  .parking-page .metric-value { font-size: 22px; }
+  .parking-page .table-scroll { overflow: visible; }
+  .parking-page table { min-width: 0; table-layout: fixed; }
+  .parking-page th, .parking-page td { padding: 5px; overflow-wrap: anywhere; }
+  .parking-page tr { break-inside: avoid; }
+  .parking-page thead { display: table-header-group; }
+  .parking-page .source-list a::after { content: " (" attr(href) ")"; font-size: 10px; }
+}
+
+.parking-page #manualReportText { width: 100%; min-height: 180px; font: inherit; color: var(--text); background: var(--control); border: 1px solid var(--line); border-radius: var(--radius-sm); }

@@ -8,11 +8,12 @@
     <meta name="description"
         content="Калькулятор для розрахунку вартості розроблення та експертизи містобудівної документації відповідно до Настанови." />
     <link rel="icon" type="image/svg+xml"
-        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='2' y='2' width='28' height='28' rx='8' fill='%237a4a12'/><path d='M8 24V14l4-3 4 3v10' stroke='%23f1c98f' stroke-width='2' stroke-linejoin='round' fill='none'/><path d='M16 24V18l4-3 4 3v6' stroke='%23f1c98f' stroke-width='2' stroke-linejoin='round' fill='none'/><path d='M6 24h20' stroke='%23f1c98f' stroke-width='2' stroke-linecap='round'/><circle cx='12' cy='17' r='1' fill='%23f1c98f'/><circle cx='20' cy='20' r='1' fill='%23f1c98f'/></svg>">
+        href="assets/shared/favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="assets/shared/styles.css">
+    <link rel="stylesheet" href="assets/mb_cost_calc/styles.css">
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <!-- Import zero-md web component -->
     <script type="module" src="https://cdn.jsdelivr.net/npm/zero-md@3?register"></script>
@@ -20,172 +21,13 @@
 
 <body>
 
-
-    <svg width="0" height="0" style="position:absolute;overflow:hidden" aria-hidden="true">
-        <symbol id="i-theme" viewBox="0 0 24 24">
-            <path d="M12 3v2M12 19v2M5 5l1.4 1.4M17.6 17.6 19 19M3 12h2M19 12h2M5 19l1.4-1.4M17.6 6.4 19 5" />
-            <circle cx="12" cy="12" r="4" />
-        </symbol>
-        <symbol id="i-copy" viewBox="0 0 24 24">
-            <rect x="9" y="9" width="11" height="11" rx="2" />
-            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-        </symbol>
-        <symbol id="i-sparkles" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path
-                d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.937A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .962 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.582a.5.5 0 0 1 0 .962L15.5 14.063A2 2 0 0 0 14.063 15.5L12.481 21.635a.5.5 0 0 1-.962 0z" />
-            <path d="M20 3h.01" />
-            <path d="M4 20h.01" />
-        </symbol>
-        <symbol id="i-calculator" viewBox="0 0 24 24">
-            <path
-                d="M1 21V3C1 1.89543 1.89543 1 3 1H21C22.1046 1 23 1.89543 23 3V21C23 22.1046 22.1046 23 21 23H3C1.89543 23 1 22.1046 1 21Z">
-            </path>
-            <path d="M15 7L17 7H19"></path>
-            <path d="M15 15.5H17L19 15.5"></path>
-            <path d="M15 18.5H17H19"></path>
-            <path d="M5 7H7M9 7H7M7 7V5M7 7V9"></path>
-            <path
-                d="M5.58609 18.4142L7.0003 17M8.41452 15.5858L7.0003 17M7.0003 17L5.58609 15.5858M7.0003 17L8.41452 18.4142">
-            </path>
-        </symbol>
-        <symbol id="i-formula" viewBox="0 0 48 48">
-            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.8"
-                d="M36.102 35.915v-23.83m-11.188 23.83v-23.83m0 23.83H6.674a2.17 2.17 0 0 1-1.64-3.592L12.245 24l-7.21-8.323a2.17 2.17 0 0 1 1.64-3.592H43.5" />
-        </symbol>
-        <symbol id="i-settings" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="3" />
-            <path
-                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"
-                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-        </symbol>
-        <symbol id="i-list" viewBox="0 0 24 24">
-            <line x1="8" y1="6" x2="21" y2="6" />
-            <line x1="8" y1="12" x2="21" y2="12" />
-            <line x1="8" y1="18" x2="21" y2="18" />
-            <line x1="3" y1="6" x2="3.01" y2="6" />
-            <line x1="3" y1="12" x2="3.01" y2="12" />
-            <line x1="3" y1="18" x2="3.01" y2="18" stroke-width="2.5" />
-        </symbol>
-        <symbol id="i-map" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round">
-            <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21" />
-            <line x1="9" y1="3" x2="9" y2="18" />
-            <line x1="15" y1="6" x2="15" y2="21" />
-        </symbol>
-        <symbol id="i-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="3 6 5 6 21 6" />
-            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-            <line x1="10" y1="11" x2="10" y2="17" />
-            <line x1="14" y1="11" x2="14" y2="17" />
-        </symbol>
-        <symbol id="i-pdf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-            <polyline points="14 2 14 8 20 8" />
-            <line x1="16" y1="13" x2="8" y2="13" />
-            <line x1="16" y1="17" x2="8" y2="17" />
-        </symbol>
-        <symbol id="i-warning" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
-            <line x1="12" y1="9" x2="12" y2="13" />
-            <line x1="12" y1="17" x2="12.01" y2="17" />
-        </symbol>
-        <symbol id="i-share" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
-            <polyline points="16 6 12 2 8 6" />
-            <line x1="12" y1="2" x2="12" y2="15" />
-        </symbol>
-        <symbol id="i-edit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 20h9" />
-            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
-        </symbol>
-        <symbol id="i-table" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path d="M9 3H21V21H9V3Z" />
-            <path d="M3 3H9V21H3V3Z" />
-            <path d="M3 9H21" />
-            <path d="M3 15H21" />
-        </symbol>
-        <symbol id="i-rotate-ccw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
-            <polyline points="3 3 3 8 8 8" />
-        </symbol>
-
-        <!-- Document Metaphor SVG icons -->
-        <symbol id="i-doc-default" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-            <polyline points="14 2 14 8 20 8" />
-            <line x1="8" y1="13" x2="16" y2="13" />
-            <line x1="8" y1="17" x2="16" y2="17" />
-        </symbol>
-        <symbol id="i-doc-map" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-            <polyline points="14 2 14 8 20 8" />
-            <path d="M8 12l2.5 1.5L13 11.5l3 2" />
-            <circle cx="10.5" cy="13.5" r="0.5" fill="currentColor" />
-        </symbol>
-        <symbol id="i-doc-danger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-            <polyline points="14 2 14 8 20 8" />
-            <line x1="12" y1="12" x2="12" y2="15" />
-            <line x1="12" y1="18" x2="12.01" y2="18" />
-        </symbol>
-        <symbol id="i-doc-history" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-            <polyline points="14 2 14 8 20 8" />
-            <line x1="9" y1="12" x2="15" y2="12" />
-            <line x1="10" y1="12" x2="10" y2="17" />
-            <line x1="14" y1="12" x2="14" y2="17" />
-            <line x1="9" y1="17" x2="15" y2="17" />
-        </symbol>
-        <symbol id="i-doc-forest" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-            <polyline points="14 2 14 8 20 8" />
-            <path d="M12 11l-3 3.5h6z" />
-            <path d="M12 14.5l-3.5 4h7z" />
-            <line x1="12" y1="18.5" x2="12" y2="19.5" />
-        </symbol>
-        <symbol id="i-doc-money" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-            <polyline points="14 2 14 8 20 8" />
-            <circle cx="9.5" cy="13.5" r="1.5" />
-            <circle cx="14.5" cy="17.5" r="1.5" />
-            <line x1="14.5" y1="12.5" x2="9.5" y2="18.5" />
-        </symbol>
-        <symbol id="i-doc-formula" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-            <polyline points="14 2 14 8 20 8" />
-            <path d="M9 15l2 2 4-4" />
-        </symbol>
-        <symbol id="i-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-            <polyline points="7 10 12 15 17 10" />
-            <line x1="12" y1="15" x2="12" y2="3" />
-        </symbol>
-    </svg>
-
     <div class="layout-wrapper">
         <div class="main-viewport">
             <div class="app">
+                <a class="home-link" href="index.html">← На головну</a>
                 <header class="top">
                     <span class="title-side-icon" aria-hidden="true">
-                        <svg class="icon">
-                            <use href="#i-calculator"></use>
-                        </svg>
+                        <img class="icon icon-image" src="assets/shared/icons/calculator.svg" alt="" aria-hidden="true">
                     </span>
                     <div class="title-block">
                         <h1>Кошторис містобудівної документації</h1>
@@ -193,69 +35,59 @@
                     </div>
                     <button class="btn icon" id="docBtn" type="button" title="Довідник (Настанова)"
                         aria-label="Відкрити довідник">
-                        <svg class="icon">
-                            <use href="#i-list"></use>
-                        </svg>
+                        <img class="icon icon-image" src="assets/mb_cost_calc/icons/list.svg" alt="" aria-hidden="true">
                     </button>
                     <button class="btn icon" id="themeBtn" type="button" title="Змінити тему" aria-label="Змінити тему">
-                        <svg class="icon">
-                            <use href="#i-theme"></use>
-                        </svg>
+                        <img class="icon icon-image" src="assets/shared/icons/theme.svg" alt="" aria-hidden="true">
                     </button>
                 </header>
 
                 <main class="panel">
                     <!-- Hidden helpers for JS compatibility -->
-                    <div id="resultMain" style="display:none;"></div>
-                    <div id="output" style="display:none;"></div>
+                    <div id="resultMain" class="page-display-none"></div>
+                    <div id="output" class="page-display-none"></div>
 
                     <!-- Form controls area -->
                     <section class="body">
                         <!-- Autocomplete search block template, dynamically moved into forms by JS -->
-                        <div id="adminSearchWrapper" style="display: none; width: 100%; margin-bottom: 16px;">
+                        <div id="adminSearchWrapper" style="display: none;" class="page-admin-search-wrapper">
                             <label
-                                style="display: block; margin-bottom: 6px; font-weight: 500; font-size: 13px;">Автозаповнення:
+                                class="page-layout-02 page-display-block">Автозаповнення:
                                 <span class="tooltip-trigger"
                                     data-tooltip="Швидкий пошук та автоматичне заповнення вихідних показників.">i</span>
                             </label>
-                            <div class="autocomplete-wrapper" style="width: 100%;">
+                            <div class="autocomplete-wrapper page-full-width">
                                 <span class="input-icon-left" aria-hidden="true">
-                                    <svg class="icon">
-                                        <use href="#i-sparkles"></use>
-                                    </svg>
+                                    <img class="icon icon-image" src="assets/mb_cost_calc/icons/sparkles.svg" alt="" aria-hidden="true">
                                 </span>
-                                <input class="control text-input" id="adminSearch" type="text"
+                                <input class="control text-input page-input-clear-padding" id="adminSearch" type="text"
                                     placeholder="Введіть назву Адмін одиниці" autocomplete="off"
-                                    style="padding-right: 36px;">
+                                   >
                                 <button class="input-clear-btn" id="adminSearchClearBtn" type="button"
                                     style="display: none;" title="Очистити поле">
-                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                                    </svg>
+                                    <img class="icon icon-image" src="assets/mb_cost_calc/icons/close.svg" alt="" aria-hidden="true">
                                 </button>
                                 <div class="autocomplete-spinner" id="adminSearchSpinner" style="display: none;"></div>
                                 <div class="autocomplete-suggestions" id="adminSuggestions" style="display: none;">
                                 </div>
                             </div>
-                            <p class="field-explanation"
-                                style="font-size: 11.5px; color: var(--muted); margin-top: 6px; line-height: 1.4; margin-bottom: 0;">
+                            <p class="field-explanation page-layout-05"
+                               >
                                 Дозволяє швидко знайти адміністративну одиницю та автоматично заповнити її
                                 <strong>площу</strong> та <strong>населення</strong>.<br>
                                 Дані взято з: <a
                                     href="https://mindev.gov.ua/diialnist/rozvytok-mistsevoho-samovriaduvannia/kodyfikator-administratyvno-terytorialnykh-odynyts-ta-terytorii-terytorialnykh-hromad"
                                     target="_blank" rel="noopener"
-                                    style="color: var(--real-text); text-decoration: underline;">Кодифікатор
+                                    class="page-source-link">Кодифікатор
                                     КАТОТТГ</a>, <a
                                     href="https://data.gov.ua/dataset/46ca2741-b4e8-4939-98ec-83199de5e502"
                                     target="_blank" rel="noopener"
-                                    style="color: var(--real-text); text-decoration: underline;">Держстат (чисельність
+                                    class="page-source-link">Держстат (чисельність
                                     населення)</a>, <a href="https://decentralization.ua/" target="_blank"
-                                    rel="noopener" style="color: var(--real-text); text-decoration: underline;">Портал
+                                    rel="noopener" class="page-source-link">Портал
                                     децентралізації</a>, <a href="https://uk.wikipedia.org/" target="_blank"
                                     rel="noopener"
-                                    style="color: var(--real-text); text-decoration: underline;">Вікіпедія</a>, для
+                                    class="page-source-link">Вікіпедія</a>, для
                                 точного розрахунку звіряйтесь з актуальними
                                 джерелами. <br> Специфічні коефіцієнти
                                 військових дій, статус курорту, лісистість тощо) необхідно вказати вручну.
@@ -265,38 +97,30 @@
 
                         <div class="group-title-row">
                             <span class="side-icon settings" aria-hidden="true">
-                                <svg class="icon">
-                                    <use href="#i-edit"></use>
-                                </svg>
+                                <img class="icon icon-image" src="assets/mb_cost_calc/icons/edit.svg" alt="" aria-hidden="true">
                             </span>
-                            <div class="form-group-title" style="margin:0;">Назва об'єкта / договору:</div>
+                            <div class="form-group-title page-title-no-margin">Назва об'єкта / договору:</div>
                         </div>
-                        <div class="left-aligned-padding"
-                            style="border-bottom: 1px solid var(--line); padding-bottom: 8px; margin-bottom: 8px;">
-                            <div style="position: relative; width: 100%;">
-                                <input class="control text-input" id="projectName" type="text"
-                                    placeholder="Необов’язково" style="padding-right: 36px;">
+                        <div class="left-aligned-padding page-layout-08"
+                           >
+                            <div class="page-input-container">
+                                <input class="control text-input page-input-clear-padding" id="projectName" type="text"
+                                    placeholder="Необов’язково">
                                 <button class="input-clear-btn" id="projectNameClearBtn" type="button"
                                     style="display: none;" title="Очистити поле">
-                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                                    </svg>
+                                    <img class="icon icon-image" src="assets/mb_cost_calc/icons/close.svg" alt="" aria-hidden="true">
                                 </button>
                             </div>
                         </div>
 
-                        <div class="group-title-row" style="margin-top: 8px; margin-bottom: 6px;">
+                        <div class="group-title-row page-layout-10">
                             <span class="side-icon settings" aria-hidden="true">
-                                <svg class="icon">
-                                    <use href="#i-list"></use>
-                                </svg>
+                                <img class="icon icon-image" src="assets/mb_cost_calc/icons/list.svg" alt="" aria-hidden="true">
                             </span>
-                            <div class="form-group-title" style="margin:0;">Вид документації:</div>
+                            <div class="form-group-title page-title-no-margin">Вид документації:</div>
                         </div>
-                        <div class="tabs-container left-aligned-padding"
-                            style="border-bottom: none; padding-bottom: 0; margin-bottom: 0;">
+                        <div class="tabs-container left-aligned-padding page-layout-11"
+                           >
                             <button class="tab-btn active" data-target="stateParts">Схема частини України</button>
                             <button class="tab-btn" data-target="regionalRegion">Схема області</button>
                             <button class="tab-btn" data-target="regionalDistrict">Схема району</button>
@@ -311,9 +135,7 @@
                             <div class="section-group">
                                 <div class="group-title-row">
                                     <span class="side-icon real" aria-hidden="true">
-                                        <svg class="icon">
-                                            <use href="#i-map"></use>
-                                        </svg>
+                                        <img class="icon icon-image" src="assets/mb_cost_calc/icons/map.svg" alt="" aria-hidden="true">
                                     </span>
                                     <div class="form-group-title">Вихідні показники:</div>
                                 </div>
@@ -344,19 +166,19 @@
                                             <span class="slider-current-label" id="label_sp_f_pop">...</span>
                                         </div>
                                         <div class="slider-ticks-container">
-                                            <div class="slider-tick" style="left: 0%;"><span class="tick-text">до
+                                            <div class="slider-tick page-tick-at-0"><span class="tick-text">до
                                                     0.5м</span>
                                             </div>
-                                            <div class="slider-tick" style="left: 25%;"><span
+                                            <div class="slider-tick page-tick-at-25"><span
                                                     class="tick-text">0.5-1м</span>
                                             </div>
-                                            <div class="slider-tick" style="left: 50%;"><span
+                                            <div class="slider-tick page-tick-at-50"><span
                                                     class="tick-text">1-2м</span>
                                             </div>
-                                            <div class="slider-tick" style="left: 75%;"><span
+                                            <div class="slider-tick page-tick-at-75"><span
                                                     class="tick-text">2-3м</span>
                                             </div>
-                                            <div class="slider-tick" style="left: 100%;"><span
+                                            <div class="slider-tick page-tick-at-100"><span
                                                     class="tick-text">>3м</span>
                                             </div>
                                         </div>
@@ -371,16 +193,16 @@
                                             <span class="slider-current-label" id="label_sp_f_urban">...</span>
                                         </div>
                                         <div class="slider-ticks-container">
-                                            <div class="slider-tick" style="left: 0%;"><span class="tick-text">до
+                                            <div class="slider-tick page-tick-at-0"><span class="tick-text">до
                                                     20</span>
                                             </div>
-                                            <div class="slider-tick" style="left: 33.33%;"><span
+                                            <div class="slider-tick page-tick-at-33-33"><span
                                                     class="tick-text">21-50</span>
                                             </div>
-                                            <div class="slider-tick" style="left: 66.66%;"><span
+                                            <div class="slider-tick page-tick-at-66-66"><span
                                                     class="tick-text">51-100</span>
                                             </div>
-                                            <div class="slider-tick" style="left: 100%;"><span
+                                            <div class="slider-tick page-tick-at-100"><span
                                                     class="tick-text">>100</span>
                                             </div>
                                         </div>
@@ -394,16 +216,16 @@
                                             <span class="slider-current-label" id="label_sp_f_rural">...</span>
                                         </div>
                                         <div class="slider-ticks-container">
-                                            <div class="slider-tick" style="left: 0%;"><span class="tick-text">до
+                                            <div class="slider-tick page-tick-at-0"><span class="tick-text">до
                                                     1к</span>
                                             </div>
-                                            <div class="slider-tick" style="left: 33.33%;"><span
+                                            <div class="slider-tick page-tick-at-33-33"><span
                                                     class="tick-text">1к-2к</span>
                                             </div>
-                                            <div class="slider-tick" style="left: 66.66%;"><span
+                                            <div class="slider-tick page-tick-at-66-66"><span
                                                     class="tick-text">2к-4к</span>
                                             </div>
-                                            <div class="slider-tick" style="left: 100%;"><span
+                                            <div class="slider-tick page-tick-at-100"><span
                                                     class="tick-text">>4к</span>
                                             </div>
                                         </div>
@@ -417,19 +239,19 @@
                                             <span class="slider-current-label" id="label_sp_f_cities100">...</span>
                                         </div>
                                         <div class="slider-ticks-container">
-                                            <div class="slider-tick" style="left: 0%;"><span
+                                            <div class="slider-tick page-tick-at-0"><span
                                                     class="tick-text">немає</span>
                                             </div>
-                                            <div class="slider-tick" style="left: 25%;"><span class="tick-text">1
+                                            <div class="slider-tick page-tick-at-25"><span class="tick-text">1
                                                     місто</span>
                                             </div>
-                                            <div class="slider-tick" style="left: 50%;"><span class="tick-text">2
+                                            <div class="slider-tick page-tick-at-50"><span class="tick-text">2
                                                     міста</span>
                                             </div>
-                                            <div class="slider-tick" style="left: 75%;"><span class="tick-text">3
+                                            <div class="slider-tick page-tick-at-75"><span class="tick-text">3
                                                     міста</span>
                                             </div>
-                                            <div class="slider-tick" style="left: 100%;"><span class="tick-text">>3
+                                            <div class="slider-tick page-tick-at-100"><span class="tick-text">>3
                                                     міст</span>
                                             </div>
                                         </div>
@@ -442,9 +264,7 @@
                             <div class="section-group">
                                 <div class="group-title-row">
                                     <span class="side-icon drawing" aria-hidden="true">
-                                        <svg class="icon">
-                                            <use href="#i-list"></use>
-                                        </svg>
+                                        <img class="icon icon-image" src="assets/mb_cost_calc/icons/list.svg" alt="" aria-hidden="true">
                                     </span>
                                     <div class="form-group-title">Ускладнюючі фактори (Таблиця 2-1)</div>
                                 </div>
@@ -456,13 +276,13 @@
                                             <span class="slider-current-label" id="label_sp_f_mil">...</span>
                                         </div>
                                         <div class="slider-ticks-container">
-                                            <div class="slider-tick" style="left: 0%;"><span
+                                            <div class="slider-tick page-tick-at-0"><span
                                                     class="tick-text">немає</span>
                                             </div>
-                                            <div class="slider-tick" style="left: 50%;"><span class="tick-text">до
+                                            <div class="slider-tick page-tick-at-50"><span class="tick-text">до
                                                     50%</span>
                                             </div>
-                                            <div class="slider-tick" style="left: 100%;"><span
+                                            <div class="slider-tick page-tick-at-100"><span
                                                     class="tick-text">50-100%</span>
                                             </div>
                                         </div>
@@ -476,13 +296,13 @@
                                             <span class="slider-current-label" id="label_sp_f_resort">...</span>
                                         </div>
                                         <div class="slider-ticks-container">
-                                            <div class="slider-tick" style="left: 0%;"><span
+                                            <div class="slider-tick page-tick-at-0"><span
                                                     class="tick-text">немає</span>
                                             </div>
-                                            <div class="slider-tick" style="left: 50%;"><span
+                                            <div class="slider-tick page-tick-at-50"><span
                                                     class="tick-text">місцевий</span>
                                             </div>
-                                            <div class="slider-tick" style="left: 100%;"><span
+                                            <div class="slider-tick page-tick-at-100"><span
                                                     class="tick-text">державний</span></div>
                                         </div>
                                         <input type="range" class="control slider-control" id="sp_f_resort" min="0"
@@ -492,69 +312,34 @@
                                     <div class="checkbox-group" id="sp_gen_coefs">
                                         <label class="checkbox-row">
                                             <input type="checkbox" data-coef="1.15">
-                                            <svg class="icon checkbox-icon" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="m9 6l.4 2.214c.066.434.026.875-.119 1.296L5 22M15 6l-.4 2.214c-.066.434-.026.875.119 1.296L19 22" />
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="m3 11l.324-1.08c.087-.29.13-.435.229-.557c.098-.121.244-.21.535-.386L8.474 6.32c.26-.158.391-.237.542-.278C9.166 6 9.328 6 9.65 6h4.7c.322 0 .483 0 .634.04c.15.042.281.12.542.279l4.386 2.658c.291.176.437.265.535.386c.098.122.142.267.23.558L21 11M3 22h18M4 9h15.5" />
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="m9.5 10l6.5 4.5L5 22" />
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M14.5 10L8 14.5L19 22" />
-                                                <path
-                                                    d="m9 6l1.4-2.24C11.133 2.587 11.5 2 12 2s.867.587 1.6 1.76L15 6" />
-                                            </svg>
+                                            <img class="icon checkbox-icon icon-image" src="assets/mb_cost_calc/icons/power-lines.svg" alt="" aria-hidden="true">
                                             <span class="checkbox-label">Розвинуте інженерне облаштування / перешкоди (К
                                                 =
                                                 1.15)</span>
                                         </label>
                                         <label class="checkbox-row">
                                             <input type="checkbox" data-coef="1.2">
-                                            <svg class="icon checkbox-icon" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <path d="M8 3L1 16h14L8 3z" />
-                                                <path d="M16 8l-3 5h6l-3-5z" />
-                                            </svg>
+                                            <img class="icon checkbox-icon icon-image" src="assets/mb_cost_calc/icons/mountains.svg" alt="" aria-hidden="true">
                                             <span class="checkbox-label">Складні геологічні умови на >=30% території (К
                                                 =
                                                 1.2)</span>
                                         </label>
                                         <label class="checkbox-row">
                                             <input type="checkbox" data-coef="1.1">
-                                            <svg class="icon checkbox-icon" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <path
-                                                    d="M7 20.662A9.95 9.95 0 0 0 12 22c1.822 0 3.53-.487 5-1.338l-3-5.197A4 4 0 0 1 12 16a4 4 0 0 1-2-.535zM7 3.338A10 10 0 0 0 2 12h6c0-1.48.804-2.773 2-3.465zM22 12a10 10 0 0 0-5-8.662l-3 5.197c1.196.692 2 1.985 2 3.465z" />
-                                            </svg>
+                                            <img class="icon checkbox-icon icon-image" src="assets/mb_cost_calc/icons/radiation.svg" alt="" aria-hidden="true">
                                             <span class="checkbox-label">Радіоактивно-забруднені території (К =
                                                 1.1)</span>
                                         </label>
                                         <label class="checkbox-row">
                                             <input type="checkbox" data-coef="1.3" data-multiply="true">
-                                            <svg class="icon checkbox-icon" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <path d="M6 21h6m-3 0V3L3 9h18M9 3l10 6" />
-                                                <path d="M17 9v4a2 2 0 1 1-2 2" />
-                                            </svg>
+                                            <img class="icon checkbox-icon icon-image" src="assets/mb_cost_calc/icons/crane.svg" alt="" aria-hidden="true">
                                             <span class="checkbox-label">Території, що підлягають реконструкції (К =
                                                 1.3,
                                                 перемнож.)</span>
                                         </label>
                                         <label class="checkbox-row">
                                             <input type="checkbox" data-coef="1.1">
-                                            <svg class="icon checkbox-icon" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <circle cx="12" cy="12" r="9" stroke-linecap="round"
-                                                    stroke-width="1.5" />
-                                                <path stroke-width="2.25" d="M12 16h.01v.01H12z" />
-                                                <path stroke-linecap="round" stroke-width="1.5" d="M12 12V8" />
-                                            </svg>
+                                            <img class="icon checkbox-icon icon-image" src="assets/mb_cost_calc/icons/alert-circle.svg" alt="" aria-hidden="true">
                                             <span class="checkbox-label">Складна екологічна ситуація, істор. обмеження
                                                 (К =
                                                 1.1)</span>
@@ -569,9 +354,7 @@
                             <div class="section-group">
                                 <div class="group-title-row">
                                     <span class="side-icon real" aria-hidden="true">
-                                        <svg class="icon">
-                                            <use href="#i-map"></use>
-                                        </svg>
+                                        <img class="icon icon-image" src="assets/mb_cost_calc/icons/map.svg" alt="" aria-hidden="true">
                                     </span>
                                     <div class="form-group-title">Вихідні показники:</div>
                                 </div>
@@ -603,19 +386,19 @@
                                             <span class="slider-current-label" id="label_rr_f_pop">...</span>
                                         </div>
                                         <div class="slider-ticks-container">
-                                            <div class="slider-tick" style="left: 0%;"><span class="tick-text">до
+                                            <div class="slider-tick page-tick-at-0"><span class="tick-text">до
                                                     0.5м</span>
                                             </div>
-                                            <div class="slider-tick" style="left: 25%;"><span
+                                            <div class="slider-tick page-tick-at-25"><span
                                                     class="tick-text">0.5-1м</span>
                                             </div>
-                                            <div class="slider-tick" style="left: 50%;"><span
+                                            <div class="slider-tick page-tick-at-50"><span
                                                     class="tick-text">1-2м</span>
                                             </div>
-                                            <div class="slider-tick" style="left: 75%;"><span
+                                            <div class="slider-tick page-tick-at-75"><span
                                                     class="tick-text">2-3м</span>
                                             </div>
-                                            <div class="slider-tick" style="left: 100%;"><span
+                                            <div class="slider-tick page-tick-at-100"><span
                                                     class="tick-text">>3м</span>
                                             </div>
                                         </div>
@@ -630,16 +413,16 @@
                                             <span class="slider-current-label" id="label_rr_f_urban">...</span>
                                         </div>
                                         <div class="slider-ticks-container">
-                                            <div class="slider-tick" style="left: 0%;"><span class="tick-text">до
+                                            <div class="slider-tick page-tick-at-0"><span class="tick-text">до
                                                     20</span>
                                             </div>
-                                            <div class="slider-tick" style="left: 33.33%;"><span
+                                            <div class="slider-tick page-tick-at-33-33"><span
                                                     class="tick-text">21-50</span>
                                             </div>
-                                            <div class="slider-tick" style="left: 66.66%;"><span
+                                            <div class="slider-tick page-tick-at-66-66"><span
                                                     class="tick-text">51-100</span>
                                             </div>
-                                            <div class="slider-tick" style="left: 100%;"><span
+                                            <div class="slider-tick page-tick-at-100"><span
                                                     class="tick-text">>100</span>
                                             </div>
                                         </div>
@@ -653,13 +436,13 @@
                                             <span class="slider-current-label" id="label_rr_f_rural">...</span>
                                         </div>
                                         <div class="slider-ticks-container">
-                                            <div class="slider-tick" style="left: 0%;"><span class="tick-text">до
+                                            <div class="slider-tick page-tick-at-0"><span class="tick-text">до
                                                     1к</span>
                                             </div>
-                                            <div class="slider-tick" style="left: 50%;"><span
+                                            <div class="slider-tick page-tick-at-50"><span
                                                     class="tick-text">1к-1.5к</span>
                                             </div>
-                                            <div class="slider-tick" style="left: 100%;"><span
+                                            <div class="slider-tick page-tick-at-100"><span
                                                     class="tick-text">>1.5к</span>
                                             </div>
                                         </div>
@@ -673,19 +456,19 @@
                                             <span class="slider-current-label" id="label_rr_f_cities100">...</span>
                                         </div>
                                         <div class="slider-ticks-container">
-                                            <div class="slider-tick" style="left: 0%;"><span
+                                            <div class="slider-tick page-tick-at-0"><span
                                                     class="tick-text">немає</span>
                                             </div>
-                                            <div class="slider-tick" style="left: 25%;"><span class="tick-text">1
+                                            <div class="slider-tick page-tick-at-25"><span class="tick-text">1
                                                     місто</span>
                                             </div>
-                                            <div class="slider-tick" style="left: 50%;"><span class="tick-text">2
+                                            <div class="slider-tick page-tick-at-50"><span class="tick-text">2
                                                     міста</span>
                                             </div>
-                                            <div class="slider-tick" style="left: 75%;"><span class="tick-text">3
+                                            <div class="slider-tick page-tick-at-75"><span class="tick-text">3
                                                     міста</span>
                                             </div>
-                                            <div class="slider-tick" style="left: 100%;"><span class="tick-text">>3
+                                            <div class="slider-tick page-tick-at-100"><span class="tick-text">>3
                                                     міст</span>
                                             </div>
                                         </div>
@@ -699,16 +482,16 @@
                                             <span class="slider-current-label" id="label_rr_f_ind">...</span>
                                         </div>
                                         <div class="slider-ticks-container">
-                                            <div class="slider-tick" style="left: 0%;"><span class="tick-text">до 1
+                                            <div class="slider-tick page-tick-at-0"><span class="tick-text">до 1
                                                     гал</span>
                                             </div>
-                                            <div class="slider-tick" style="left: 33.33%;"><span class="tick-text">2
+                                            <div class="slider-tick page-tick-at-33-33"><span class="tick-text">2
                                                     гал</span>
                                             </div>
-                                            <div class="slider-tick" style="left: 66.66%;"><span class="tick-text">3
+                                            <div class="slider-tick page-tick-at-66-66"><span class="tick-text">3
                                                     гал</span>
                                             </div>
-                                            <div class="slider-tick" style="left: 100%;"><span class="tick-text">>3
+                                            <div class="slider-tick page-tick-at-100"><span class="tick-text">>3
                                                     гал</span>
                                             </div>
                                         </div>
@@ -722,13 +505,13 @@
                                             <span class="slider-current-label" id="label_rr_f_forest">...</span>
                                         </div>
                                         <div class="slider-ticks-container">
-                                            <div class="slider-tick" style="left: 0%;"><span class="tick-text">до
+                                            <div class="slider-tick page-tick-at-0"><span class="tick-text">до
                                                     100т</span>
                                             </div>
-                                            <div class="slider-tick" style="left: 50%;"><span
+                                            <div class="slider-tick page-tick-at-50"><span
                                                     class="tick-text">100-200т</span>
                                             </div>
-                                            <div class="slider-tick" style="left: 100%;"><span
+                                            <div class="slider-tick page-tick-at-100"><span
                                                     class="tick-text">>200т</span>
                                             </div>
                                         </div>
@@ -741,9 +524,7 @@
                             <div class="section-group">
                                 <div class="group-title-row">
                                     <span class="side-icon drawing" aria-hidden="true">
-                                        <svg class="icon">
-                                            <use href="#i-list"></use>
-                                        </svg>
+                                        <img class="icon icon-image" src="assets/mb_cost_calc/icons/list.svg" alt="" aria-hidden="true">
                                     </span>
                                     <div class="form-group-title">Ускладнюючі фактори (Таблиця 2-1)</div>
                                 </div>
@@ -754,13 +535,13 @@
                                             <span class="slider-current-label" id="label_rr_f_mil">...</span>
                                         </div>
                                         <div class="slider-ticks-container">
-                                            <div class="slider-tick" style="left: 0%;"><span
+                                            <div class="slider-tick page-tick-at-0"><span
                                                     class="tick-text">немає</span>
                                             </div>
-                                            <div class="slider-tick" style="left: 50%;"><span class="tick-text">до
+                                            <div class="slider-tick page-tick-at-50"><span class="tick-text">до
                                                     50%</span>
                                             </div>
-                                            <div class="slider-tick" style="left: 100%;"><span
+                                            <div class="slider-tick page-tick-at-100"><span
                                                     class="tick-text">50-100%</span>
                                             </div>
                                         </div>
@@ -774,13 +555,13 @@
                                             <span class="slider-current-label" id="label_rr_f_resort">...</span>
                                         </div>
                                         <div class="slider-ticks-container">
-                                            <div class="slider-tick" style="left: 0%;"><span
+                                            <div class="slider-tick page-tick-at-0"><span
                                                     class="tick-text">немає</span>
                                             </div>
-                                            <div class="slider-tick" style="left: 50%;"><span
+                                            <div class="slider-tick page-tick-at-50"><span
                                                     class="tick-text">місцевий</span>
                                             </div>
-                                            <div class="slider-tick" style="left: 100%;"><span
+                                            <div class="slider-tick page-tick-at-100"><span
                                                     class="tick-text">державний</span></div>
                                         </div>
                                         <input type="range" class="control slider-control" id="rr_f_resort" min="0"
@@ -790,58 +571,28 @@
                                     <div class="checkbox-group" id="rr_gen_coefs">
                                         <label class="checkbox-row">
                                             <input type="checkbox" data-coef="1.15">
-                                            <svg class="icon checkbox-icon" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="m9 6l.4 2.214c.066.434.026.875-.119 1.296L5 22M15 6l-.4 2.214c-.066.434-.026.875.119 1.296L19 22" />
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="m3 11l.324-1.08c.087-.29.13-.435.229-.557c.098-.121.244-.21.535-.386L8.474 6.32c.26-.158.391-.237.542-.278C9.166 6 9.328 6 9.65 6h4.7c.322 0 .483 0 .634.04c.15.042.281.12.542.279l4.386 2.658c.291.176.437.265.535.386c.098.122.142.267.23.558L21 11M3 22h18M4 9h15.5" />
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="m9.5 10l6.5 4.5L5 22" />
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M14.5 10L8 14.5L19 22" />
-                                                <path
-                                                    d="m9 6l1.4-2.24C11.133 2.587 11.5 2 12 2s.867.587 1.6 1.76L15 6" />
-                                            </svg>
+                                            <img class="icon checkbox-icon icon-image" src="assets/mb_cost_calc/icons/power-lines.svg" alt="" aria-hidden="true">
                                             <span class="checkbox-label">Розвинуте інженерне облаштування / перешкоди (К
                                                 =
                                                 1.15)</span>
                                         </label>
                                         <label class="checkbox-row">
                                             <input type="checkbox" data-coef="1.2">
-                                            <svg class="icon checkbox-icon" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <path d="M8 3L1 16h14L8 3z" />
-                                                <path d="M16 8l-3 5h6l-3-5z" />
-                                            </svg>
+                                            <img class="icon checkbox-icon icon-image" src="assets/mb_cost_calc/icons/mountains.svg" alt="" aria-hidden="true">
                                             <span class="checkbox-label">Складні геологічні умови на >=30% території (К
                                                 =
                                                 1.2)</span>
                                         </label>
                                         <label class="checkbox-row">
                                             <input type="checkbox" data-coef="1.3" data-multiply="true">
-                                            <svg class="icon checkbox-icon" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <path d="M6 21h6m-3 0V3L3 9h18M9 3l10 6" />
-                                                <path d="M17 9v4a2 2 0 1 1-2 2" />
-                                            </svg>
+                                            <img class="icon checkbox-icon icon-image" src="assets/mb_cost_calc/icons/crane.svg" alt="" aria-hidden="true">
                                             <span class="checkbox-label">Території, що підлягають реконструкції (К =
                                                 1.3,
                                                 перемнож.)</span>
                                         </label>
                                         <label class="checkbox-row">
                                             <input type="checkbox" data-coef="1.1">
-                                            <svg class="icon checkbox-icon" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <circle cx="12" cy="12" r="9" stroke-linecap="round"
-                                                    stroke-width="1.5" />
-                                                <path stroke-width="2.25" d="M12 16h.01v.01H12z" />
-                                                <path stroke-linecap="round" stroke-width="1.5" d="M12 12V8" />
-                                            </svg>
+                                            <img class="icon checkbox-icon icon-image" src="assets/mb_cost_calc/icons/alert-circle.svg" alt="" aria-hidden="true">
                                             <span class="checkbox-label">Складна екологічна ситуация, істор. обмеження
                                                 (К =
                                                 1.1)</span>
@@ -856,9 +607,7 @@
                             <div class="section-group">
                                 <div class="group-title-row">
                                     <span class="side-icon real" aria-hidden="true">
-                                        <svg class="icon">
-                                            <use href="#i-map"></use>
-                                        </svg>
+                                        <img class="icon icon-image" src="assets/mb_cost_calc/icons/map.svg" alt="" aria-hidden="true">
                                     </span>
                                     <div class="form-group-title">Вихідні показники:</div>
                                 </div>
@@ -890,16 +639,16 @@
                                             <span class="slider-current-label" id="label_rd_f_pop">...</span>
                                         </div>
                                         <div class="slider-ticks-container">
-                                            <div class="slider-tick" style="left: 0%;"><span class="tick-text">до
+                                            <div class="slider-tick page-tick-at-0"><span class="tick-text">до
                                                     40т</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 25%;"><span
+                                            <div class="slider-tick page-tick-at-25"><span
                                                     class="tick-text">40-70т</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 50%;"><span
+                                            <div class="slider-tick page-tick-at-50"><span
                                                     class="tick-text">70-110т</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 75%;"><span
+                                            <div class="slider-tick page-tick-at-75"><span
                                                     class="tick-text">110-150т</span><span class="tick-dot"></span>
                                             </div>
-                                            <div class="slider-tick" style="left: 100%;"><span
+                                            <div class="slider-tick page-tick-at-100"><span
                                                     class="tick-text">>150т</span><span class="tick-dot"></span></div>
                                         </div>
                                         <input type="range" class="control slider-control" id="rd_f_pop" min="0" max="4"
@@ -913,13 +662,13 @@
                                             <span class="slider-current-label" id="label_rd_f_urban">...</span>
                                         </div>
                                         <div class="slider-ticks-container">
-                                            <div class="slider-tick" style="left: 0%;"><span class="tick-text">1
+                                            <div class="slider-tick page-tick-at-0"><span class="tick-text">1
                                                     пункт</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 33.33%;"><span class="tick-text">2
+                                            <div class="slider-tick page-tick-at-33-33"><span class="tick-text">2
                                                     пункти</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 66.66%;"><span class="tick-text">3
+                                            <div class="slider-tick page-tick-at-66-66"><span class="tick-text">3
                                                     пункти</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 100%;"><span class="tick-text">>3
+                                            <div class="slider-tick page-tick-at-100"><span class="tick-text">>3
                                                     пунктів</span><span class="tick-dot"></span></div>
                                         </div>
                                         <input type="range" class="control slider-control" id="rd_f_urban" min="0"
@@ -932,17 +681,17 @@
                                             <span class="slider-current-label" id="label_rd_f_rural">...</span>
                                         </div>
                                         <div class="slider-ticks-container">
-                                            <div class="slider-tick" style="left: 0%;"><span class="tick-text">до
+                                            <div class="slider-tick page-tick-at-0"><span class="tick-text">до
                                                     100</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 20%;"><span
+                                            <div class="slider-tick page-tick-at-20"><span
                                                     class="tick-text">101-150</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 40%;"><span
+                                            <div class="slider-tick page-tick-at-40"><span
                                                     class="tick-text">151-200</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 60%;"><span
+                                            <div class="slider-tick page-tick-at-60"><span
                                                     class="tick-text">201-270</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 80%;"><span
+                                            <div class="slider-tick page-tick-at-80"><span
                                                     class="tick-text">271-350</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 100%;"><span
+                                            <div class="slider-tick page-tick-at-100"><span
                                                     class="tick-text">>350</span><span class="tick-dot"></span></div>
                                         </div>
                                         <input type="range" class="control slider-control" id="rd_f_rural" min="0"
@@ -955,13 +704,13 @@
                                             <span class="slider-current-label" id="label_rd_f_ind">...</span>
                                         </div>
                                         <div class="slider-ticks-container">
-                                            <div class="slider-tick" style="left: 0%;"><span class="tick-text">до 1
+                                            <div class="slider-tick page-tick-at-0"><span class="tick-text">до 1
                                                     гал</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 33.33%;"><span class="tick-text">2
+                                            <div class="slider-tick page-tick-at-33-33"><span class="tick-text">2
                                                     гал</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 66.66%;"><span class="tick-text">3
+                                            <div class="slider-tick page-tick-at-66-66"><span class="tick-text">3
                                                     гал</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 100%;"><span class="tick-text">>3
+                                            <div class="slider-tick page-tick-at-100"><span class="tick-text">>3
                                                     гал</span><span class="tick-dot"></span></div>
                                         </div>
                                         <input type="range" class="control slider-control" id="rd_f_ind" min="0" max="3"
@@ -974,15 +723,15 @@
                                             <span class="slider-current-label" id="label_rd_f_forest">...</span>
                                         </div>
                                         <div class="slider-ticks-container">
-                                            <div class="slider-tick" style="left: 0%;"><span class="tick-text">до
+                                            <div class="slider-tick page-tick-at-0"><span class="tick-text">до
                                                     20т</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 25%;"><span
+                                            <div class="slider-tick page-tick-at-25"><span
                                                     class="tick-text">20-40т</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 50%;"><span
+                                            <div class="slider-tick page-tick-at-50"><span
                                                     class="tick-text">40-80т</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 75%;"><span
+                                            <div class="slider-tick page-tick-at-75"><span
                                                     class="tick-text">80-130т</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 100%;"><span
+                                            <div class="slider-tick page-tick-at-100"><span
                                                     class="tick-text">>130т</span><span class="tick-dot"></span></div>
                                         </div>
                                         <input type="range" class="control slider-control" id="rd_f_forest" min="0"
@@ -994,9 +743,7 @@
                             <div class="section-group">
                                 <div class="group-title-row">
                                     <span class="side-icon drawing" aria-hidden="true">
-                                        <svg class="icon">
-                                            <use href="#i-list"></use>
-                                        </svg>
+                                        <img class="icon icon-image" src="assets/mb_cost_calc/icons/list.svg" alt="" aria-hidden="true">
                                     </span>
                                     <div class="form-group-title">Ускладнюючі фактори (Таблиця 2-1)</div>
                                 </div>
@@ -1007,11 +754,11 @@
                                             <span class="slider-current-label" id="label_rd_f_mil">...</span>
                                         </div>
                                         <div class="slider-ticks-container">
-                                            <div class="slider-tick" style="left: 0%;"><span
+                                            <div class="slider-tick page-tick-at-0"><span
                                                     class="tick-text">немає</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 50%;"><span class="tick-text">до
+                                            <div class="slider-tick page-tick-at-50"><span class="tick-text">до
                                                     50%</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 100%;"><span
+                                            <div class="slider-tick page-tick-at-100"><span
                                                     class="tick-text">50-100%</span><span class="tick-dot"></span></div>
                                         </div>
                                         <input type="range" class="control slider-control" id="rd_f_mil" min="0" max="2"
@@ -1024,12 +771,12 @@
                                             <span class="slider-current-label" id="label_rd_f_resort">...</span>
                                         </div>
                                         <div class="slider-ticks-container">
-                                            <div class="slider-tick" style="left: 0%;"><span
+                                            <div class="slider-tick page-tick-at-0"><span
                                                     class="tick-text">немає</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 50%;"><span
+                                            <div class="slider-tick page-tick-at-50"><span
                                                     class="tick-text">місцевий</span><span class="tick-dot"></span>
                                             </div>
-                                            <div class="slider-tick" style="left: 100%;"><span
+                                            <div class="slider-tick page-tick-at-100"><span
                                                     class="tick-text">державний</span><span class="tick-dot"></span>
                                             </div>
                                         </div>
@@ -1040,58 +787,28 @@
                                     <div class="checkbox-group" id="rd_gen_coefs">
                                         <label class="checkbox-row">
                                             <input type="checkbox" data-coef="1.15">
-                                            <svg class="icon checkbox-icon" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="m9 6l.4 2.214c.066.434.026.875-.119 1.296L5 22M15 6l-.4 2.214c-.066.434-.026.875.119 1.296L19 22" />
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="m3 11l.324-1.08c.087-.29.13-.435.229-.557c.098-.121.244-.21.535-.386L8.474 6.32c.26-.158.391-.237.542-.278C9.166 6 9.328 6 9.65 6h4.7c.322 0 .483 0 .634.04c.15.042.281.12.542.279l4.386 2.658c.291.176.437.265.535.386c.098.122.142.267.23.558L21 11M3 22h18M4 9h15.5" />
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="m9.5 10l6.5 4.5L5 22" />
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M14.5 10L8 14.5L19 22" />
-                                                <path
-                                                    d="m9 6l1.4-2.24C11.133 2.587 11.5 2 12 2s.867.587 1.6 1.76L15 6" />
-                                            </svg>
+                                            <img class="icon checkbox-icon icon-image" src="assets/mb_cost_calc/icons/power-lines.svg" alt="" aria-hidden="true">
                                             <span class="checkbox-label">Розвинуте інженерне облаштування / перешкоди (К
                                                 =
                                                 1.15)</span>
                                         </label>
                                         <label class="checkbox-row">
                                             <input type="checkbox" data-coef="1.2">
-                                            <svg class="icon checkbox-icon" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <path d="M8 3L1 16h14L8 3z" />
-                                                <path d="M16 8l-3 5h6l-3-5z" />
-                                            </svg>
+                                            <img class="icon checkbox-icon icon-image" src="assets/mb_cost_calc/icons/mountains.svg" alt="" aria-hidden="true">
                                             <span class="checkbox-label">Складні геологічні умови на >=30% території (К
                                                 =
                                                 1.2)</span>
                                         </label>
                                         <label class="checkbox-row">
                                             <input type="checkbox" data-coef="1.3" data-multiply="true">
-                                            <svg class="icon checkbox-icon" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <path d="M6 21h6m-3 0V3L3 9h18M9 3l10 6" />
-                                                <path d="M17 9v4a2 2 0 1 1-2 2" />
-                                            </svg>
+                                            <img class="icon checkbox-icon icon-image" src="assets/mb_cost_calc/icons/crane.svg" alt="" aria-hidden="true">
                                             <span class="checkbox-label">Території, що підлягають реконструкції (К =
                                                 1.3,
                                                 перемнож.)</span>
                                         </label>
                                         <label class="checkbox-row">
                                             <input type="checkbox" data-coef="1.1">
-                                            <svg class="icon checkbox-icon" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <circle cx="12" cy="12" r="9" stroke-linecap="round"
-                                                    stroke-width="1.5" />
-                                                <path stroke-width="2.25" d="M12 16h.01v.01H12z" />
-                                                <path stroke-linecap="round" stroke-width="1.5" d="M12 12V8" />
-                                            </svg>
+                                            <img class="icon checkbox-icon icon-image" src="assets/mb_cost_calc/icons/alert-circle.svg" alt="" aria-hidden="true">
                                             <span class="checkbox-label">Складна екологічна ситуація, істор. обмеження
                                                 (К =
                                                 1.1)</span>
@@ -1107,9 +824,7 @@
                             <div class="section-group">
                                 <div class="group-title-row">
                                     <span class="side-icon real" aria-hidden="true">
-                                        <svg class="icon">
-                                            <use href="#i-map"></use>
-                                        </svg>
+                                        <img class="icon icon-image" src="assets/mb_cost_calc/icons/map.svg" alt="" aria-hidden="true">
                                     </span>
                                     <div class="form-group-title">А. МІСТОБУДІВНА ЧАСТИНА (П. 2.9):</div>
                                 </div>
@@ -1177,8 +892,8 @@
                                                 data-tooltip="Розраховується автоматично як різниця: Населення громади - Населення адмінцентру.">i</span>
                                         </label>
                                         <div class="number-shell real">
-                                            <input class="control number-input" id="cp_pop_other" type="number" readonly
-                                                style="opacity: 0.85; cursor: not-allowed; background: var(--hover);"
+                                            <input class="control number-input page-cp_pop_other" id="cp_pop_other" type="number" readonly
+
                                                 value="8.3">
                                         </div>
                                         <span class="unit-label">тис. осіб</span>
@@ -1191,15 +906,15 @@
                                             <span class="slider-current-label" id="label_cp_f_pop">...</span>
                                         </div>
                                         <div class="slider-ticks-container">
-                                            <div class="slider-tick" style="left: 0%;"><span class="tick-text">до
+                                            <div class="slider-tick page-tick-at-0"><span class="tick-text">до
                                                     10т</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 25%;"><span
+                                            <div class="slider-tick page-tick-at-25"><span
                                                     class="tick-text">10-30т</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 50%;"><span
+                                            <div class="slider-tick page-tick-at-50"><span
                                                     class="tick-text">30-60т</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 75%;"><span
+                                            <div class="slider-tick page-tick-at-75"><span
                                                     class="tick-text">60-120т</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 100%;"><span
+                                            <div class="slider-tick page-tick-at-100"><span
                                                     class="tick-text">>120т</span><span class="tick-dot"></span></div>
                                         </div>
                                         <input type="range" class="control slider-control" id="cp_f_pop" min="0" max="4"
@@ -1213,15 +928,15 @@
                                             <span class="slider-current-label" id="label_cp_f_urban">...</span>
                                         </div>
                                         <div class="slider-ticks-container">
-                                            <div class="slider-tick" style="left: 0%;"><span
+                                            <div class="slider-tick page-tick-at-0"><span
                                                     class="tick-text">немає</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 25%;"><span class="tick-text">1
+                                            <div class="slider-tick page-tick-at-25"><span class="tick-text">1
                                                     пункт</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 50%;"><span class="tick-text">2
+                                            <div class="slider-tick page-tick-at-50"><span class="tick-text">2
                                                     пункти</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 75%;"><span class="tick-text">3
+                                            <div class="slider-tick page-tick-at-75"><span class="tick-text">3
                                                     пункти</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 100%;"><span class="tick-text">>3
+                                            <div class="slider-tick page-tick-at-100"><span class="tick-text">>3
                                                     пунктів</span><span class="tick-dot"></span></div>
                                         </div>
                                         <input type="range" class="control slider-control" id="cp_f_urban" min="0"
@@ -1235,13 +950,13 @@
                                             <span class="slider-current-label" id="label_cp_f_rural">...</span>
                                         </div>
                                         <div class="slider-ticks-container">
-                                            <div class="slider-tick" style="left: 0%;"><span class="tick-text">до
+                                            <div class="slider-tick page-tick-at-0"><span class="tick-text">до
                                                     10</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 33.33%;"><span
+                                            <div class="slider-tick page-tick-at-33-33"><span
                                                     class="tick-text">11-20</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 66.66%;"><span
+                                            <div class="slider-tick page-tick-at-66-66"><span
                                                     class="tick-text">21-50</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 100%;"><span
+                                            <div class="slider-tick page-tick-at-100"><span
                                                     class="tick-text">>50</span><span class="tick-dot"></span></div>
                                         </div>
                                         <input type="range" class="control slider-control" id="cp_f_rural" min="0"
@@ -1254,13 +969,13 @@
                                             <span class="slider-current-label" id="label_cp_f_ind">...</span>
                                         </div>
                                         <div class="slider-ticks-container">
-                                            <div class="slider-tick" style="left: 0%;"><span class="tick-text">до 1
+                                            <div class="slider-tick page-tick-at-0"><span class="tick-text">до 1
                                                     гал</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 33.33%;"><span class="tick-text">2
+                                            <div class="slider-tick page-tick-at-33-33"><span class="tick-text">2
                                                     гал</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 66.66%;"><span class="tick-text">3
+                                            <div class="slider-tick page-tick-at-66-66"><span class="tick-text">3
                                                     гал</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 100%;"><span class="tick-text">>3
+                                            <div class="slider-tick page-tick-at-100"><span class="tick-text">>3
                                                     гал</span><span class="tick-dot"></span></div>
                                         </div>
                                         <input type="range" class="control slider-control" id="cp_f_ind" min="0" max="3"
@@ -1272,9 +987,7 @@
                             <div class="section-group">
                                 <div class="group-title-row">
                                     <span class="side-icon drawing" aria-hidden="true">
-                                        <svg class="icon">
-                                            <use href="#i-list"></use>
-                                        </svg>
+                                        <img class="icon icon-image" src="assets/mb_cost_calc/icons/list.svg" alt="" aria-hidden="true">
                                     </span>
                                     <div class="form-group-title">Ускладнюючі містобудівні коефіцієнти (Таблиця 2-1)
                                     </div>
@@ -1286,11 +999,11 @@
                                             <span class="slider-current-label" id="label_cp_f_mil">...</span>
                                         </div>
                                         <div class="slider-ticks-container">
-                                            <div class="slider-tick" style="left: 0%;"><span
+                                            <div class="slider-tick page-tick-at-0"><span
                                                     class="tick-text">немає</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 50%;"><span class="tick-text">до
+                                            <div class="slider-tick page-tick-at-50"><span class="tick-text">до
                                                     50%</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 100%;"><span
+                                            <div class="slider-tick page-tick-at-100"><span
                                                     class="tick-text">50-100%</span><span class="tick-dot"></span></div>
                                         </div>
                                         <input type="range" class="control slider-control" id="cp_f_mil" min="0" max="2"
@@ -1303,12 +1016,12 @@
                                             <span class="slider-current-label" id="label_cp_f_resort">...</span>
                                         </div>
                                         <div class="slider-ticks-container">
-                                            <div class="slider-tick" style="left: 0%;"><span
+                                            <div class="slider-tick page-tick-at-0"><span
                                                     class="tick-text">немає</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 50%;"><span
+                                            <div class="slider-tick page-tick-at-50"><span
                                                     class="tick-text">місцевий</span><span class="tick-dot"></span>
                                             </div>
-                                            <div class="slider-tick" style="left: 100%;"><span
+                                            <div class="slider-tick page-tick-at-100"><span
                                                     class="tick-text">державний</span><span class="tick-dot"></span>
                                             </div>
                                         </div>
@@ -1319,57 +1032,27 @@
                                     <div class="checkbox-group" id="cp_gen_coefs">
                                         <label class="checkbox-row">
                                             <input type="checkbox" data-coef="1.15">
-                                            <svg class="icon checkbox-icon" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="m9 6l.4 2.214c.066.434.026.875-.119 1.296L5 22M15 6l-.4 2.214c-.066.434-.026.875.119 1.296L19 22" />
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="m3 11l.324-1.08c.087-.29.13-.435.229-.557c.098-.121.244-.21.535-.386L8.474 6.32c.26-.158.391-.237.542-.278C9.166 6 9.328 6 9.65 6h4.7c.322 0 .483 0 .634.04c.15.042.281.12.542.279l4.386 2.658c.291.176.437.265.535.386c.098.122.142.267.23.558L21 11M3 22h18M4 9h15.5" />
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="m9.5 10l6.5 4.5L5 22" />
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M14.5 10L8 14.5L19 22" />
-                                                <path
-                                                    d="m9 6l1.4-2.24C11.133 2.587 11.5 2 12 2s.867.587 1.6 1.76L15 6" />
-                                            </svg>
+                                            <img class="icon checkbox-icon icon-image" src="assets/mb_cost_calc/icons/power-lines.svg" alt="" aria-hidden="true">
                                             <span class="checkbox-label">Розвинуте інженерне облаштування / перешкоди (К
                                                 =
                                                 1.15)</span>
                                         </label>
                                         <label class="checkbox-row">
                                             <input type="checkbox" data-coef="1.2">
-                                            <svg class="icon checkbox-icon" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <path d="M8 3L1 16h14L8 3z" />
-                                                <path d="M16 8l-3 5h6l-3-5z" />
-                                            </svg>
+                                            <img class="icon checkbox-icon icon-image" src="assets/mb_cost_calc/icons/mountains.svg" alt="" aria-hidden="true">
                                             <span class="checkbox-label">Складні геологічні умови на >=30% території (К
                                                 =
                                                 1.2)</span>
                                         </label>
                                         <label class="checkbox-row">
                                             <input type="checkbox" data-coef="1.3" data-multiply="true">
-                                            <svg class="icon checkbox-icon" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <path d="M6 21h6m-3 0V3L3 9h18M9 3l10 6" />
-                                                <path d="M17 9v4a2 2 0 1 1-2 2" />
-                                            </svg>
+                                            <img class="icon checkbox-icon icon-image" src="assets/mb_cost_calc/icons/crane.svg" alt="" aria-hidden="true">
                                             <span class="checkbox-label">Території під реконструкцію (К = 1.3,
                                                 перемнож.)</span>
                                         </label>
                                         <label class="checkbox-row">
                                             <input type="checkbox" data-coef="1.1">
-                                            <svg class="icon checkbox-icon" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <circle cx="12" cy="12" r="9" stroke-linecap="round"
-                                                    stroke-width="1.5" />
-                                                <path stroke-width="2.25" d="M12 16h.01v.01H12z" />
-                                                <path stroke-linecap="round" stroke-width="1.5" d="M12 12V8" />
-                                            </svg>
+                                            <img class="icon checkbox-icon icon-image" src="assets/mb_cost_calc/icons/alert-circle.svg" alt="" aria-hidden="true">
                                             <span class="checkbox-label">Складна еко-ситуація, істор. обмеження (К =
                                                 1.1)</span>
                                         </label>
@@ -1381,9 +1064,7 @@
                             <div class="section-group">
                                 <div class="group-title-row">
                                     <span class="side-icon real" aria-hidden="true">
-                                        <svg class="icon">
-                                            <use href="#i-map"></use>
-                                        </svg>
+                                        <img class="icon icon-image" src="assets/mb_cost_calc/icons/map.svg" alt="" aria-hidden="true">
                                     </span>
                                     <div class="form-group-title">Б. ЗЕМЛЕВПОРЯДНА ЧАСТИНА (П. 6.1):</div>
                                 </div>
@@ -1399,17 +1080,17 @@
                                             <span class="slider-current-label" id="label_cp_f_users">...</span>
                                         </div>
                                         <div class="slider-ticks-container">
-                                            <div class="slider-tick" style="left: 0%;"><span class="tick-text">до
+                                            <div class="slider-tick page-tick-at-0"><span class="tick-text">до
                                                     5к</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 20%;"><span
+                                            <div class="slider-tick page-tick-at-20"><span
                                                     class="tick-text">5-20к</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 40%;"><span
+                                            <div class="slider-tick page-tick-at-40"><span
                                                     class="tick-text">20-50к</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 60%;"><span
+                                            <div class="slider-tick page-tick-at-60"><span
                                                     class="tick-text">50-100к</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 80%;"><span
+                                            <div class="slider-tick page-tick-at-80"><span
                                                     class="tick-text">>100к</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 100%;"><span
+                                            <div class="slider-tick page-tick-at-100"><span
                                                     class="tick-text">Київ/Сев</span><span class="tick-dot"></span>
                                             </div>
                                         </div>
@@ -1417,20 +1098,14 @@
                                             max="5" value="0" step="1">
                                     </div>
 
-                                    <label class="checkbox-row"
-                                        style="cursor:pointer; display:flex; align-items:center; gap:8px;">
-                                        <input id="cp_f_categories" type="checkbox" style="cursor:pointer;">
-                                        <svg class="icon checkbox-icon" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round" style="width:16px; height:16px;">
-                                            <ellipse cx="12" cy="5" rx="9" ry="3" />
-                                            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
-                                            <path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3" />
-                                        </svg>
+                                    <label class="checkbox-row page-layout-24 page-display-flex"
+                                       >
+                                        <input id="cp_f_categories" type="checkbox" class="page-cp_f_categories">
+                                        <img class="icon checkbox-icon icon-image page-layout-26" src="assets/mb_cost_calc/icons/database.svg" alt="" aria-hidden="true">
                                         <span class="checkbox-label">Всі 9 категорій земель присутні (К = 1.1) <span
-                                                class="tooltip-trigger"
+                                                class="tooltip-trigger page-layout-27"
                                                 data-tooltip="Збільшує вартість землевпорядних робіт на 10% за п. 6.2."
-                                                style="margin-left:4px;">i</span></span>
+                                               >i</span></span>
                                     </label>
                                 </div>
                             </div>
@@ -1438,9 +1113,7 @@
                             <div class="section-group">
                                 <div class="group-title-row">
                                     <span class="side-icon drawing" aria-hidden="true">
-                                        <svg class="icon">
-                                            <use href="#i-list"></use>
-                                        </svg>
+                                        <img class="icon icon-image" src="assets/mb_cost_calc/icons/list.svg" alt="" aria-hidden="true">
                                     </span>
                                     <div class="form-group-title">Ускладнюючі землевпорядні коефіцієнти (Таблиця 6-4)
                                     </div>
@@ -1449,43 +1122,26 @@
                                     <div class="checkbox-group" id="cp_land_coefs">
                                         <label class="checkbox-row">
                                             <input type="checkbox" data-coef="2.0">
-                                            <svg class="icon checkbox-icon" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <path
-                                                    d="M3 22h18M3 18h18M4 6h16M12 2L4 6h16L12 2zM6 6v12M10 6v12M14 6v12M18 6v12" />
-                                            </svg>
+                                            <img class="icon checkbox-icon icon-image" src="assets/mb_cost_calc/icons/heritage.svg" alt="" aria-hidden="true">
                                             <span class="checkbox-label">Межі заповідника, об'єкти ЮНЕСКО, археологія (К
                                                 =
                                                 2.0)</span>
                                         </label>
                                         <label class="checkbox-row">
                                             <input type="checkbox" data-coef="1.15">
-                                            <svg class="icon checkbox-icon" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <path d="M2 10c3-3 6-3 9 0s6 3 9 0M2 15c3-3 6-3 9 0s6 3 9 0" />
-                                            </svg>
+                                            <img class="icon checkbox-icon icon-image" src="assets/mb_cost_calc/icons/water.svg" alt="" aria-hidden="true">
                                             <span class="checkbox-label">Наявність прибережної захисної смуги (К =
                                                 1.15)</span>
                                         </label>
                                         <label class="checkbox-row">
                                             <input type="checkbox" data-coef="1.15">
-                                            <svg class="icon checkbox-icon" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <path d="M2 10c3-3 6-3 9 0s6 3 9 0M2 15c3-3 6-3 9 0s6 3 9 0" />
-                                            </svg>
+                                            <img class="icon checkbox-icon icon-image" src="assets/mb_cost_calc/icons/water.svg" alt="" aria-hidden="true">
                                             <span class="checkbox-label">Наявність зон обмежень, охорони, ЛЕП (К =
                                                 1.15)</span>
                                         </label>
                                         <label class="checkbox-row">
                                             <input type="checkbox" data-coef="0.8">
-                                            <svg class="icon checkbox-icon" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <path d="M12 2L3 17h18L12 2zM12 17v5M9 13h6M10 9h4" />
-                                            </svg>
+                                            <img class="icon checkbox-icon icon-image" src="assets/mb_cost_calc/icons/forest.svg" alt="" aria-hidden="true">
                                             <span class="checkbox-label">Території лісогосподарського та водного фонду
                                                 >= 25% (К
                                                 = 0.8)</span>
@@ -1500,9 +1156,7 @@
                             <div class="section-group">
                                 <div class="group-title-row">
                                     <span class="side-icon real" aria-hidden="true">
-                                        <svg class="icon">
-                                            <use href="#i-map"></use>
-                                        </svg>
+                                        <img class="icon icon-image" src="assets/mb_cost_calc/icons/map.svg" alt="" aria-hidden="true">
                                     </span>
                                     <div class="form-group-title">Вихідні показники:</div>
                                 </div>
@@ -1527,21 +1181,14 @@
                                         <span class="unit-label">тис. осіб</span>
                                     </div>
 
-                                    <label class="checkbox-row"
-                                        style="cursor:pointer; display:flex; align-items:center; gap:8px;">
-                                        <input id="gp_use_expertise" type="checkbox" checked style="cursor:pointer;">
-                                        <svg class="icon checkbox-icon" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round" style="width:16px; height:16px;">
-                                            <path stroke-linecap="round"
-                                                d="M19 11V8.2c0-1.12 0-1.68-.218-2.108a2 2 0 0 0-.874-.874C17.48 5 16.92 5 15.8 5H7.2c-1.12 0-1.68 0-2.108.218a2 2 0 0 0-.874.874C4 6.52 4 7.08 4 8.2v5.6c0 1.12 0 1.68.218 2.108a2 2 0 0 0 .874.874C5.52 17 6.08 17 7.2 17H14m-6-4h4M8 9h7" />
-                                            <circle cx="18" cy="15" r="1" />
-                                            <path stroke-linecap="round" d="M20 20s-.5-1-2-1s-2 1-2 1" />
-                                        </svg>
+                                    <label class="checkbox-row page-layout-24 page-display-flex"
+                                       >
+                                        <input id="gp_use_expertise" type="checkbox" checked class="page-cp_f_categories">
+                                        <img class="icon checkbox-icon icon-image page-layout-26" src="assets/mb_cost_calc/icons/land-document.svg" alt="" aria-hidden="true">
                                         <span class="checkbox-label">Проводити експертизу (Табл. 2-2) <span
-                                                class="tooltip-trigger"
+                                                class="tooltip-trigger page-layout-27"
                                                 data-tooltip="Генеральні плани сіл та селищ: Експертиза є необов'язковою згідно із законодавством."
-                                                style="margin-left:4px;">i</span></span>
+                                               >i</span></span>
                                     </label>
 
                                     <!-- Sliders -->
@@ -1551,13 +1198,13 @@
                                             <span class="slider-current-label" id="label_gp_city_k">...</span>
                                         </div>
                                         <div class="slider-ticks-container">
-                                            <div class="slider-tick" style="left: 0%;"><span
+                                            <div class="slider-tick page-tick-at-0"><span
                                                     class="tick-text">село/місто</span><span class="tick-dot"></span>
                                             </div>
-                                            <div class="slider-tick" style="left: 50%;"><span
+                                            <div class="slider-tick page-tick-at-50"><span
                                                     class="tick-text">мільйонник</span><span class="tick-dot"></span>
                                             </div>
-                                            <div class="slider-tick" style="left: 100%;"><span
+                                            <div class="slider-tick page-tick-at-100"><span
                                                     class="tick-text">Київ+прим</span><span class="tick-dot"></span>
                                             </div>
                                         </div>
@@ -1570,9 +1217,7 @@
                             <div class="section-group">
                                 <div class="group-title-row">
                                     <span class="side-icon drawing" aria-hidden="true">
-                                        <svg class="icon">
-                                            <use href="#i-list"></use>
-                                        </svg>
+                                        <img class="icon icon-image" src="assets/mb_cost_calc/icons/list.svg" alt="" aria-hidden="true">
                                     </span>
                                     <div class="form-group-title">Ускладнюючі фактори (Таблиця 2-1)</div>
                                 </div>
@@ -1583,11 +1228,11 @@
                                             <span class="slider-current-label" id="label_gp_f_mil">...</span>
                                         </div>
                                         <div class="slider-ticks-container">
-                                            <div class="slider-tick" style="left: 0%;"><span
+                                            <div class="slider-tick page-tick-at-0"><span
                                                     class="tick-text">немає</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 50%;"><span class="tick-text">до
+                                            <div class="slider-tick page-tick-at-50"><span class="tick-text">до
                                                     50%</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 100%;"><span
+                                            <div class="slider-tick page-tick-at-100"><span
                                                     class="tick-text">50-100%</span><span class="tick-dot"></span></div>
                                         </div>
                                         <input type="range" class="control slider-control" id="gp_f_mil" min="0" max="2"
@@ -1600,12 +1245,12 @@
                                             <span class="slider-current-label" id="label_gp_f_resort">...</span>
                                         </div>
                                         <div class="slider-ticks-container">
-                                            <div class="slider-tick" style="left: 0%;"><span
+                                            <div class="slider-tick page-tick-at-0"><span
                                                     class="tick-text">немає</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 50%;"><span
+                                            <div class="slider-tick page-tick-at-50"><span
                                                     class="tick-text">місцевий</span><span class="tick-dot"></span>
                                             </div>
-                                            <div class="slider-tick" style="left: 100%;"><span
+                                            <div class="slider-tick page-tick-at-100"><span
                                                     class="tick-text">державний</span><span class="tick-dot"></span>
                                             </div>
                                         </div>
@@ -1616,57 +1261,27 @@
                                     <div class="checkbox-group" id="gp_gen_coefs">
                                         <label class="checkbox-row">
                                             <input type="checkbox" data-coef="1.15">
-                                            <svg class="icon checkbox-icon" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="m9 6l.4 2.214c.066.434.026.875-.119 1.296L5 22M15 6l-.4 2.214c-.066.434-.026.875.119 1.296L19 22" />
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="m3 11l.324-1.08c.087-.29.13-.435.229-.557c.098-.121.244-.21.535-.386L8.474 6.32c.26-.158.391-.237.542-.278C9.166 6 9.328 6 9.65 6h4.7c.322 0 .483 0 .634.04c.15.042.281.12.542.279l4.386 2.658c.291.176.437.265.535.386c.098.122.142.267.23.558L21 11M3 22h18M4 9h15.5" />
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="m9.5 10l6.5 4.5L5 22" />
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M14.5 10L8 14.5L19 22" />
-                                                <path
-                                                    d="m9 6l1.4-2.24C11.133 2.587 11.5 2 12 2s.867.587 1.6 1.76L15 6" />
-                                            </svg>
+                                            <img class="icon checkbox-icon icon-image" src="assets/mb_cost_calc/icons/power-lines.svg" alt="" aria-hidden="true">
                                             <span class="checkbox-label">Розвинуте інженерне облаштування / перешкоди (К
                                                 =
                                                 1.15)</span>
                                         </label>
                                         <label class="checkbox-row">
                                             <input type="checkbox" data-coef="1.2">
-                                            <svg class="icon checkbox-icon" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <path d="M8 3L1 16h14L8 3z" />
-                                                <path d="M16 8l-3 5h6l-3-5z" />
-                                            </svg>
+                                            <img class="icon checkbox-icon icon-image" src="assets/mb_cost_calc/icons/mountains.svg" alt="" aria-hidden="true">
                                             <span class="checkbox-label">Складні геологічні умови на >=30% території (К
                                                 =
                                                 1.2)</span>
                                         </label>
                                         <label class="checkbox-row">
                                             <input type="checkbox" data-coef="1.3" data-multiply="true">
-                                            <svg class="icon checkbox-icon" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <path d="M6 21h6m-3 0V3L3 9h18M9 3l10 6" />
-                                                <path d="M17 9v4a2 2 0 1 1-2 2" />
-                                            </svg>
+                                            <img class="icon checkbox-icon icon-image" src="assets/mb_cost_calc/icons/crane.svg" alt="" aria-hidden="true">
                                             <span class="checkbox-label">Наявність територій під реконструкцію (К = 1.3,
                                                 перемнож.)</span>
                                         </label>
                                         <label class="checkbox-row">
                                             <input type="checkbox" data-coef="1.1">
-                                            <svg class="icon checkbox-icon" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <circle cx="12" cy="12" r="9" stroke-linecap="round"
-                                                    stroke-width="1.5" />
-                                                <path stroke-width="2.25" d="M12 16h.01v.01H12z" />
-                                                <path stroke-linecap="round" stroke-width="1.5" d="M12 12V8" />
-                                            </svg>
+                                            <img class="icon checkbox-icon icon-image" src="assets/mb_cost_calc/icons/alert-circle.svg" alt="" aria-hidden="true">
                                             <span class="checkbox-label">Складна еко-ситуація, істор. обмеження (К =
                                                 1.1)</span>
                                         </label>
@@ -1680,9 +1295,7 @@
                             <div class="section-group">
                                 <div class="group-title-row">
                                     <span class="side-icon real" aria-hidden="true">
-                                        <svg class="icon">
-                                            <use href="#i-map"></use>
-                                        </svg>
+                                        <img class="icon icon-image" src="assets/mb_cost_calc/icons/map.svg" alt="" aria-hidden="true">
                                     </span>
                                     <div class="form-group-title">Вихідні показники:</div>
                                 </div>
@@ -1706,21 +1319,14 @@
                                         <span class="unit-label">га</span>
                                     </div>
 
-                                    <label class="checkbox-row"
-                                        style="cursor:pointer; display:flex; align-items:center; gap:8px;">
-                                        <input id="dp_use_expertise" type="checkbox" checked style="cursor:pointer;">
-                                        <svg class="icon checkbox-icon" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round" style="width:16px; height:16px;">
-                                            <path stroke-linecap="round"
-                                                d="M19 11V8.2c0-1.12 0-1.68-.218-2.108a2 2 0 0 0-.874-.874C17.48 5 16.92 5 15.8 5H7.2c-1.12 0-1.68 0-2.108.218a2 2 0 0 0-.874.874C4 6.52 4 7.08 4 8.2v5.6c0 1.12 0 1.68.218 2.108a2 2 0 0 0 .874.874C5.52 17 6.08 17 7.2 17H14m-6-4h4M8 9h7" />
-                                            <circle cx="18" cy="15" r="1" />
-                                            <path stroke-linecap="round" d="M20 20s-.5-1-2-1s-2 1-2 1" />
-                                        </svg>
+                                    <label class="checkbox-row page-layout-24 page-display-flex"
+                                       >
+                                        <input id="dp_use_expertise" type="checkbox" checked class="page-cp_f_categories">
+                                        <img class="icon checkbox-icon icon-image page-layout-26" src="assets/mb_cost_calc/icons/land-document.svg" alt="" aria-hidden="true">
                                         <span class="checkbox-label">Проводити експертизу (Табл. 2-2) <span
-                                                class="tooltip-trigger"
+                                                class="tooltip-trigger page-layout-27"
                                                 data-tooltip="Детальні плани території: Експертиза є необов'язковою згідно із законодавством."
-                                                style="margin-left:4px;">i</span></span>
+                                               >i</span></span>
                                     </label>
 
                                     <!-- Sliders -->
@@ -1730,11 +1336,11 @@
                                             <span class="slider-current-label" id="label_dp_scale_k">...</span>
                                         </div>
                                         <div class="slider-ticks-container">
-                                            <div class="slider-tick" style="left: 0%;"><span
+                                            <div class="slider-tick page-tick-at-0"><span
                                                     class="tick-text">1:2000</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 50%;"><span
+                                            <div class="slider-tick page-tick-at-50"><span
                                                     class="tick-text">1:1000</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 100%;"><span
+                                            <div class="slider-tick page-tick-at-100"><span
                                                     class="tick-text">1:500</span><span class="tick-dot"></span></div>
                                         </div>
                                         <input type="range" class="control slider-control" id="dp_scale_k" min="0"
@@ -1747,10 +1353,10 @@
                                             <span class="slider-current-label" id="label_dp_type_k">...</span>
                                         </div>
                                         <div class="slider-ticks-container">
-                                            <div class="slider-tick" style="left: 0%;"><span
+                                            <div class="slider-tick page-tick-at-0"><span
                                                     class="tick-text">Звичайна</span><span class="tick-dot"></span>
                                             </div>
-                                            <div class="slider-tick" style="left: 100%;"><span
+                                            <div class="slider-tick page-tick-at-100"><span
                                                     class="tick-text">Спеціальна</span><span class="tick-dot"></span>
                                             </div>
                                         </div>
@@ -1763,9 +1369,7 @@
                             <div class="section-group">
                                 <div class="group-title-row">
                                     <span class="side-icon drawing" aria-hidden="true">
-                                        <svg class="icon">
-                                            <use href="#i-list"></use>
-                                        </svg>
+                                        <img class="icon icon-image" src="assets/mb_cost_calc/icons/list.svg" alt="" aria-hidden="true">
                                     </span>
                                     <div class="form-group-title">Ускладнюючі містобудівні коефіцієнти (Таблиця 2-1)
                                     </div>
@@ -1777,11 +1381,11 @@
                                             <span class="slider-current-label" id="label_dp_f_mil">...</span>
                                         </div>
                                         <div class="slider-ticks-container">
-                                            <div class="slider-tick" style="left: 0%;"><span
+                                            <div class="slider-tick page-tick-at-0"><span
                                                     class="tick-text">немає</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 50%;"><span class="tick-text">до
+                                            <div class="slider-tick page-tick-at-50"><span class="tick-text">до
                                                     50%</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 100%;"><span
+                                            <div class="slider-tick page-tick-at-100"><span
                                                     class="tick-text">50-100%</span><span class="tick-dot"></span></div>
                                         </div>
                                         <input type="range" class="control slider-control" id="dp_f_mil" min="0" max="2"
@@ -1794,12 +1398,12 @@
                                             <span class="slider-current-label" id="label_dp_f_resort">...</span>
                                         </div>
                                         <div class="slider-ticks-container">
-                                            <div class="slider-tick" style="left: 0%;"><span
+                                            <div class="slider-tick page-tick-at-0"><span
                                                     class="tick-text">немає</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 50%;"><span
+                                            <div class="slider-tick page-tick-at-50"><span
                                                     class="tick-text">місцевий</span><span class="tick-dot"></span>
                                             </div>
-                                            <div class="slider-tick" style="left: 100%;"><span
+                                            <div class="slider-tick page-tick-at-100"><span
                                                     class="tick-text">державний</span><span class="tick-dot"></span>
                                             </div>
                                         </div>
@@ -1810,57 +1414,27 @@
                                     <div class="checkbox-group" id="dp_mist_gen_coefs">
                                         <label class="checkbox-row">
                                             <input type="checkbox" data-coef="1.15">
-                                            <svg class="icon checkbox-icon" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="m9 6l.4 2.214c.066.434.026.875-.119 1.296L5 22M15 6l-.4 2.214c-.066.434-.026.875.119 1.296L19 22" />
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="m3 11l.324-1.08c.087-.29.13-.435.229-.557c.098-.121.244-.21.535-.386L8.474 6.32c.26-.158.391-.237.542-.278C9.166 6 9.328 6 9.65 6h4.7c.322 0 .483 0 .634.04c.15.042.281.12.542.279l4.386 2.658c.291.176.437.265.535.386c.098.122.142.267.23.558L21 11M3 22h18M4 9h15.5" />
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="m9.5 10l6.5 4.5L5 22" />
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M14.5 10L8 14.5L19 22" />
-                                                <path
-                                                    d="m9 6l1.4-2.24C11.133 2.587 11.5 2 12 2s.867.587 1.6 1.76L15 6" />
-                                            </svg>
+                                            <img class="icon checkbox-icon icon-image" src="assets/mb_cost_calc/icons/power-lines.svg" alt="" aria-hidden="true">
                                             <span class="checkbox-label">Розвинуте інженерне облаштування / перешкоди (К
                                                 =
                                                 1.15)</span>
                                         </label>
                                         <label class="checkbox-row">
                                             <input type="checkbox" data-coef="1.2">
-                                            <svg class="icon checkbox-icon" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <path d="M8 3L1 16h14L8 3z" />
-                                                <path d="M16 8l-3 5h6l-3-5z" />
-                                            </svg>
+                                            <img class="icon checkbox-icon icon-image" src="assets/mb_cost_calc/icons/mountains.svg" alt="" aria-hidden="true">
                                             <span class="checkbox-label">Складні геологічні умови на >=30% території (К
                                                 =
                                                 1.2)</span>
                                         </label>
                                         <label class="checkbox-row">
                                             <input type="checkbox" data-coef="1.3" data-multiply="true">
-                                            <svg class="icon checkbox-icon" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <path d="M6 21h6m-3 0V3L3 9h18M9 3l10 6" />
-                                                <path d="M17 9v4a2 2 0 1 1-2 2" />
-                                            </svg>
+                                            <img class="icon checkbox-icon icon-image" src="assets/mb_cost_calc/icons/crane.svg" alt="" aria-hidden="true">
                                             <span class="checkbox-label">Наявність території під реконструкцію (К = 1.3,
                                                 перемнож.)</span>
                                         </label>
                                         <label class="checkbox-row">
                                             <input type="checkbox" data-coef="1.1">
-                                            <svg class="icon checkbox-icon" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <circle cx="12" cy="12" r="9" stroke-linecap="round"
-                                                    stroke-width="1.5" />
-                                                <path stroke-width="2.25" d="M12 16h.01v.01H12z" />
-                                                <path stroke-linecap="round" stroke-width="1.5" d="M12 12V8" />
-                                            </svg>
+                                            <img class="icon checkbox-icon icon-image" src="assets/mb_cost_calc/icons/alert-circle.svg" alt="" aria-hidden="true">
                                             <span class="checkbox-label">Складна еко-ситуація, істор. обмеження (К =
                                                 1.1)</span>
                                         </label>
@@ -1871,9 +1445,7 @@
                             <div class="section-group">
                                 <div class="group-title-row">
                                     <span class="side-icon drawing" aria-hidden="true">
-                                        <svg class="icon">
-                                            <use href="#i-list"></use>
-                                        </svg>
+                                        <img class="icon icon-image" src="assets/mb_cost_calc/icons/list.svg" alt="" aria-hidden="true">
                                     </span>
                                     <div class="form-group-title">Ускладнюючі землевпорядні коефіцієнти (Таблиця 6-4)
                                     </div>
@@ -1886,11 +1458,11 @@
                                             <span class="slider-current-label" id="label_dp_f_data">...</span>
                                         </div>
                                         <div class="slider-ticks-container">
-                                            <div class="slider-tick" style="left: 0%;"><span class="tick-text">цифра
+                                            <div class="slider-tick page-tick-at-0"><span class="tick-text">цифра
                                                     .xml</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 50%;"><span class="tick-text">цифра не
+                                            <div class="slider-tick page-tick-at-50"><span class="tick-text">цифра не
                                                     .xml</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 100%;"><span class="tick-text">тільки
+                                            <div class="slider-tick page-tick-at-100"><span class="tick-text">тільки
                                                     папір</span><span class="tick-dot"></span></div>
                                         </div>
                                         <input type="range" class="control slider-control" id="dp_f_data" min="0"
@@ -1903,11 +1475,11 @@
                                             <span class="slider-current-label" id="label_dp_f_plots">...</span>
                                         </div>
                                         <div class="slider-ticks-container">
-                                            <div class="slider-tick" style="left: 0%;"><span
+                                            <div class="slider-tick page-tick-at-0"><span
                                                     class="tick-text">немає</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 50%;"><span class="tick-text">до 10
+                                            <div class="slider-tick page-tick-at-50"><span class="tick-text">до 10
                                                     діл.</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 100%;"><span class="tick-text">>10
+                                            <div class="slider-tick page-tick-at-100"><span class="tick-text">>10
                                                     діл.</span><span class="tick-dot"></span></div>
                                         </div>
                                         <input type="range" class="control slider-control" id="dp_f_plots" min="0"
@@ -1920,14 +1492,14 @@
                                             <span class="slider-current-label" id="label_dp_f_zones">...</span>
                                         </div>
                                         <div class="slider-ticks-container">
-                                            <div class="slider-tick" style="left: 0%;"><span class="tick-text">до
+                                            <div class="slider-tick page-tick-at-0"><span class="tick-text">до
                                                     100</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 33.33%;"><span
+                                            <div class="slider-tick page-tick-at-33-33"><span
                                                     class="tick-text">101-500</span><span class="tick-dot"></span></div>
-                                            <div class="slider-tick" style="left: 66.66%;"><span
+                                            <div class="slider-tick page-tick-at-66-66"><span
                                                     class="tick-text">501-1000</span><span class="tick-dot"></span>
                                             </div>
-                                            <div class="slider-tick" style="left: 100%;"><span
+                                            <div class="slider-tick page-tick-at-100"><span
                                                     class="tick-text">>1000</span><span class="tick-dot"></span></div>
                                         </div>
                                         <input type="range" class="control slider-control" id="dp_f_zones" min="0"
@@ -1937,59 +1509,32 @@
                                     <div class="checkbox-group" id="dp_land_gen_coefs">
                                         <label class="checkbox-row">
                                             <input type="checkbox" data-coef="1.1">
-                                            <svg class="icon checkbox-icon" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                                                <polyline points="14 2 14 8 20 8" />
-                                                <circle cx="11.5" cy="13.5" r="2.5" />
-                                                <line x1="16" y1="18" x2="13.5" y2="15.5" />
-                                            </svg>
+                                            <img class="icon checkbox-icon icon-image" src="assets/mb_cost_calc/icons/document-search.svg" alt="" aria-hidden="true">
                                             <span class="checkbox-label">Наявність незареєстрованих ділянок до 2004 року
                                                 (К =
                                                 1.1)</span>
                                         </label>
                                         <label class="checkbox-row">
                                             <input type="checkbox" data-coef="1.2">
-                                            <svg class="icon checkbox-icon" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <path d="m8 18l2-13l2-2l2 2l2 13M5 21v-3h14v3M3 21h18" />
-                                            </svg>
+                                            <img class="icon checkbox-icon icon-image" src="assets/mb_cost_calc/icons/document-detail.svg" alt="" aria-hidden="true">
                                             <span class="checkbox-label">Поодинокі пам'ятки або об'єкти спадщини (К =
                                                 1.2)</span>
                                         </label>
                                         <label class="checkbox-row">
                                             <input type="checkbox" data-coef="1.2">
-                                            <svg class="icon checkbox-icon" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <path
-                                                    d="M13.262 8.831H.857l6.202-3.544zM.857 13.262h12.405M1.743 8.831v4.43M4.4 8.831v4.43m2.66-4.43v4.43m2.657-4.43v4.43m2.659-4.43v4.43" />
-                                                <path
-                                                    d="M3.515 7.296V5.73a3.544 3.544 0 1 1 7.088 0v1.566M7.06 2.185V.856" />
-                                            </svg>
+                                            <img class="icon checkbox-icon icon-image" src="assets/mb_cost_calc/icons/special-conditions.svg" alt="" aria-hidden="true">
                                             <span class="checkbox-label">Наявність історичного ареалу (К = 1.2)</span>
                                         </label>
                                         <label class="checkbox-row">
                                             <input type="checkbox" data-coef="2.0">
-                                            <svg class="icon checkbox-icon" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <path
-                                                    d="M3 22h18M3 18h18M4 6h16M12 2L4 6h16L12 2zM6 6v12M10 6v12M14 6v12M18 6v12" />
-                                            </svg>
+                                            <img class="icon checkbox-icon icon-image" src="assets/mb_cost_calc/icons/heritage.svg" alt="" aria-hidden="true">
                                             <span class="checkbox-label">Межі заповідника, об'єкти ЮНЕСКО, археологія (К
                                                 =
                                                 2.0)</span>
                                         </label>
                                         <label class="checkbox-row">
                                             <input type="checkbox" data-coef="0.8">
-                                            <svg class="icon checkbox-icon" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <path d="M12 2L3 17h18L12 2zM12 17v5M9 13h6M10 9h4" />
-                                            </svg>
+                                            <img class="icon checkbox-icon icon-image" src="assets/mb_cost_calc/icons/forest.svg" alt="" aria-hidden="true">
                                             <span class="checkbox-label">Копалини / лісогосподарські ділянки >= 25% (К =
                                                 0.8)</span>
                                         </label>
@@ -2002,9 +1547,7 @@
                         <div class="section-group global-settings-row">
                             <div class="group-title-row">
                                 <span class="side-icon settings" aria-hidden="true">
-                                    <svg class="icon">
-                                        <use href="#i-settings"></use>
-                                    </svg>
+                                    <img class="icon icon-image" src="assets/mb_cost_calc/icons/settings.svg" alt="" aria-hidden="true">
                                 </span>
                                 <div class="form-group-title">Загальні параметри:</div>
                             </div>
@@ -2012,24 +1555,22 @@
                                 <div class="row">
                                     <div>
                                         <label id="kzagLabel">Коефіцієнт Кзаг<br><span
-                                                style="color: var(--real-text);">(містобудівна частина)</span>:
+                                                class="page-layout-28">(містобудівна частина)</span>:
                                             <span class="tooltip-trigger"
                                                 data-tooltip="Наведений в пункті 2 (проєктно-планувальні роботи) таблиці 3 додатку 7 Настанови з визначення вартості проєктних, науково-проєктних, вишукувальних робіт та експертизи проєктної документації на будівництво.">i</span>
                                         </label>
-                                        <div style="font-size: 11px; margin-top: 2px; color: var(--muted);">
+                                        <div class="page-layout-29">
                                             <span class="doc-link" data-target="p-2-3">п. 2.3 Настанови</span> (<a
                                                 href="https://e-construction.gov.ua/laws_detail/2702455691775313887"
                                                 target="_blank" rel="noopener"
-                                                style="color: var(--real-text); text-decoration: underline;">Додаток 7,
+                                                class="page-source-link">Додаток 7,
                                                 Табл. 3, п. 2</a>)
                                         </div>
                                     </div>
                                     <div class="input-reset-wrapper">
                                         <button class="btn-reset" type="button" data-reset-target="kzag"
                                             title="Скинути до стандартного значення" aria-label="Скинути до стандартного значення">
-                                            <svg class="icon">
-                                                <use href="#i-rotate-ccw"></use>
-                                            </svg>
+                                            <img class="icon icon-image" src="assets/mb_cost_calc/icons/rotate-ccw.svg" alt="" aria-hidden="true">
                                         </button>
                                         <div class="number-shell has-stepper">
                                             <input class="control number-input" id="kzag" type="number" value="43.36"
@@ -2044,28 +1585,26 @@
                                     </div>
                                     <span class="unit-label">коеф.</span>
                                 </div>
- 
+
                                 <div class="row" id="kzagLandRow">
                                     <div>
                                         <label>Коефіцієнт Кзаг<br><span
-                                                style="color: var(--drawing-text);">(землевпорядна частина)</span>:
+                                                class="page-layout-30">(землевпорядна частина)</span>:
                                             <span class="tooltip-trigger"
                                                 data-tooltip="Наведений в пункті 4 (інженерно-геодезичні роботи) таблиці 3 додатку 7 Настанови з визначення вартості проєктних, науково-проєктних, вишукувальних робіт та експертизи проєктної документації на будівництво.">i</span>
                                         </label>
-                                        <div style="font-size: 11px; margin-top: 2px; color: var(--muted);">
+                                        <div class="page-layout-29">
                                             <span class="doc-link" data-target="p-6-2">п. 6.2 Настанови</span> (<a
                                                 href="https://e-construction.gov.ua/laws_detail/2702455691775313887"
                                                 target="_blank" rel="noopener"
-                                                style="color: var(--real-text); text-decoration: underline;">Додаток 7,
+                                                class="page-source-link">Додаток 7,
                                                 Табл. 3, п. 4</a>)
                                         </div>
                                     </div>
                                     <div class="input-reset-wrapper">
                                         <button class="btn-reset" type="button" data-reset-target="kzag_land"
                                             title="Скинути до стандартного значення" aria-label="Скинути до стандартного значення">
-                                            <svg class="icon">
-                                                <use href="#i-rotate-ccw"></use>
-                                            </svg>
+                                            <img class="icon icon-image" src="assets/mb_cost_calc/icons/rotate-ccw.svg" alt="" aria-hidden="true">
                                         </button>
                                         <div class="number-shell has-stepper">
                                             <input class="control number-input" id="kzag_land" type="number" value="39.66"
@@ -2080,27 +1619,25 @@
                                     </div>
                                     <span class="unit-label">коеф.</span>
                                 </div>
- 
+
                                 <div class="row">
                                     <div>
                                         <label>Поправочний коефіцієнт (Кдир):
                                             <span class="tooltip-trigger"
                                                 data-tooltip="П. 40 (Районне планування) табл. 1 дод. 7 Настанови з визначення вартості проєктних, науково-проєктних, вишукувальних робіт та експертизи проєктної документації на будівництво.">i</span>
                                         </label>
-                                        <div style="font-size: 11px; margin-top: 2px; color: var(--muted);">
+                                        <div class="page-layout-29">
                                             <span class="doc-link" data-target="p-2-3">п. 2.3 Настанови</span> (<a
                                                 href="https://e-construction.gov.ua/laws_detail/2702455691775313887"
                                                 target="_blank" rel="noopener"
-                                                style="color: var(--real-text); text-decoration: underline;">Додаток 7,
+                                                class="page-source-link">Додаток 7,
                                                 Табл. 1, п. 40</a>)
                                         </div>
                                     </div>
                                     <div class="input-reset-wrapper">
                                         <button class="btn-reset" type="button" data-reset-target="kdir"
                                             title="Скинути до стандартного значення" aria-label="Скинути до стандартного значення">
-                                            <svg class="icon">
-                                                <use href="#i-rotate-ccw"></use>
-                                            </svg>
+                                            <img class="icon icon-image" src="assets/mb_cost_calc/icons/rotate-ccw.svg" alt="" aria-hidden="true">
                                         </button>
                                         <div class="number-shell has-stepper">
                                             <input class="control number-input" id="kdir" type="number" value="1.01"
@@ -2116,20 +1653,14 @@
                                     <span class="unit-label">коеф.</span>
                                 </div>
 
-                                <label class="checkbox-row"
-                                    style="cursor:pointer; display:flex; align-items:center; gap:8px;">
-                                    <input id="useVat" type="checkbox" style="cursor:pointer;">
-                                    <svg class="icon checkbox-icon" viewBox="0 0 24 24" fill="none"
-                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" style="width:16px; height:16px;">
-                                        <line x1="19" y1="5" x2="5" y2="19" />
-                                        <circle cx="6.5" cy="6.5" r="2.5" />
-                                        <circle cx="17.5" cy="17.5" r="2.5" />
-                                    </svg>
+                                <label class="checkbox-row page-layout-24 page-display-flex"
+                                   >
+                                    <input id="useVat" type="checkbox" class="page-cp_f_categories">
+                                    <img class="icon checkbox-icon icon-image page-layout-26" src="assets/mb_cost_calc/icons/vat.svg" alt="" aria-hidden="true">
                                     <span class="checkbox-label">Податок на додану вартість (ПДВ) <span
-                                            class="tooltip-trigger"
+                                            class="tooltip-trigger page-layout-27"
                                             data-tooltip="Додає 20% ПДВ до вартості розроблення та експертизи."
-                                            style="margin-left:4px;">i</span></span>
+                                           >i</span></span>
                                 </label>
                             </div>
                         </div>
@@ -2138,34 +1669,26 @@
                     <!-- Replicated bottom results panel (sticky at bottom) -->
                     <div class="bottom-sum-row" id="bottomResultPanel" aria-live="polite">
                         <div class="result-line">
-                            <div class="result-main" id="resultMainBottom" style="cursor: pointer;"
+                            <div class="result-main page-cp_f_categories" id="resultMainBottom"
                                 title="Показати детальний розрахунок">—</div>
-                            <div style="display: flex; gap: 8px;">
+                            <div class="page-layout-31 page-display-flex">
                                 <button class="btn icon" id="copyResultBtnBottom" type="button"
                                     title="Копіювати результат" aria-label="Копіювати результат">
-                                    <svg class="icon">
-                                        <use href="#i-copy"></use>
-                                    </svg>
+                                    <img class="icon icon-image" src="assets/shared/icons/copy.svg" alt="" aria-hidden="true">
                                 </button>
                                 <button class="btn" id="pdfResultBtnBottom" type="button" title="Звіт в PDF"
                                     aria-label="Звіт в PDF">
-                                    <svg class="icon">
-                                        <use href="#i-pdf"></use>
-                                    </svg>
+                                    <img class="icon icon-image" src="assets/mb_cost_calc/icons/pdf.svg" alt="" aria-hidden="true">
                                     <span class="btn-text">Друк/PDF</span>
                                 </button>
                                 <button class="btn" id="excelResultBtnBottom" type="button"
                                     title="Зберегти в Excel (xlsx)" aria-label="Зберегти в Excel (xlsx)">
-                                    <svg class="icon">
-                                        <use href="#i-table"></use>
-                                    </svg>
+                                    <img class="icon icon-image" src="assets/mb_cost_calc/icons/table.svg" alt="" aria-hidden="true">
                                     <span class="btn-text">Ексель</span>
                                 </button>
                                 <button class="btn icon" id="shareResultBtnBottom" type="button"
                                     title="Поділитись посиланням" aria-label="Поділитись посиланням">
-                                    <svg class="icon">
-                                        <use href="#i-share"></use>
-                                    </svg>
+                                    <img class="icon icon-image" src="assets/mb_cost_calc/icons/share.svg" alt="" aria-hidden="true">
                                 </button>
                             </div>
                         </div>
@@ -2177,15 +1700,11 @@
                     <details id="formulaDetails" class="animated-details">
                         <summary>
                             <span class="details-side-icon" aria-hidden="true">
-                                <svg class="icon">
-                                    <use href="#i-formula"></use>
-                                </svg>
+                                <img class="icon icon-image" src="assets/mb_cost_calc/icons/formula.svg" alt="" aria-hidden="true">
                             </span>
                             <span>Формули та нормативні посилання</span>
                             <span class="details-chevron" aria-hidden="true">
-                                <svg class="chevron-svg" viewBox="0 0 24 24">
-                                    <path d="M5 8.5 L12 15.5 L19 8.5"></path>
-                                </svg>
+                                <img class="chevron-svg icon-image" src="assets/shared/icons/chevron-down.svg" alt="" aria-hidden="true">
                             </span>
                         </summary>
                         <div class="details-body-wrap">
@@ -2201,20 +1720,16 @@
                         визначення вартості містобудівної документації</a> <br>(див. <a
                         href="https://mindev.gov.ua/news/povidomlennia-pro-opryliudnennia-proiektu-koshtorysnykh-norm-ukrainy"
                         target="_blank" rel="noopener"
-                        style="text-decoration: underline; color: var(--real-text);">оприлюднений
+                        class="page-source-link-32">оприлюднений
                         проєкт на сайті Мінрегіону України</a>).<br>
                     Всі розрахунки є орієнтовними та базуються на офіційних коефіцієнтах з використанням інтерполяції та
                     екстраполяції.<br>
                     <div
-                        style="margin-top: 6px; display: inline-flex; align-items: center; justify-content: center; gap: 4px; width: 100%;">
+                        class="page-layout-33 page-display-inline-flex">
                         <span>Розробка калькулятора:</span>
                         <a href="https://www.facebook.com/serhiy.suprun" target="_blank" rel="noopener"
-                            style="display: inline-flex; align-items: center; gap: 4px; color: var(--real-text); font-weight: 500;">
-                            <svg viewBox="0 0 24 24" fill="currentColor"
-                                style="width: 14px; height: 14px; display: inline-block; vertical-align: middle;">
-                                <path
-                                    d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                            </svg>
+                            class="page-layout-34 page-display-inline-flex">
+                            <img class="icon-image page-layout-35 page-display-inline-block" src="assets/mb_cost_calc/icons/facebook.svg" alt="" aria-hidden="true">
                             <span>Сергій Супрун</span>
                         </a>
                     </div>
@@ -2227,159 +1742,21 @@
             <div class="side-panel-resizer" id="sidePanelResizer"></div>
             <div class="side-panel-header">
                 <h2>Довідник: Настанова</h2>
-                <div style="display: flex; gap: 8px; align-items: center;">
-                    <a href="knowledgebase/%D0%9C%D1%96%D0%BD%D1%96%D1%81%D1%82%D0%B5%D1%80%D1%81%D1%82%D0%B2%D0%BE%20%D1%80%D0%B5%D0%B3%D1%96%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D0%B3%D0%BE%20%D1%80%D0%BE%D0%B7%D0%B2%D0%B8%D1%82%D0%BA%D1%83,%20%D0%B1%D1%83%D0%B4%D1%96%D0%B2%D0%BD%D0%B8%D1%86%D1%82%D0%B2%D0%B0%20%D1%82%D0%B0.pdf"
+                <div class="page-layout-36 page-display-flex">
+                    <a href="assets/mb_cost_calc/knowledgebase/%D0%9C%D1%96%D0%BD%D1%96%D1%81%D1%82%D0%B5%D1%80%D1%81%D1%82%D0%B2%D0%BE%20%D1%80%D0%B5%D0%B3%D1%96%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D0%B3%D0%BE%20%D1%80%D0%BE%D0%B7%D0%B2%D0%B8%D1%82%D0%BA%D1%83,%20%D0%B1%D1%83%D0%B4%D1%96%D0%B2%D0%BD%D0%B8%D1%86%D1%82%D0%B2%D0%B0%20%D1%82%D0%B0.pdf"
                         class="btn icon" download title="Завантажити оригінальний PDF" aria-label="Завантажити PDF">
-                        <svg class="icon">
-                            <use href="#i-download"></use>
-                        </svg>
+                        <img class="icon icon-image" src="assets/mb_cost_calc/icons/download.svg" alt="" aria-hidden="true">
                     </a>
                     <button class="btn icon close-btn" id="closePanelBtn" type="button" title="Закрити панель"
                         aria-label="Закрити панель">
-                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="18" y1="6" x2="6" y2="18"></line>
-                            <line x1="6" y1="6" x2="18" y2="18"></line>
-                        </svg>
+                        <img class="icon icon-image" src="assets/mb_cost_calc/icons/close.svg" alt="" aria-hidden="true">
                     </button>
                 </div>
             </div>
             <div class="side-panel-body">
-                <zero-md id="zeroMdDoc" src="knowledgebase/Міністерство регіонального розвитку, будівництва та.md">
+                <zero-md id="zeroMdDoc" src="assets/mb_cost_calc/knowledgebase/Міністерство регіонального розвитку, будівництва та.md">
                     <template data-append>
-                        <style>
-                            :host {
-                                display: block;
-                                font-family: Inter, system-ui, -apple-system, sans-serif;
-                                color: var(--text);
-                                color-scheme: var(--color-scheme, light) !important;
-                            }
-
-                            .katex-mathml {
-                                display: none !important;
-                            }
-
-                            .markdown-body {
-                                padding: 18px;
-                                font-size: 14px;
-                                line-height: 1.5;
-                                background-color: var(--panel) !important;
-                                color: var(--text) !important;
-                                color-scheme: var(--color-scheme, light) !important;
-                                --color-fg-default: var(--text) !important;
-                                --color-canvas-default: var(--panel) !important;
-                                --color-canvas-subtle: var(--panel-soft) !important;
-                                --color-border-default: var(--line) !important;
-                                --color-border-muted: var(--line) !important;
-                                --color-fg-muted: var(--muted) !important;
-                                --color-accent-fg: var(--real-text) !important;
-                            }
-
-                            h1,
-                            h2,
-                            h3,
-                            h4 {
-                                color: var(--text);
-                                border-bottom: 1px solid var(--line);
-                                padding-bottom: 6px;
-                                margin-top: 24px;
-                                margin-bottom: 12px;
-                            }
-
-                            h1 {
-                                font-size: 1.6em;
-                            }
-
-                            h2 {
-                                font-size: 1.35em;
-                            }
-
-                            h3 {
-                                font-size: 1.15em;
-                            }
-
-                            table {
-                                display: block;
-                                width: 100%;
-                                overflow-x: auto;
-                                border-collapse: collapse;
-                                margin-top: 12px;
-                                margin-bottom: 16px;
-                                font-size: 12.5px;
-                                -webkit-overflow-scrolling: touch;
-                                color-scheme: var(--color-scheme, light) !important;
-                            }
-
-                            table,
-                            tr,
-                            td {
-                                background-color: transparent !important;
-                                color: var(--text) !important;
-                            }
-
-                            tr:nth-child(2n) {
-                                background-color: var(--panel-soft) !important;
-                            }
-
-                            th,
-                            td {
-                                border: 1px solid var(--line-strong) !important;
-                                padding: 8px 10px;
-                                text-align: left;
-                                color: var(--text) !important;
-                            }
-
-                            th {
-                                background-color: var(--hover) !important;
-                                font-weight: 600;
-                            }
-
-                            blockquote {
-                                margin: 12px 0;
-                                padding: 8px 16px;
-                                background-color: var(--panel-soft) !important;
-                                border-left: 4px solid var(--line-strong) !important;
-                                color: var(--muted) !important;
-                            }
-
-                            code,
-                            pre {
-                                background-color: var(--panel-soft) !important;
-                                color: var(--text) !important;
-                            }
-
-                            .katex-display {
-                                overflow-x: auto;
-                                overflow-y: hidden;
-                                padding: 8px 0;
-                            }
-
-                            a {
-                                color: var(--real-text);
-                                text-decoration: none;
-                            }
-
-                            a:hover {
-                                text-decoration: underline;
-                            }
-
-                            @keyframes highlight-flash {
-                                0% {
-                                    background-color: rgba(253, 224, 71, 0.45);
-                                    box-shadow: 0 0 10px rgba(253, 224, 71, 0.55);
-                                }
-
-                                100% {
-                                    background-color: transparent;
-                                    box-shadow: none;
-                                }
-                            }
-
-                            .highlight-target {
-                                animation: highlight-flash 2.2s ease-out forwards;
-                                border-radius: 4px;
-                            }
-                        </style>
+                        <link rel="stylesheet" href="assets/mb_cost_calc/guidebook.css">
                     </template>
                 </zero-md>
             </div>
@@ -2390,19 +1767,17 @@
     <div class="modal-overlay" id="adminModal" style="display: none;">
         <div class="modal-box">
             <header class="modal-header">
-                <svg class="icon modal-sparkles">
-                    <use href="#i-sparkles"></use>
-                </svg>
+                <img class="icon modal-sparkles icon-image" src="assets/mb_cost_calc/icons/sparkles.svg" alt="" aria-hidden="true">
                 <h3 class="modal-title">Застосувати вихідні дані?</h3>
             </header>
             <div class="modal-body" id="adminModalBody">
                 <!-- Dynamic Content -->
             </div>
-            <footer class="modal-footer" style="display: flex; gap: 12px; width: 100%;">
-                <button class="btn primary-btn" id="adminModalApplyBtn" type="button"
-                    style="flex: 1; justify-content: center;">Застосувати</button>
-                <button class="btn secondary-btn" id="adminModalCancelBtn" type="button"
-                    style="flex: 1; justify-content: center; background: var(--panel-soft); color: var(--text); border: 1px solid var(--line-strong);">Скасувати</button>
+            <footer class="modal-footer page-layout-37 page-display-flex">
+                <button class="btn primary-btn page-admin-modal-apply-btn" id="adminModalApplyBtn" type="button"
+                   >Застосувати</button>
+                <button class="btn secondary-btn page-admin-modal-cancel-btn" id="adminModalCancelBtn" type="button"
+                   >Скасувати</button>
             </footer>
         </div>
     </div>
@@ -2413,7 +1788,7 @@
     <!-- Print Report Container -->
     <div class="print-only-report" id="printReport"></div>
 
-    <script src="script.js"></script>
+    <script src="assets/mb_cost_calc/script.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,322 @@
+:root {
+  --color-scheme: light;
+}
+
+html[data-theme="dark"] {
+  --color-scheme: dark;
+}
+
+body {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.app {
+  width: min(760px, calc(100% - 16px));
+}
+
+.top {
+  grid-template-columns: var(--icon-col) minmax(0, 1fr) auto auto;
+  padding-right: 16px;
+}
+
+#themeBtn, #docBtn {
+  align-self: start;
+}
+
+h1 {
+  color: var(--text);
+}
+
+.panel {
+  overflow: visible;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.body {
+  padding: 18px 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  display: inline-flex;
+  gap: 6px;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 550;
+}
+
+.control {
+  font-weight: 600;
+  font-size: 13px;
+}
+
+select.control {
+  padding-right: 28px;
+}
+
+.number-shell {
+  display: inline-block;
+  width: 100%;
+}
+
+.result {
+  gap: 12px;
+}
+
+.result-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.result-main {
+  font-size: clamp(16px, 3.2vw, 21px);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+  color: var(--text);
+  flex: 1;
+}
+
+.result-value {
+  padding: 2px var(--result-chip-x) 3px;
+  line-height: 1.1;
+  font-size: 1.05em;
+}
+
+.result-value.real {
+  color: var(--real-text);
+  background: var(--real-bg);
+  border: 1px solid var(--real-line);
+}
+
+.result-value.drawing {
+  color: var(--drawing-text);
+  background: var(--drawing-bg);
+  border: 1px solid var(--drawing-line);
+}
+
+.result-sub {
+  display: grid;
+  gap: 5px;
+}
+
+.chevron-svg {
+  width: 20px;
+  height: 20px;
+}
+
+.formula {
+  padding: 10px 12px;
+  line-height: 1.45;
+}
+
+.formula code {
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+.btn {
+  padding: 0 12px;
+  font-size: 12.5px;
+  transition: background .12s ease, transform .08s ease, border-color .12s ease;
+}
+
+.btn.icon {
+  border-radius: var(--radius-sm);
+}
+
+.toast {
+  bottom: 24px;
+  padding: 10px 18px;
+  font-size: 12.5px;
+  z-index: 90;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 640px) {
+.row {
+    grid-template-columns: 1fr;
+    gap: 4px;
+    margin-bottom: 14px;
+  }
+.row.no-unit {
+    grid-template-columns: 1fr;
+  }
+.control {
+    max-width: none;
+  }
+.unit-label {
+    padding-left: 0;
+    margin-top: -2px;
+    margin-bottom: 4px;
+  }
+}
+
+@media (max-width: 500px) {
+.top {
+    align-items: flex-start;
+  }
+.sub {
+    display: none;
+  }
+h1 {
+    font-size: 18px;
+  }
+.result {
+    padding: 12px;
+  }
+}
+
+/* Collapse-zone calculator: shared components with page-specific layout. */
+body.zavaliv-page {
+  height: auto;
+  min-height: 100vh;
+  overflow: auto;
+}
+
+.zavaliv-page .top {
+  grid-template-columns: var(--icon-col) minmax(0, 1fr) auto;
+}
+
+.zavaliv-page .sub {
+  display: block;
+}
+
+.zavaliv-page .eyebrow {
+  margin: 0 0 6px;
+}
+
+.zavaliv-page .body {
+  gap: 18px;
+}
+
+.zavaliv-page fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.zavaliv-page legend {
+  margin-bottom: 8px;
+  padding: 0;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.zavaliv-page .options {
+  display: grid;
+}
+
+.zavaliv-page .options.two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.zavaliv-page .options.three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.zavaliv-page .radio {
+  position: relative;
+  justify-content: center;
+  min-height: var(--h);
+  white-space: normal;
+}
+
+.zavaliv-page .radio input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.zavaliv-page .radio:has(input:checked) {
+  background: var(--inverse);
+  color: var(--inverse-text);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.zavaliv-page .radio:has(input:focus-visible) {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
+
+.zavaliv-page .hint {
+  display: block;
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.zavaliv-page [hidden] {
+  display: none !important;
+}
+
+.zavaliv-page .result-panel {
+  padding: 18px 16px;
+  border-top: 1px solid var(--line);
+  border-bottom: 0;
+  border-radius: 0 0 var(--radius) var(--radius);
+}
+
+.zavaliv-page .result-value {
+  justify-self: start;
+  max-width: 100%;
+  font-size: clamp(24px, 5vw, 32px);
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
+.zavaliv-page .result-value.status-error {
+  color: var(--danger);
+}
+
+.zavaliv-page .result-sub-row {
+  gap: 12px;
+  font-size: 12px;
+}
+
+.zavaliv-page .result-sub-row span {
+  color: var(--muted);
+}
+
+.zavaliv-page .result-sub-row strong {
+  text-align: right;
+}
+
+.zavaliv-page .formula {
+  overflow-wrap: anywhere;
+  font-variant-numeric: tabular-nums;
+}
+
+.zavaliv-page .alert {
+  display: block;
+  margin-bottom: 0;
+}
+
+.zavaliv-page .footer-note a {
+  color: var(--real-text);
+  text-underline-offset: 3px;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 640px) {
+  .zavaliv-page .input-grid .row {
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: 500px) {
+  .zavaliv-page .options.three {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Static page layout extracted from markup. */
+

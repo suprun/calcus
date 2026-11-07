@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="uk" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" type="image/svg+xml" href="assets/shared/favicon.svg">
+  <title>Калькулятор зон можливих завалів — ДБН В.1.2-4:2019</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/shared/styles.css">
+  <link rel="stylesheet" href="assets/calc_zon_zavaliv/styles.css">
+</head>
+<body class="zavaliv-page">
+  <div class="app">
+    <a class="home-link" href="index.html">← На головну</a>
+    <header class="top">
+      <span class="title-side-icon" aria-hidden="true">
+        <img class="icon icon-image" src="assets/calc_zon_zavaliv/icons/calculator.svg" alt="" aria-hidden="true">
+      </span>
+      <div class="title-block">
+        <p class="sub eyebrow">ІТЗ ЦЗ · Додаток А</p>
+        <h1>Калькулятор зон можливих завалів</h1>
+        <p class="sub">Розрахунок за ДБН В.1.2-4:2019 для будівель різної поверховості. Результат оновлюється автоматично.</p>
+      </div>
+      <button class="btn icon" id="themeBtn" type="button" title="Змінити тему" aria-label="Змінити тему">
+        <img class="icon icon-image" aria-hidden="true" src="assets/shared/icons/theme.svg" alt="">
+      </button>
+    </header>
+    <main class="panel" aria-label="Калькулятор зон можливих завалів">
+      <section class="body" aria-labelledby="settings-title">
+        <h2 class="form-group-title" id="settings-title">Параметри розрахунку</h2>
+        <fieldset>
+          <legend>Режим</legend>
+          <div class="segmented-control options two">
+            <label class="segment-btn radio"><input type="radio" name="mode" value="direct" checked>Прямий: H → L</label>
+            <label class="segment-btn radio"><input type="radio" name="mode" value="inverse">Зворотний: L → H</label>
+          </div>
+        </fieldset>
+        <div class="group-inputs-container input-grid">
+          <div class="row">
+            <label for="floors">Поверховість</label>
+            <input class="control number-input" id="floors" type="number" min="1" step="1" value="9" autocomplete="off">
+            <span class="unit-label">пов.</span>
+          </div>
+          <div class="row" id="height-row">
+            <label for="height">Висота будівлі (H)</label>
+            <input class="control number-input" id="height" type="text" inputmode="decimal" value="27" autocomplete="off">
+            <span class="unit-label">м</span>
+          </div>
+          <div class="row" id="width-row" hidden>
+            <label for="width">Ширина зони завалу (L)</label>
+            <input class="control number-input" id="width" type="text" inputmode="decimal" value="17,55" autocomplete="off">
+            <span class="unit-label">м</span>
+          </div>
+        </div>
+        <fieldset>
+          <legend>Ухил місцевості</legend>
+          <div class="segmented-control options three">
+            <label class="segment-btn radio"><input type="radio" name="slope" value="flat" checked>До 10 %</label>
+            <label class="segment-btn radio"><input type="radio" name="slope" value="s10-15">10–15 %</label>
+            <label class="segment-btn radio"><input type="radio" name="slope" value="s16-20">16–20 %</label>
+            <label class="segment-btn radio"><input type="radio" name="slope" value="s21-30">21–30 %</label>
+            <label class="segment-btn radio"><input type="radio" name="slope" value="s31-35">31–35 %</label>
+            <label class="segment-btn radio"><input type="radio" name="slope" value="s35plus">35 % і більше</label>
+          </div>
+          <small class="hint">На межах інтервалів виберіть відповідну категорію за проєктними вихідними даними.</small>
+        </fieldset>
+        <fieldset id="side-fieldset">
+          <legend>Розташування зони відносно будівлі</legend>
+          <div class="segmented-control options three">
+            <label class="segment-btn radio"><input type="radio" name="side" value="long" checked>Від довших сторін</label>
+            <label class="segment-btn radio"><input type="radio" name="side" value="end">Від торців</label>
+            <label class="segment-btn radio"><input type="radio" name="side" value="tower">Будівля баштового типу</label>
+          </div>
+        </fieldset>
+        <fieldset id="direction-fieldset" hidden>
+          <legend>Напрямок поширення завалу</legend>
+          <div class="segmented-control options two">
+            <label class="segment-btn radio"><input type="radio" name="direction" value="up" checked>Угору по схилу (a′)</label>
+            <label class="segment-btn radio"><input type="radio" name="direction" value="down">Униз по схилу (a″)</label>
+          </div>
+        </fieldset>
+      </section>
+      <section class="result result-panel" aria-labelledby="result-title">
+        <h2 class="form-group-title" id="result-title">Результат</h2>
+        <div class="result-main" id="result-label">Ширина зони можливих завалів</div>
+        <div class="result-value real" id="result-value" aria-live="polite">17,55 м</div>
+        <div class="result-sub-row"><span>Поверховість</span><strong id="floor-range">1–9 поверхів</strong></div>
+        <div class="result-sub-row"><span>Коефіцієнт (k)</span><strong id="factor">0,65</strong></div>
+        <div class="result-sub-row"><span>Джерело значення</span><strong id="source">Прийнято 0,65H</strong></div>
+        <div class="formula" id="formula">L = 0,65 × 27 = 17,55 м</div>
+        <div class="alert alert-warning" id="notice">Для 1–9-поверхових будівель від довших сторін у таблиці додатка А значення не наведено. За прийнятим для цього калькулятора припущенням використано 0,65H.</div>
+      </section>
+    </main>
+    <p class="footer-note">Джерело: <a href="https://e-construction.gov.ua/files-token/b1e7b807d3f5f15ae5892f1fe337245f" target="_blank" rel="noopener noreferrer">ДБН В.1.2-4:2019, додаток А, с. 28</a>. Для будівель понад 25 поверхів зона визначається окремим розрахунком. Калькулятор не замінює аналіз вихідних даних та проєктних умов.</p>
+  </div>
+  <script src="assets/shared/theme.js"></script>
+  <script src="assets/calc_zon_zavaliv/script.js"></script>
+</body>
+</html>

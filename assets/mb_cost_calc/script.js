@@ -527,7 +527,6 @@ document.addEventListener("DOMContentLoaded", () => {
     initTheme();
     initGuidebook();
     initSliders();
-    // initCheckboxIcons(); // Inline SVGs are now hardcoded in index.html for better customization
     initEventListeners();
     initAutocomplete();
     setupAnimatedDetails('formulaDetails');
@@ -1143,7 +1142,7 @@ function updateFormulaBox(docType, data) {
     if (data.needsExpertise) {
         const extMath = getExpertiseMathHTML(data.finalDocCost || data.mistCost + data.landCost, data.expPercent);
         content += `
-            <br><hr style="border: 0; border-top: 1px solid var(--line); margin: 12px 0;">
+            <br><hr class="page-layout-40">
             <strong>РОЗРАХУНОК ВАРТОСТІ ЕКСПЕРТИЗИ (Таблиця 2-2):</strong><br>
             • ${extMath}<br>
             • Розрахунок вартості: <code>C_експертизи = C_документації × Відсоток</code><br>
@@ -1151,7 +1150,7 @@ function updateFormulaBox(docType, data) {
         `;
     } else {
         content += `
-            <br><hr style="border: 0; border-top: 1px solid var(--line); margin: 12px 0;">
+            <br><hr class="page-layout-40">
             <strong>ЕКСПЕРТИЗА ПРОЄКТНОЇ ДОКУМЕНТАЦІЇ:</strong><br>
             Згідно з налаштуваннями калькулятора або чинним законодавством, експертиза для этого об'єкта <b>не проводиться</b>.
         `;
@@ -1160,7 +1159,7 @@ function updateFormulaBox(docType, data) {
     if (data.useVat) {
         const vatBase = (data.finalDocCost || data.mistCost + data.landCost) + (data.needsExpertise ? data.expCost : 0);
         content += `
-            <br><hr style="border: 0; border-top: 1px solid var(--line); margin: 12px 0;">
+            <br><hr class="page-layout-40">
             <strong>РОЗРАХУНОК ПДВ (20%):</strong><br>
             <code>ПДВ = (Вартість розроблення + Вартість експертизи) × 20%</code><br>
             <code>ПДВ = ${vatBase.toLocaleString(undefined, { maximumFractionDigits: 2 })} × 20% = <b>${data.vatSum.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</b> грн</code><br><br>
@@ -1188,7 +1187,7 @@ function calc() {
         const tooltipHTML = ` <span class="tooltip-trigger" data-tooltip="Наведений в пункті 2 (проєктно-планувальні роботи) таблиці 3 додатку 7 Настанови з визначення вартості проєктних, науково-проєктних, вишукувальних робіт та експертизи проєктної документації на будівництво.">i</span>`;
         if (docType === "localComplexPlan" || docType === "localDetailedPlan") {
             kzagLandRow.style.display = "";
-            kzagLabel.innerHTML = `Коефіцієнт Кзаг<br><span style="color: var(--real-text);">(містобудівна частина)</span>:${tooltipHTML}`;
+            kzagLabel.innerHTML = `Коефіцієнт Кзаг<br><span class="page-layout-28">(містобудівна частина)</span>:${tooltipHTML}`;
         } else {
             kzagLandRow.style.display = "none";
             kzagLabel.innerHTML = `Коефіцієнт Кзаг:${tooltipHTML}`;
@@ -1413,14 +1412,14 @@ function calc() {
             warningFieldId = "cp_pop_center";
 
             html = `
-                <div style="margin: 10px 0; padding: 12px; background: var(--error-bg, #fef2f2); border: 1px solid var(--error, #dc2626); border-radius: var(--radius-sm); color: var(--error-text, #991b1b); font-size: 13px; font-weight: 600; line-height: 1.4;">
+                <div class="page-layout-41">
                     ${alertText}
                 </div>
             `;
             output.innerHTML = linkifyReferences(html);
             outputBottom.innerHTML = linkifyReferences(html);
 
-            const errorHtml = `<span class="result-value result-nowrap" style="color: var(--error-text, #991b1b); border: 1px solid var(--error, #dc2626); background: var(--error-bg, #fef2f2);">Помилка розрахунку</span>`;
+            const errorHtml = `<span class="result-value result-nowrap page-layout-42">Помилка розрахунку</span>`;
             resultMain.innerHTML = errorHtml;
             resultMainBottom.innerHTML = errorHtml;
 
@@ -1428,10 +1427,8 @@ function calc() {
             const warningIconContainer = document.getElementById("warning_cp_pop_center");
             if (warningIconContainer) {
                 warningIconContainer.innerHTML = `
-                    <span class="warning-tooltip-trigger" data-tooltip="${alertText.replace(/"/g, '&quot;')}" style="color: var(--error);">
-                        <svg class="icon" style="width: 16px; height: 16px; stroke: currentColor; fill: none;">
-                            <use href="#i-warning"></use>
-                        </svg>
+                    <span class="warning-tooltip-trigger page-layout-43" data-tooltip="${alertText.replace(/"/g, '&quot;')}">
+                        <img class="icon icon-image page-layout-44" src="assets/mb_cost_calc/icons/warning.svg" alt="" aria-hidden="true">
                     </span>
                 `;
             }
@@ -1540,28 +1537,28 @@ function calc() {
         };
 
         html = `
-            <div class="result-sub-row" style="font-weight:600; color:var(--real-text);">
+            <div class="result-sub-row page-layout-45">
                 <span>1. Містобудівна складова:</span>
                 <span class="result-value real">${formatCurrency(mistCost)}</span>
             </div>
-            <div class="result-sub-row" style="padding-left:15px; font-size:11.5px;">
+            <div class="result-sub-row page-layout-46">
                 <span>• Базова містобудівна (м1+м2+м3):</span>
                 <span>${formatCurrency(m1 + m2 + m3)}</span>
             </div>
-            <div class="result-sub-row" style="padding-left:15px; font-size:11.5px;">
+            <div class="result-sub-row page-layout-46">
                 <span>• Коефіцієнт містобудівний (К):</span>
                 <span>${K_mist.toFixed(4)}</span>
             </div>
 
-            <div class="result-sub-row" style="font-weight:600; color:var(--drawing-text); margin-top:5px;">
+            <div class="result-sub-row page-layout-47">
                 <span>2. Землевпорядна складова:</span>
                 <span class="result-value drawing">${formatCurrency(landCost)}</span>
             </div>
-            <div class="result-sub-row" style="padding-left:15px; font-size:11.5px;">
+            <div class="result-sub-row page-layout-46">
                 <span>• Базова землевпорядна (з1+з2):</span>
                 <span>${formatCurrency(z1 + z2)}</span>
             </div>
-            <div class="result-sub-row" style="padding-left:15px; font-size:11.5px;">
+            <div class="result-sub-row page-layout-46">
                 <span>• Коефіцієнт землевпорядний (К):</span>
                 <span>${K_land.toFixed(4)}</span>
             </div>
@@ -1613,7 +1610,7 @@ function calc() {
                 <span class="result-sub-label">Вартість розроблення (без ПДВ):</span>
                 <span class="result-value real">${formatCurrency(finalDocCost)}</span>
             </div>
-            <div style="margin-top: 10px; padding: 10px 12px; background: var(--drawing-bg); border: 1px solid var(--drawing-line); border-radius: var(--radius-sm); color: var(--drawing-text); font-size: 12px; line-height: 1.4;">
+            <div class="page-layout-48">
                 <strong>Зверніть увагу:</strong> Відповідно до Настанови, вартість розроблення генерального плану визначається за Таблицею 5-3 на основі чисельності населення без окремого розрахунку вартості містобудівної та землевпорядної частини.
             </div>
         `;
@@ -1677,28 +1674,28 @@ function calc() {
         };
 
         html = `
-            <div class="result-sub-row" style="font-weight:600; color:var(--real-text);">
+            <div class="result-sub-row page-layout-45">
                 <span>1. Містобудівна складова (ДПТ):</span>
                 <span class="result-value real">${formatCurrency(mistCost)}</span>
             </div>
-            <div class="result-sub-row" style="padding-left:15px; font-size:11.5px;">
+            <div class="result-sub-row page-layout-46">
                 <span>• Базова містобудівна:</span>
                 <span>${formatCurrency(baseMist)}</span>
             </div>
-            <div class="result-sub-row" style="padding-left:15px; font-size:11.5px;">
+            <div class="result-sub-row page-layout-46">
                 <span>• Коефіцієнт містобудівний (К):</span>
                 <span>${K_mist.toFixed(4)}</span>
             </div>
 
-            <div class="result-sub-row" style="font-weight:600; color:var(--drawing-text); margin-top:5px;">
+            <div class="result-sub-row page-layout-47">
                 <span>2. Землевпорядна складова (ДПТ):</span>
                 <span class="result-value drawing">${formatCurrency(landCost)}</span>
             </div>
-            <div class="result-sub-row" style="padding-left:15px; font-size:11.5px;">
+            <div class="result-sub-row page-layout-46">
                 <span>• Базова землевпорядна:</span>
                 <span>${formatCurrency(baseLand)}</span>
             </div>
-            <div class="result-sub-row" style="padding-left:15px; font-size:11.5px;">
+            <div class="result-sub-row page-layout-46">
                 <span>• Коефіцієнт землевпорядний (К):</span>
                 <span>${K_land.toFixed(4)}</span>
             </div>
@@ -1751,23 +1748,23 @@ function calc() {
     // Detailed results rendering
     if (needsExpertise) {
         html += `
-            <div class="result-sub-row" style="font-weight: 600;">
+            <div class="result-sub-row page-layout-49">
                 <span class="result-sub-label">Проведення експертизи:</span>
                 <span>${formatCurrency(exp.cost)} (${exp.percent.toFixed(2)}%)</span>
             </div>
         `;
     } else {
         html += `
-            <div class="result-sub-row" style="font-weight: 600;">
+            <div class="result-sub-row page-layout-49">
                 <span class="result-sub-label">Проведення експертизи:</span>
-                <span style="color: var(--text-muted);">не проводиться</span>
+                <span class="page-layout-50">не проводиться</span>
             </div>
         `;
     }
 
     if (useVat) {
         html += `
-            <div class="result-sub-row" style="font-weight: 600;">
+            <div class="result-sub-row page-layout-49">
                 <span class="result-sub-label">ПДВ (20%):</span>
                 <span>${formatCurrency(vatSum)}</span>
             </div>
@@ -1776,8 +1773,8 @@ function calc() {
 
     // Додаємо підсумковий рядок "Всього" у загальну розшифровку результатів
     html += `
-        <div class="result-total-row" style="margin-top: 10px; border-top: 1px solid var(--line-strong); padding-top: 10px; font-weight: 700; font-size: 14px; display: flex; justify-content: space-between; align-items: center;">
-            <span class="result-sub-label" style="font-weight: 700; color: var(--text);">Всього:</span>
+        <div class="result-total-row page-layout-51 page-display-flex">
+            <span class="result-sub-label page-layout-52">Всього:</span>
             <span class="result-value real">${formatCurrency(totalWithVat)}</span>
         </div>
     `;
@@ -1785,11 +1782,9 @@ function calc() {
     // Якщо є попередження, додаємо коричневу плашку в кінець розшифровки
     if (hasAlert) {
         html += `
-            <div class="alert-warning-box" style="margin-top: 12px; padding: 10px 12px; background-color: var(--drawing-bg); border: 1px solid var(--drawing-line); color: var(--drawing-text); border-radius: var(--radius-sm); font-size: 12.5px; font-weight: 550; line-height: 1.45; display: flex; align-items: flex-start; gap: 8px; box-sizing: border-box; width: 100%;">
-                <svg class="icon" style="width: 18px; height: 18px; flex-shrink: 0; stroke: currentColor; stroke-width: 2; fill: none; margin-top: 1px;">
-                    <use href="#i-warning"></use>
-                </svg>
-                <div style="flex: 1;">${alertText}</div>
+            <div class="alert-warning-box page-layout-53 page-display-flex">
+                <img class="icon icon-image page-layout-54" src="assets/mb_cost_calc/icons/warning.svg" alt="" aria-hidden="true">
+                <div class="page-layout-55">${alertText}</div>
             </div>
         `;
     }
@@ -1809,9 +1804,7 @@ function calc() {
         if (warningIconContainer) {
             warningIconContainer.innerHTML = `
                 <span class="warning-tooltip-trigger" data-tooltip="${alertText.replace(/"/g, '&quot;').replace(/<br>/g, ' ')}">
-                    <svg class="icon" style="width: 16px; height: 16px; stroke: currentColor; fill: none;">
-                        <use href="#i-warning"></use>
-                    </svg>
+                    <img class="icon icon-image page-layout-44" src="assets/mb_cost_calc/icons/warning.svg" alt="" aria-hidden="true">
                 </span>
             `;
         }
@@ -2100,7 +2093,7 @@ function getActiveFactorsHTML(containerId) {
     checkboxes.forEach(cb => {
         const labelEl = cb.closest("label").querySelector(".checkbox-label");
         if (labelEl) {
-            rows += `<tr><td>Ускладнюючий фактор: ${labelEl.textContent.trim()}</td><td style="text-align: right;">так</td></tr>`;
+            rows += `<tr><td>Ускладнюючий фактор: ${labelEl.textContent.trim()}</td><td class="page-layout-56">так</td></tr>`;
         }
     });
     return rows;
@@ -2121,116 +2114,116 @@ function generatePrintReport() {
             ${calcResult.projectName ? `<div class="print-meta-row"><b>Назва об'єкта / договору:</b> ${calcResult.projectName}</div>` : ""}
             <div class="print-meta-row"><b>Вид документації:</b> ${calcResult.docTypeName}</div>
         </div>
-        
+
         <div class="print-section">
             <h3>Вхідні параметри та коефіцієнти:</h3>
             <table class="print-table">
                 <thead>
                     <tr>
                         <th>Параметр / Ускладнюючий коефіцієнт</th>
-                        <th style="text-align: right; width: 320px;">Значення</th>
+                        <th class="page-layout-57">Значення</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>Коефіцієнт Кзаг містобудівний (Додаток 7, п. 2)</td>
-                        <td style="text-align: right;">${calcResult.globalKzag}</td>
+                        <td class="page-layout-56">${calcResult.globalKzag}</td>
                     </tr>
                     ${(calcResult.docType === "localComplexPlan" || calcResult.docType === "localDetailedPlan") ? `
                     <tr>
                         <td>Коефіцієнт Кзаг землевпорядний (Додаток 7, п. 4)</td>
-                        <td style="text-align: right;">${calcResult.kzagLand}</td>
+                        <td class="page-layout-56">${calcResult.kzagLand}</td>
                     </tr>
                     ` : ""}
                     <tr>
                         <td>Поправочний коефіцієнт Кдир</td>
-                        <td style="text-align: right;">${calcResult.globalKdir}</td>
+                        <td class="page-layout-56">${calcResult.globalKdir}</td>
                     </tr>
                     <tr>
                         <td>Податок на додану вартість (ПДВ 20%)</td>
-                        <td style="text-align: right;">${calcResult.useVat ? "Нараховується" : "Не нараховується"}</td>
+                        <td class="page-layout-56">${calcResult.useVat ? "Нараховується" : "Не нараховується"}</td>
                     </tr>
     `;
 
     const docType = calcResult.docType;
     if (docType === "stateParts") {
         html += `
-            <tr><td>Площа території (P), тис. км²</td><td style="text-align: right;">${getInputValue("sp_area", 0)}</td></tr>
-            <tr><td>Населення громади</td><td style="text-align: right;">${getSliderText("sp_f_pop")}</td></tr>
-            <tr><td>Кількість міських н.п.</td><td style="text-align: right;">${getSliderText("sp_f_urban")}</td></tr>
-            <tr><td>Кількість сільських н.п.</td><td style="text-align: right;">${getSliderText("sp_f_rural")}</td></tr>
-            <tr><td>Кількість міст з нас. понад 100 тис.</td><td style="text-align: right;">${getSliderText("sp_f_cities100")}</td></tr>
-            <tr><td>Військові дії</td><td style="text-align: right;">${getSliderText("sp_f_mil")}</td></tr>
-            <tr><td>Статус курорту</td><td style="text-align: right;">${getSliderText("sp_f_resort")}</td></tr>
+            <tr><td>Площа території (P), тис. км²</td><td class="page-layout-56">${getInputValue("sp_area", 0)}</td></tr>
+            <tr><td>Населення громади</td><td class="page-layout-56">${getSliderText("sp_f_pop")}</td></tr>
+            <tr><td>Кількість міських н.п.</td><td class="page-layout-56">${getSliderText("sp_f_urban")}</td></tr>
+            <tr><td>Кількість сільських н.п.</td><td class="page-layout-56">${getSliderText("sp_f_rural")}</td></tr>
+            <tr><td>Кількість міст з нас. понад 100 тис.</td><td class="page-layout-56">${getSliderText("sp_f_cities100")}</td></tr>
+            <tr><td>Військові дії</td><td class="page-layout-56">${getSliderText("sp_f_mil")}</td></tr>
+            <tr><td>Статус курорту</td><td class="page-layout-56">${getSliderText("sp_f_resort")}</td></tr>
         `;
         html += getActiveFactorsHTML("sp_gen_coefs");
 
     } else if (docType === "regionalRegion") {
         html += `
-            <tr><td>Площа території (P), тис. км²</td><td style="text-align: right;">${getInputValue("rr_area", 0)}</td></tr>
-            <tr><td>Населення громади</td><td style="text-align: right;">${getSliderText("rr_f_pop")}</td></tr>
-            <tr><td>Кількість міських н.п.</td><td style="text-align: right;">${getSliderText("rr_f_urban")}</td></tr>
-            <tr><td>Кількість сільських н.п.</td><td style="text-align: right;">${getSliderText("rr_f_rural")}</td></tr>
-            <tr><td>Кількість міст з нас. понад 100 тис.</td><td style="text-align: right;">${getSliderText("rr_f_cities100")}</td></tr>
-            <tr><td>Галузі промисловості</td><td style="text-align: right;">${getSliderText("rr_f_ind")}</td></tr>
-            <tr><td>Площа лісогосподарських земель</td><td style="text-align: right;">${getSliderText("rr_f_forest")}</td></tr>
-            <tr><td>Військові дії</td><td style="text-align: right;">${getSliderText("rr_f_mil")}</td></tr>
-            <tr><td>Статус курорту</td><td style="text-align: right;">${getSliderText("rr_f_resort")}</td></tr>
+            <tr><td>Площа території (P), тис. км²</td><td class="page-layout-56">${getInputValue("rr_area", 0)}</td></tr>
+            <tr><td>Населення громади</td><td class="page-layout-56">${getSliderText("rr_f_pop")}</td></tr>
+            <tr><td>Кількість міських н.п.</td><td class="page-layout-56">${getSliderText("rr_f_urban")}</td></tr>
+            <tr><td>Кількість сільських н.п.</td><td class="page-layout-56">${getSliderText("rr_f_rural")}</td></tr>
+            <tr><td>Кількість міст з нас. понад 100 тис.</td><td class="page-layout-56">${getSliderText("rr_f_cities100")}</td></tr>
+            <tr><td>Галузі промисловості</td><td class="page-layout-56">${getSliderText("rr_f_ind")}</td></tr>
+            <tr><td>Площа лісогосподарських земель</td><td class="page-layout-56">${getSliderText("rr_f_forest")}</td></tr>
+            <tr><td>Військові дії</td><td class="page-layout-56">${getSliderText("rr_f_mil")}</td></tr>
+            <tr><td>Статус курорту</td><td class="page-layout-56">${getSliderText("rr_f_resort")}</td></tr>
         `;
         html += getActiveFactorsHTML("rr_gen_coefs");
 
     } else if (docType === "regionalDistrict") {
         html += `
-            <tr><td>Площа території (P), тис. км²</td><td style="text-align: right;">${getInputValue("rd_area", 0)}</td></tr>
-            <tr><td>Населення громади</td><td style="text-align: right;">${getSliderText("rd_f_pop")}</td></tr>
-            <tr><td>Кількість міських н.п.</td><td style="text-align: right;">${getSliderText("rd_f_urban")}</td></tr>
-            <tr><td>Кількість сільських н.п.</td><td style="text-align: right;">${getSliderText("rd_f_rural")}</td></tr>
-            <tr><td>Галузі промисловості</td><td style="text-align: right;">${getSliderText("rd_f_ind")}</td></tr>
-            <tr><td>Площа лісогосподарських земель</td><td style="text-align: right;">${getSliderText("rd_f_forest")}</td></tr>
-            <tr><td>Військові дії</td><td style="text-align: right;">${getSliderText("rd_f_mil")}</td></tr>
-            <tr><td>Статус курорту</td><td style="text-align: right;">${getSliderText("rd_f_resort")}</td></tr>
+            <tr><td>Площа території (P), тис. км²</td><td class="page-layout-56">${getInputValue("rd_area", 0)}</td></tr>
+            <tr><td>Населення громади</td><td class="page-layout-56">${getSliderText("rd_f_pop")}</td></tr>
+            <tr><td>Кількість міських н.п.</td><td class="page-layout-56">${getSliderText("rd_f_urban")}</td></tr>
+            <tr><td>Кількість сільських н.п.</td><td class="page-layout-56">${getSliderText("rd_f_rural")}</td></tr>
+            <tr><td>Галузі промисловості</td><td class="page-layout-56">${getSliderText("rd_f_ind")}</td></tr>
+            <tr><td>Площа лісогосподарських земель</td><td class="page-layout-56">${getSliderText("rd_f_forest")}</td></tr>
+            <tr><td>Військові дії</td><td class="page-layout-56">${getSliderText("rd_f_mil")}</td></tr>
+            <tr><td>Статус курорту</td><td class="page-layout-56">${getSliderText("rd_f_resort")}</td></tr>
         `;
         html += getActiveFactorsHTML("rd_gen_coefs");
 
     } else if (docType === "localComplexPlan") {
         html += `
-            <tr><td>Площа території громади, тис. км²</td><td style="text-align: right;">${getInputValue("cp_area", 0)}</td></tr>
-            <tr><td>Населення громади (Табл. 6-1), тис. осіб</td><td style="text-align: right;">${getInputValue("cp_pop_total", 0)}</td></tr>
-            <tr><td>Населення адмінцентру, тис. осіб</td><td style="text-align: right;">${getInputValue("cp_pop_center", 0)}</td></tr>
-            <tr><td>Населення інших н.п., тис. осіб</td><td style="text-align: right;">${getInputValue("cp_pop_other", 0)}</td></tr>
-            <tr><td>Населення громади (діапазон)</td><td style="text-align: right;">${getSliderText("cp_f_pop")}</td></tr>
-            <tr><td>Кількість міських н.п.</td><td style="text-align: right;">${getSliderText("cp_f_urban")}</td></tr>
-            <tr><td>Кількість сільських н.п.</td><td style="text-align: right;">${getSliderText("cp_f_rural")}</td></tr>
-            <tr><td>Галузі промисловості</td><td style="text-align: right;">${getSliderText("cp_f_ind")}</td></tr>
-            <tr><td>Користувачі (землевпоряд.)</td><td style="text-align: right;">${getSliderText("cp_f_users")}</td></tr>
-            <tr><td>Всі 9 категорій земель присутні</td><td style="text-align: right;">${document.getElementById("cp_f_categories")?.checked ? "Так (К=1.1)" : "Ні"}</td></tr>
-            <tr><td>Військові дії</td><td style="text-align: right;">${getSliderText("cp_f_mil")}</td></tr>
-            <tr><td>Статус курорту</td><td style="text-align: right;">${getSliderText("cp_f_resort")}</td></tr>
+            <tr><td>Площа території громади, тис. км²</td><td class="page-layout-56">${getInputValue("cp_area", 0)}</td></tr>
+            <tr><td>Населення громади (Табл. 6-1), тис. осіб</td><td class="page-layout-56">${getInputValue("cp_pop_total", 0)}</td></tr>
+            <tr><td>Населення адмінцентру, тис. осіб</td><td class="page-layout-56">${getInputValue("cp_pop_center", 0)}</td></tr>
+            <tr><td>Населення інших н.п., тис. осіб</td><td class="page-layout-56">${getInputValue("cp_pop_other", 0)}</td></tr>
+            <tr><td>Населення громади (діапазон)</td><td class="page-layout-56">${getSliderText("cp_f_pop")}</td></tr>
+            <tr><td>Кількість міських н.п.</td><td class="page-layout-56">${getSliderText("cp_f_urban")}</td></tr>
+            <tr><td>Кількість сільських н.п.</td><td class="page-layout-56">${getSliderText("cp_f_rural")}</td></tr>
+            <tr><td>Галузі промисловості</td><td class="page-layout-56">${getSliderText("cp_f_ind")}</td></tr>
+            <tr><td>Користувачі (землевпоряд.)</td><td class="page-layout-56">${getSliderText("cp_f_users")}</td></tr>
+            <tr><td>Всі 9 категорій земель присутні</td><td class="page-layout-56">${document.getElementById("cp_f_categories")?.checked ? "Так (К=1.1)" : "Ні"}</td></tr>
+            <tr><td>Військові дії</td><td class="page-layout-56">${getSliderText("cp_f_mil")}</td></tr>
+            <tr><td>Статус курорту</td><td class="page-layout-56">${getSliderText("cp_f_resort")}</td></tr>
         `;
         html += getActiveFactorsHTML("cp_gen_coefs");
         html += getActiveFactorsHTML("cp_land_coefs");
 
     } else if (docType === "localGeneralPlan") {
         html += `
-            <tr><td>Населення НП (Р), тис. осіб</td><td style="text-align: right;">${getInputValue("gp_pop", 0)}</td></tr>
-            <tr><td>Тип населеного пункту</td><td style="text-align: right;">${getSliderText("gp_city_k")}</td></tr>
-            <tr><td>Військові дії</td><td style="text-align: right;">${getSliderText("gp_f_mil")}</td></tr>
-            <tr><td>Статус курорту</td><td style="text-align: right;">${getSliderText("gp_f_resort")}</td></tr>
-            <tr><td>Проводити експертизу</td><td style="text-align: right;">${document.getElementById("gp_use_expertise")?.checked ? "Так" : "Ні"}</td></tr>
+            <tr><td>Населення НП (Р), тис. осіб</td><td class="page-layout-56">${getInputValue("gp_pop", 0)}</td></tr>
+            <tr><td>Тип населеного пункту</td><td class="page-layout-56">${getSliderText("gp_city_k")}</td></tr>
+            <tr><td>Військові дії</td><td class="page-layout-56">${getSliderText("gp_f_mil")}</td></tr>
+            <tr><td>Статус курорту</td><td class="page-layout-56">${getSliderText("gp_f_resort")}</td></tr>
+            <tr><td>Проводити експертизу</td><td class="page-layout-56">${document.getElementById("gp_use_expertise")?.checked ? "Так" : "Ні"}</td></tr>
         `;
         html += getActiveFactorsHTML("gp_gen_coefs");
 
     } else if (docType === "localDetailedPlan") {
         html += `
-            <tr><td>Площа території ДПТ, га</td><td style="text-align: right;">${getInputValue("dp_area", 0)}</td></tr>
-            <tr><td>Масштаб графічних матеріалів</td><td style="text-align: right;">${getSliderText("dp_scale_k")}</td></tr>
-            <tr><td>Тип території</td><td style="text-align: right;">${getSliderText("dp_type_k")}</td></tr>
-            <tr><td>Військові дії</td><td style="text-align: right;">${getSliderText("dp_f_mil")}</td></tr>
-            <tr><td>Статус курорту</td><td style="text-align: right;">${getSliderText("dp_f_resort")}</td></tr>
-            <tr><td>Формування нових ділянок</td><td style="text-align: right;">${getSliderText("dp_f_plots")}</td></tr>
-            <tr><td>Кількість функціональних зон</td><td style="text-align: right;">${getSliderText("dp_f_zones")}</td></tr>
-            <tr><td>Формат вихідних даних</td><td style="text-align: right;">${getSliderText("dp_f_data")}</td></tr>
-            <tr><td>Проводити експертизу</td><td style="text-align: right;">${document.getElementById("dp_use_expertise")?.checked ? "Так" : "Ні"}</td></tr>
+            <tr><td>Площа території ДПТ, га</td><td class="page-layout-56">${getInputValue("dp_area", 0)}</td></tr>
+            <tr><td>Масштаб графічних матеріалів</td><td class="page-layout-56">${getSliderText("dp_scale_k")}</td></tr>
+            <tr><td>Тип території</td><td class="page-layout-56">${getSliderText("dp_type_k")}</td></tr>
+            <tr><td>Військові дії</td><td class="page-layout-56">${getSliderText("dp_f_mil")}</td></tr>
+            <tr><td>Статус курорту</td><td class="page-layout-56">${getSliderText("dp_f_resort")}</td></tr>
+            <tr><td>Формування нових ділянок</td><td class="page-layout-56">${getSliderText("dp_f_plots")}</td></tr>
+            <tr><td>Кількість функціональних зон</td><td class="page-layout-56">${getSliderText("dp_f_zones")}</td></tr>
+            <tr><td>Формат вихідних даних</td><td class="page-layout-56">${getSliderText("dp_f_data")}</td></tr>
+            <tr><td>Проводити експертизу</td><td class="page-layout-56">${document.getElementById("dp_use_expertise")?.checked ? "Так" : "Ні"}</td></tr>
         `;
         html += getActiveFactorsHTML("dp_mist_gen_coefs");
         html += getActiveFactorsHTML("dp_land_gen_coefs");
@@ -2249,32 +2242,32 @@ function generatePrintReport() {
 
     if (calcResult.landCost > 0) {
         html += `
-            <tr><td>Містобудівна складова:</td><td style="text-align: right;">${formatCurrency(calcResult.mistCost)}</td></tr>
-            <tr><td>Землевпорядна складова:</td><td style="text-align: right;">${formatCurrency(calcResult.landCost)}</td></tr>
+            <tr><td>Містобудівна складова:</td><td class="page-layout-56">${formatCurrency(calcResult.mistCost)}</td></tr>
+            <tr><td>Землевпорядна складова:</td><td class="page-layout-56">${formatCurrency(calcResult.landCost)}</td></tr>
         `;
     }
     html += `
-        <tr><td>Вартість розроблення документації (без ПДВ):</td><td style="text-align: right;">${formatCurrency(calcResult.mistCost + calcResult.landCost)}</td></tr>
-        <tr><td>Проведення експертизи:</td><td style="text-align: right;">${calcResult.expCost > 0 ? formatCurrency(calcResult.expCost) + ' (' + calcResult.expPercent.toFixed(2) + '%)' : 'не проводиться'}</td></tr>
+        <tr><td>Вартість розроблення документації (без ПДВ):</td><td class="page-layout-56">${formatCurrency(calcResult.mistCost + calcResult.landCost)}</td></tr>
+        <tr><td>Проведення експертизи:</td><td class="page-layout-56">${calcResult.expCost > 0 ? formatCurrency(calcResult.expCost) + ' (' + calcResult.expPercent.toFixed(2) + '%)' : 'не проводиться'}</td></tr>
     `;
     if (calcResult.useVat) {
         html += `
-            <tr><td>ПДВ (20%):</td><td style="text-align: right;">${formatCurrency(calcResult.vatSum)}</td></tr>
+            <tr><td>ПДВ (20%):</td><td class="page-layout-56">${formatCurrency(calcResult.vatSum)}</td></tr>
         `;
     }
     html += `
-        <tr class="grand-total"><td><b>ВСЬОГО:</b></td><td style="text-align: right;"><b>${formatCurrency(calcResult.totalWithVat)}</b></td></tr>
+        <tr class="grand-total"><td><b>ВСЬОГО:</b></td><td class="page-layout-56"><b>${formatCurrency(calcResult.totalWithVat)}</b></td></tr>
                 </tbody>
             </table>
         </div>
-        
+
         ${calcResult.alertText ? `
-            <div class="print-alert" style="margin-top: 15px; padding: 10px 12px; border: 1.5px solid #000; background: #fff; font-size: 11px; font-weight: bold; line-height: 1.4; display: flex; align-items: flex-start; gap: 8px;">
-                <span style="font-size: 14px;">⚠️</span>
+            <div class="print-alert page-layout-58 page-display-flex">
+                <span class="page-layout-59">⚠️</span>
                 <div><b>УВАГА / Попередження:</b> ${calcResult.alertText}</div>
             </div>
         ` : ""}
-        
+
         <div class="print-footer">
             <p>Калькулятор вартості містобудівної документації розроблено відповідно до Настанови з визначення вартості містобудівної документації Мінрегіону України.</p>
         </div>
@@ -2573,7 +2566,7 @@ async function fetchAutocompleteData() {
 
         try {
             console.log("Loading admin units from local admin_units.json database...");
-            const resLocal = await fetch("admin_units.json");
+            const resLocal = await fetch("assets/mb_cost_calc/data/admin_units.json");
             if (!resLocal.ok) throw new Error(`HTTP ${resLocal.status} on local JSON`);
             const localData = await resLocal.json();
 
@@ -2968,7 +2961,7 @@ function renderSuggestions(items) {
 
     if (items.length === 0) {
         suggestionsBox.innerHTML = `
-            <div style="padding: 12px 14px; font-size: 12.5px; color: var(--muted); text-align: center;">
+            <div class="page-layout-60">
                 Нічого не знайдено
             </div>
         `;

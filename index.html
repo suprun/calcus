@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="uk" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="Калькулятори для містобудівних розрахунків: кошторис документації, масштаб, зони можливих завалів та автостоянки.">
+  <title>Калькулятори</title>
+  <link rel="icon" type="image/svg+xml" href="assets/shared/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/shared/styles.css">
+  <link rel="stylesheet" href="assets/index/styles.css">
+</head>
+<body class="index-page">
+  <div class="app">
+    <header class="top">
+      <span class="title-side-icon" aria-hidden="true">
+        <img class="icon icon-image" src="assets/shared/icons/calculator.svg" alt="" aria-hidden="true">
+      </span>
+      <div class="title-block">
+        <h1>Калькулятори</h1>
+        <p class="sub">Інструменти для містобудівних розрахунків</p>
+      </div>
+      <button class="btn icon" id="themeBtn" type="button" title="Змінити тему" aria-label="Змінити тему">
+        <img class="icon icon-image" src="assets/shared/icons/theme.svg" alt="" aria-hidden="true">
+      </button>
+    </header>
+    <main>
+      <nav class="panel calculator-list" aria-label="Калькулятори">
+        <a class="calculator-link" href="mb_cost_calc.html">
+          <span>
+            <span class="calculator-title">Кошторис містобудівної документації</span>
+            <span class="calculator-description">Розрахунок вартості розроблення та експертизи містобудівної документації.</span>
+          </span>
+          <span class="link-arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="calculator-link" href="scale_converter_web.html">
+          <span>
+            <span class="calculator-title">Калькулятор масштабу</span>
+            <span class="calculator-description">Перерахунок реальної довжини та довжини на кресленні за масштабом.</span>
+          </span>
+          <span class="link-arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="calculator-link" href="calc_zon_zavaliv.html">
+          <span>
+            <span class="calculator-title">Калькулятор зон можливих завалів</span>
+            <span class="calculator-description">Прямий і зворотний розрахунок за ДБН В.1.2-4:2019 з урахуванням умов місцевості.</span>
+          </span>
+          <span class="link-arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="calculator-link" href="parking_calc.html">
+          <span>
+            <span class="calculator-title">Калькулятор автостоянок і гаражів</span>
+            <span class="calculator-description">Площі, потреба в місцях, санітарні відстані, доступність і габарити за ДБН та санітарними правилами.</span>
+          </span>
+          <span class="link-arrow" aria-hidden="true">→</span>
+        </a>
+      </nav>
+    </main>
+  </div>
+  <script src="assets/shared/theme.js"></script>
+</body>
+</html>
