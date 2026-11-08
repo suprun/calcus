@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="uk" data-theme="light">
+<head>
+  <script async src="assets/shared/analytics.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="Взаємопов’язані розрахунки території, забудови, озеленення та зовнішніх майданчиків закладів дошкільної освіти за ДБН.">
+  <title>Територія закладу дошкільної освіти</title>
+  <link rel="icon" type="image/svg+xml" href="assets/shared/favicon.svg">
+  <link rel="stylesheet" href="assets/shared/styles.css">
+  <link rel="stylesheet" href="assets/preschool_calc/styles.css">
+</head>
+<body class="preschool-page">
+  <div class="app">
+    <a class="home-link" href="index.html">← На головну</a>
+    <header class="top">
+      <span class="title-side-icon" aria-hidden="true"><img class="icon icon-image" src="assets/preschool_calc/icons/preschool.svg" alt=""></span>
+      <div class="title-block"><h1>Територія закладу дошкільної освіти</h1><p class="sub">Ділянка, забудова й майданчики — у спільному розрахунку</p></div>
+      <button class="btn icon" id="themeBtn" type="button" aria-label="Змінити тему" title="Змінити тему"><img class="icon icon-image" src="assets/shared/icons/theme.svg" alt=""></button>
+    </header>
+    <p class="intro">ДБН В.2.2-4:2026 · нормативна база перевірена 08.11.2026. Змінюйте вихідні дані — усі залежні показники оновлюються автоматично.</p>
+    <nav class="section-nav no-print" aria-label="Розділи калькулятора"><a href="#general">Параметри</a><a href="#groups">Групи</a><a href="#site">Ділянка</a><a href="#play">Майданчики</a><a href="#green">Озеленення</a><a href="#balance">Баланс</a><a href="#summary">Зведення</a></nav>
+    <main>
+      <form id="calculator" novalidate>
+        <section class="panel" id="general" aria-labelledby="generalTitle"><h2 id="generalTitle">1. Загальні параметри</h2><div class="fields" id="generalFields"></div><div id="generalResults"></div></section>
+        <section class="panel" id="groups" aria-labelledby="groupsTitle"><h2 id="groupsTitle">2. Склад груп</h2><p class="hint">Загальна місткість задається вище. Для детального розрахунку введіть усі групи; їхня сума має збігатися з місткістю. Наповнюваність приймається за завданням на проєктування.</p><div id="groupList"></div><button class="btn no-print" id="addGroup" type="button">Додати групу</button><div id="groupsResults"></div></section>
+        <section class="panel" id="site" aria-labelledby="siteTitle"><h2 id="siteTitle">3. Земельна ділянка</h2><div class="fields" id="siteFields"></div><div id="siteAreas"></div><div id="siteResults"></div></section>
+        <section class="panel" id="building" aria-labelledby="buildingTitle"><h2 id="buildingTitle">4. Забудова</h2><p class="hint">Площа — проєкція основної будівлі. Окремі навіси та майданчики до неї не входять. Для вбудованого закладу задайте враховану в балансі частину забудови, а не всю будівлю.</p><div class="fields" id="buildingFields"></div><div id="buildingResults"></div></section>
+        <section class="panel" id="play" aria-labelledby="playTitle"><h2 id="playTitle">5. Майданчики та навіси</h2><div class="fields" id="playFields"></div><p class="hint">У кожному рядку: розрахункова площа → прийнята площа → різниця. Ручне значення зберігається при зміні параметрів; «За розрахунком» повертає автоматичний режим. Різні майданчики не перекриваються.</p><div id="playAreas"></div><div id="playResults"></div></section>
+        <section class="panel" id="extras" aria-labelledby="extrasTitle"><h2 id="extrasTitle">6. Додаткові зовнішні зони</h2><div class="fields" id="extrasFields"></div><div id="extrasAreas"></div><div id="extrasResults"></div></section>
+        <section class="panel" id="household" aria-labelledby="householdTitle"><h2 id="householdTitle">7. Господарська зона</h2><div id="householdAreas"></div><div id="householdResults"></div><p class="hint">Сушіння, контейнери, гараж та стоянка всередині госпзони не додаються до її площі повторно. Для інших параметрів стоянки доступний <a href="parking_calc.html">калькулятор автостоянок</a>; заборона зарядок у госпзоні ЗДО має враховуватися окремо.</p></section>
+        <section class="panel" id="green" aria-labelledby="greenTitle"><h2 id="greenTitle">8. Озеленення</h2><p class="hint">Озеленену частину майданчика зазначайте в його рядку. Нижче — лише додаткове озеленення поза цими зонами. Озеленення покрівлі враховується в показнику озеленення, але не займає землю вдруге.</p><div class="fields" id="greenFields"></div><div id="greenAreas"></div><div id="greenResults"></div></section>
+        <section class="panel" id="balance" aria-labelledby="balanceTitle"><h2 id="balanceTitle">9. Баланс території</h2><div class="fields" id="balanceFields"></div><p class="hint">Зайнято землі = основна будівля + окремі наземні майданчики й навіси + госпзона + додаткові зони + окреме озеленення + додаткові проїзди + інша земля. Озеленені частини зон і майданчики на покрівлях повторно не додаються.</p><div id="balanceResults"></div></section>
+        <section class="panel" id="distances" aria-labelledby="distancesTitle"><h2 id="distancesTitle">10. Відстані й під’їзди</h2><div class="fields" id="distancesFields"></div><div id="distancesResults"></div></section>
+        <section class="panel" id="roof" aria-labelledby="roofTitle"><h2 id="roofTitle">11. Експлуатована покрівля</h2><p class="hint">Для розміщення майданчика на покрівлі змініть його розташування в рядку площі. Доступна площа покрівлі задається окремо від площі забудови.</p><div class="fields" id="roofFields"></div><div id="roofResults"></div></section>
+        <section class="panel" id="access" aria-labelledby="accessTitle"><h2 id="accessTitle">12. Зовнішня доступність</h2><div class="fields" id="accessFields"></div><div id="accessResults"></div><div class="fields" id="dropoffFields"></div><div id="dropoffResults"></div></section>
+      </form>
+      <section class="panel" id="summary" aria-labelledby="summaryTitle"><h2 id="summaryTitle">Зведені результати</h2><p id="liveStatus" role="status" aria-live="polite"></p><div class="metrics" id="keyMetrics"></div><div class="actions no-print"><button class="btn" id="copyReport" type="button">Копіювати</button><button class="btn" id="downloadCsv" type="button">CSV</button><button class="btn" id="printReport" type="button">Друк / PDF</button></div><p class="hint">Звіт містить поточні значення, помилки та обмеження. Дані зберігаються лише до перезавантаження сторінки.</p><div class="table-scroll"><table><caption>Поточний розрахунок</caption><thead><tr><th scope="col">Показник</th><th scope="col">Розрахунок</th><th scope="col">Прийнято</th><th scope="col">Різниця</th><th scope="col">Статус</th></tr></thead><tbody id="summaryBody"></tbody></table></div><div id="issues"></div><textarea id="manualCopy" class="control no-print" aria-label="Текст звіту для ручного копіювання" readonly hidden></textarea><p id="actionStatus" role="status" aria-live="polite"></p></section>
+      <section class="print-only" aria-labelledby="printTitle"><h2 id="printTitle">Поточний розрахунок і вихідні дані</h2><table id="printTable"></table></section>
+      <section class="panel sources" aria-labelledby="sourcesTitle"><h2 id="sourcesTitle">Джерела та межі перевірки</h2><p><a href="https://deponms.carpathia.gov.ua/uploads/zvit-derektoriv-PTNZ/DBN6.pdf" target="_blank" rel="noopener noreferrer">ДБН В.2.2-4:2026</a>: розділ 6, додаток А; зовнішні умови розділу 7. <a href="https://e-construction.gov.ua/laws_detail/3874277768581612585" target="_blank" rel="noopener noreferrer">ДБН Б.2.2-12:2019 зі Зміною №1</a>: додаток Е.4.</p><p>Додаткової перевірки потребують ДБН В.1.1-7, ДБН В.2.2-40 (зокрема додаток Д для нових пандусів), ДСП 173, ДСТУ EN 1176/1177 та інші посилальні документи. Їхні неперевірені вимоги не замінюються числовою оцінкою цього калькулятора.</p><p>Це перевірка реалізованих показників, а не повна оцінка відповідності проєкту. Без розрахунку внутрішніх приміщень, інсоляції, несучих конструкцій та автоматичного компонування генплану. Питання з неоднозначним текстом норм позначені окремо. <a href="assets/preschool_calc/sources.md">Опис формул та обмежень</a>.</p><p class="hint">Основні обчислення та CSV працюють через file://. Джерела й аналітика потребують мережі; аналітика працює лише через HTTP/HTTPS. Копіювання залежить від політик браузера; PDF створюється штатним друком.</p></section>
+    </main>
+    <noscript><p class="notice">Для роботи калькулятора увімкніть JavaScript.</p></noscript>
+  </div>
+  <script src="assets/shared/theme.js"></script>
+  <script src="assets/preschool_calc/norms.js"></script>
+  <script src="assets/preschool_calc/calculations.js"></script>
+  <script src="assets/preschool_calc/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+.preschool-page .app { width: min(960px, calc(100% - 24px)); }
+.preschool-page .top { grid-template-columns: var(--icon-col) minmax(0, 1fr) auto; padding-right: 12px; }
+.preschool-page [hidden] { display: none !important; }
+.preschool-page .print-only { display: none; }
+.preschool-page .panel { padding: 22px; margin: 14px 0; scroll-margin-top: 12px; }
+.preschool-page h2 { font-size: 17px; margin: 0 0 18px; letter-spacing: -.025em; }
+.preschool-page h3 { font-size: 14px; margin: 0 0 12px; }
+.preschool-page p { line-height: 1.65; }
+.preschool-page .hint, .preschool-page .intro { color: var(--muted); font-size: 12px; }
+.preschool-page .intro { padding: 0 12px; }
+.preschool-page a { color: var(--real-text); }
+.preschool-page .section-nav { display: flex; gap: 8px 18px; flex-wrap: wrap; padding: 12px; font-size: 12px; }
+.preschool-page .fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 20px; }
+.preschool-page .field label { display: block; font-size: 12px; margin-bottom: 6px; color: var(--muted); }
+.preschool-page .field.wide { grid-column: 1 / -1; }
+.preschool-page .field .control { font: inherit; font-size: 13px; }
+.preschool-page .check-field { display: flex; gap: 9px; align-items: center; min-height: var(--h); }
+.preschool-page .check-field input { accent-color: var(--text); width: 16px; height: 16px; flex: 0 0 auto; }
+.preschool-page .check-field label { margin: 0; color: var(--text); }
+.preschool-page .group-row { display: grid; grid-template-columns: 1fr 1fr auto; gap: 12px; align-items: end; margin-bottom: 14px; }
+.preschool-page .group-row .btn { min-height: var(--h); }
+.preschool-page .area-row { border-top: 1px solid var(--line); padding-top: 18px; margin-top: 18px; }
+.preschool-page .area-values { display: grid; grid-template-columns: 1fr 1fr auto; gap: 12px; align-items: end; }
+.preschool-page .norm-value { padding: 10px 0; font-weight: 650; }
+.preschool-page .norm-value small { display: block; font-weight: 400; color: var(--muted); margin-bottom: 6px; font-size: 11px; }
+.preschool-page .area-meta { margin-top: 12px; }
+.preschool-page .area-delta { font-size: 12px; margin-top: 8px; }
+.preschool-page .area-note { font-size: 11px; color: var(--muted); }
+.preschool-page .notice { padding: 10px 12px; background: var(--panel-soft); border-left: 3px solid var(--line-strong); margin: 12px 0; font-size: 12px; line-height: 1.6; overflow-wrap: anywhere; }
+.preschool-page .notice strong { display: block; }
+.preschool-page .status-fail, .preschool-page .status-error { border-color: var(--danger); color: var(--danger); }
+.preschool-page .status-review, .preschool-page .status-incomplete { border-color: var(--drawing-line); }
+.preschool-page .status-pass, .preschool-page .status-calculated { border-color: var(--real-line); }
+.preschool-page .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+.preschool-page .metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.preschool-page .metric { background: var(--real-bg); color: var(--real-text); padding: 16px; border-radius: var(--radius-sm); }
+.preschool-page .metric span { display: block; font-size: 11px; margin-bottom: 8px; }
+.preschool-page .metric strong { display: block; font-size: 22px; line-height: 1.3; overflow-wrap: anywhere; }
+.preschool-page .metric small { font-size: 12px; }
+.preschool-page .table-scroll { overflow-x: auto; margin-top: 18px; }
+.preschool-page table { border-collapse: collapse; width: 100%; font-size: 12px; line-height: 1.5; }
+.preschool-page th, .preschool-page td { padding: 10px 8px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+.preschool-page th { background: var(--panel-soft); }
+.preschool-page caption { text-align: left; margin-bottom: 10px; color: var(--muted); }
+.preschool-page .sources { font-size: 12px; overflow-wrap: anywhere; }
+.preschool-page #manualCopy { min-height: 180px; padding: 12px; margin-top: 12px; }
+.preschool-page #actionStatus { font-size: 12px; }
+.preschool-page button:focus-visible, .preschool-page a:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
+@media (max-width: 600px) {
+  .preschool-page .panel { padding: 16px; }
+  .preschool-page .fields, .preschool-page .area-values, .preschool-page .metrics { grid-template-columns: minmax(0, 1fr); }
+  .preschool-page .group-row { grid-template-columns: 1fr 1fr; }
+  .preschool-page .group-row .btn { grid-column: 1 / -1; }
+  .preschool-page h1 { font-size: 18px; }
+  .preschool-page .top { gap: 6px; padding-left: 2px; }
+  .preschool-page .area-values .btn { justify-self: start; }
+}
+@media print {
+  .preschool-page { color: #111; background: #fff; --text: #111; --muted: #555; --panel: #fff; --line: #ccc; }
+  .preschool-page .no-print, .preschool-page #calculator, .preschool-page #summary, .preschool-page #themeBtn { display: none !important; }
+  .preschool-page .print-only { display: block; }
+  .preschool-page .print-only td { overflow-wrap: anywhere; }
+  .preschool-page .app { width: 100%; padding: 0; }
+  .preschool-page .panel { border: 0; padding: 8px 0; }
+  .preschool-page .metric, .preschool-page th { background: transparent; color: #111; }
+  .preschool-page .table-scroll { overflow: visible; }
+  .preschool-page tr, .preschool-page .notice { break-inside: avoid; }
+  .preschool-page .sources a { color: inherit; }
+}

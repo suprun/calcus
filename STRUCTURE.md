@@ -6,17 +6,19 @@
 
 ```text
 calcus/
-├── index.html                         # Каталог чотирьох калькуляторів
+├── index.html                         # Каталог п’яти калькуляторів
 ├── mb_cost_calc.html                  # Кошторис містобудівної документації
 ├── scale_converter_web.html           # Перерахунок масштабу й довжин
 ├── calc_zon_zavaliv.html               # Зони можливих завалів
 ├── parking_calc.html                 # Автостоянки й гаражі: вісім незалежних задач
+├── preschool_calc.html               # Взаємопов’язаний розрахунок території ЗДО
 ├── AGENTS.md                          # Правила роботи агента
 ├── STRUCTURE.md                       # Ця карта
 ├── assets/
 │   ├── shared/
 │   │   ├── styles.css                 # Палітра, теми, спільні компоненти
-│   │   ├── theme.js                   # Перемикач теми каталогу, зон завалів та автостоянок
+│   │   ├── analytics.js               # Google Analytics G-R6E061DGN0, лише HTTP/HTTPS
+│   │   ├── theme.js                   # Перемикач теми каталогу, зон завалів, автостоянок і ЗДО
 │   │   ├── favicon.svg
 │   │   └── icons/*.svg                # Спільні іконки та стрілки select
 │   ├── index/
@@ -38,6 +40,16 @@ calcus/
 │   │   ├── styles.css
 │   │   ├── script.js                  # Коефіцієнти та прямий/зворотний розрахунок
 │   │   └── icons/*.svg
+│   ├── preschool_calc/
+│   │   ├── styles.css                 # Єдина форма, результати, мобільна версія й друк
+│   │   ├── norms.js                   # Нормативні коефіцієнти, джерела та початкові дані
+│   │   ├── calculations.js            # Чисті розрахунки залежностей, балансу й експорту
+│   │   ├── script.js                  # Спільний стан форми, ручні площі та актуальний звіт
+│   │   ├── sources.md                 # Формули, застосовність і неоднозначності норм
+│   │   ├── icons/preschool.svg
+│   │   └── tests/
+│   │       ├── calculations.test.cjs  # Нормативні межі та взаємозалежності
+│   │       └── interface.test.cjs     # Події форми, експорт і розмітка без браузера
 │   └── parking_calc/
 │       ├── styles.css                 # Вибір задачі, форми, результати й друк звіту
 │       ├── norms.js                   # Нормативні таблиці та посилання, без fetch
@@ -67,11 +79,12 @@ calcus/
 
 | Сторінка | Індивідуальні стилі | Скрипти | Дані й документи |
 | --- | --- | --- | --- |
-| `index.html` | `assets/index/styles.css` | `assets/shared/theme.js` | Немає |
-| `mb_cost_calc.html` | `assets/mb_cost_calc/styles.css`; `assets/mb_cost_calc/guidebook.css` у шаблоні `zero-md` | `assets/mb_cost_calc/script.js` | `assets/mb_cost_calc/data/admin_units.json`; Markdown і PDF у `assets/mb_cost_calc/knowledgebase/` |
-| `scale_converter_web.html` | `assets/scale_converter_web/styles.css` | `assets/scale_converter_web/script.js` | Немає |
-| `calc_zon_zavaliv.html` | `assets/calc_zon_zavaliv/styles.css` | `assets/shared/theme.js`; `assets/calc_zon_zavaliv/script.js` | Немає |
-| `parking_calc.html` | `assets/parking_calc/styles.css` | `assets/shared/theme.js`; `assets/parking_calc/norms.js`; `assets/parking_calc/calculations.js`; `assets/parking_calc/tasks.js`; `assets/parking_calc/script.js` | Нормативні таблиці в `norms.js`; редакції та умови в `assets/parking_calc/sources.md`; вихідний прототип `knowledgebase/Parking.ipynb` (не runtime) |
+| `index.html` | `assets/index/styles.css` | `assets/shared/analytics.js`; `assets/shared/theme.js` | Немає |
+| `mb_cost_calc.html` | `assets/mb_cost_calc/styles.css`; `assets/mb_cost_calc/guidebook.css` у шаблоні `zero-md` | `assets/shared/analytics.js`; `assets/mb_cost_calc/script.js` | `assets/mb_cost_calc/data/admin_units.json`; Markdown і PDF у `assets/mb_cost_calc/knowledgebase/` |
+| `scale_converter_web.html` | `assets/scale_converter_web/styles.css` | `assets/shared/analytics.js`; `assets/scale_converter_web/script.js` | Немає |
+| `calc_zon_zavaliv.html` | `assets/calc_zon_zavaliv/styles.css` | `assets/shared/analytics.js`; `assets/shared/theme.js`; `assets/calc_zon_zavaliv/script.js` | Немає |
+| `parking_calc.html` | `assets/parking_calc/styles.css` | `assets/shared/analytics.js`; `assets/shared/theme.js`; `assets/parking_calc/norms.js`; `assets/parking_calc/calculations.js`; `assets/parking_calc/tasks.js`; `assets/parking_calc/script.js` | Нормативні таблиці в `norms.js`; редакції та умови в `assets/parking_calc/sources.md`; вихідний прототип `knowledgebase/Parking.ipynb` (не runtime) |
+| `preschool_calc.html` | `assets/preschool_calc/styles.css` | `assets/shared/analytics.js`; `assets/shared/theme.js`; `assets/preschool_calc/norms.js`; `assets/preschool_calc/calculations.js`; `assets/preschool_calc/script.js` | Коефіцієнти та початкові дані в `norms.js`; формули й обмеження в `assets/preschool_calc/sources.md` |
 
 Іконки, що використовуються кількома сторінками, лежать у `assets/shared/icons/`; решта — у папці свого калькулятора. Це окремі SVG, підключені через `<img>` або CSS `url()`. Шляхи в HTML і `fetch()` рахуються від HTML у корені; CSS `url()` — від відповідного CSS-файлу.
 
@@ -81,6 +94,7 @@ calcus/
 
 - Відкрийте `index.html` подвійним кліком: навігація, локальні стилі, скрипти та SVG-іконки працюють через `file://`. Основні розрахунки не потребують сервера.
 - Для автозаповнення й довідника кошторису запустіть із кореня `python -B -m http.server 8000`, потім відкрийте `http://localhost:8000/`.
+- Google Analytics `G-R6E061DGN0` підключено на всіх сторінках через `assets/shared/analytics.js` за схемою [Google tag (gtag.js)](https://developers.google.com/tag-platform/gtagjs). Скрипт асинхронно завантажує Google tag лише через HTTP/HTTPS; аналітика потребує мережі. Через `file://` вона не запускається; недоступність Google не блокує локальні розрахунки.
 - Усі локальні URL відносні: сайт можна розмістити в підпапці без зміни адрес у файлах.
 - Шрифт Inter завантажується з Google Fonts; без мережі використовується системний шрифт. Кошторис також використовує наявні CDN-залежності XLSX і zero-md: Excel-експорт та Markdown-довідник потребують доступності цих бібліотек.
 - Політики браузера можуть обмежувати буфер обміну й голосове введення через `file://`; їхня наявна поведінка не змінюється.
@@ -96,6 +110,14 @@ calcus/
 Нормативну базу зафіксовано станом на 07.11.2026; редакції, джерела й невирішені умови наведені в `assets/parking_calc/sources.md`. Це перевірка за реалізованими правилами, а не повна оцінка відповідності проєкту. Ноутбук `knowledgebase/Parking.ipynb` є вихідним дослідницьким матеріалом і не змінюється під час роботи сторінки.
 
 Основні функції та CSV працюють через `file://` без завантаження даних мережею. Посилання на норми потребують мережі, копіювання залежить від політик браузера; PDF формується штатним друком. Перевірка розрахунків без браузера: `node --test assets/parking_calc/tests/calculations.test.cjs assets/parking_calc/tests/tasks.test.cjs`.
+
+## Територія закладу дошкільної освіти
+
+`preschool_calc.html` — одна сторінка зі спільними параметрами та залежними розрахунками: групи, ділянка, забудова, майданчики, навіси, госпзона, озеленення, баланс землі, відстані, покрівлі та зовнішня доступність. Загальна місткість задається окремо; сума груп перевіряється. Неповні дані блокують відповідні залежні підсумки, не скасовуючи незалежні обчислення.
+
+Прийняті площі початково автоматичні. Ручне введення зберігається, поки користувач не натисне «За розрахунком». Незастосовні зони виключаються з балансу зі збереженням їхніх введень. Озеленення всередині зон не додається як окрема земля; покрівлі обліковуються окремо. Зведення, копіювання, CSV та друк містять поточний стан, включно з обмеженнями й помилками. Пам’ять форми очищується після перезавантаження.
+
+Нормативи: ДБН В.2.2-4:2026 та додаток Е.4 ДБН Б.2.2-12:2019 зі Зміною №1; дата перевірки 08.11.2026. Неоднозначні положення й не реалізовані посилальні вимоги позначено для уточнення. Формули та обмеження — у `assets/preschool_calc/sources.md`. Основні функції працюють через `file://`; браузер без окремої вказівки не запускається. Тести: `node --test assets/preschool_calc/tests/*.test.cjs`.
 
 ## Правила підтримки
 
